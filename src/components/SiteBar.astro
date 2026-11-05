@@ -1,23 +1,28 @@
 ---
-import Rss from "@lucide/astro/icons/rss";
 import { SITE_AUTHOR } from "../consts";
 import SearchToggle from "./SearchToggle.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+
+// La marca ya lleva a la portada y el RSS está en el pie y en el <head>,
+// así que la barra solo tiene las secciones (cabe en una línea a 360px).
+const links = [
+  { href: "/blog/", label: "Posts" },
+  { href: "/tags/", label: "Tags" },
+  { href: "/about-me/", label: "Sobre mí" },
+];
+const path = Astro.url.pathname;
 ---
 
 <div class="site-bar">
-  <a class="brand" href="/">
+  <a class="brand" href="/" aria-current={path === "/" ? "page" : undefined}>
     ~/{SITE_AUTHOR}
   </a>
   <nav aria-label="Principal">
-    <a href="/">Inicio</a>
-    <a href="/blog/">Posts</a>
-    <a href="/tags/">Tags</a>
-    <a href="/about-me/">Sobre mí</a>
-    <a class="nav-rss" href="/rss.xml">
-      <Rss size={14} aria-hidden="true" />
-      RSS
-    </a>
+    {links.map(({ href, label }) => (
+      <a href={href} aria-current={path.startsWith(href) ? "page" : undefined}>
+        {label}
+      </a>
+    ))}
     <SearchToggle shortcut />
     <ThemeToggle />
   </nav>
