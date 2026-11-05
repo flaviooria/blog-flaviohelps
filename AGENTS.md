@@ -14,6 +14,7 @@ Blog estático con Astro 7 y estilo Dracula/Alucard. Este archivo es el punto de
 - Si tomas una decisión de arquitectura, crea un ADR desde `docs/adr/0000-template.md`.
 - Todo doc nuevo lleva frontmatter con `title` y `description` (una línea; es lo que sale en el árbol).
 - Antes de terminar: `npm run format:check` y `npm run build` (ver `docs/workflow/development.md`).
+- Para trabajo de diseño (revisar, refinar o documentar la interfaz) usa la skill `impeccable`; `PRODUCT.md` y `DESIGN.md` son su contexto (ver `docs/workflow/design-skills.md`).
 
 ## Docs
 
@@ -39,6 +40,7 @@ docs/
 │   ├── content.md                            # Frontmatter de un post, títulos #/## para el índice, callouts [!NOTE], referencias, badges y task lists
 │   └── styling.md                            # Paleta Dracula/Alucard como tokens CSS, tema claro/oscuro, tipografía, bento y responsive
 └── workflow/
+    ├── design-skills.md                      # Qué skill de Claude Code se usa para el diseño (impeccable), qué ficheros mantiene, cómo se usa cada comando y qué hooks corren al editar
     ├── development.md                        # Comandos (dev en background, build, format), cómo verificar un cambio, caché de contenido de los plugins y variables de entorno
     └── docs-and-adrs.md                      # Cuándo escribir o actualizar un doc o un ADR, numeración, estados y cómo se regenera el árbol de AGENTS.md
 ```
