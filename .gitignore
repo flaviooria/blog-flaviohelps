@@ -25,3 +25,8 @@ pnpm-debug.log*
 
 # configuración local de Claude Code
 .claude/settings.local.json
+
+# archivos de trabajo de impeccable (sí se versiona critique/ignore.md)
+.impeccable/critique/*
+!.impeccable/critique/ignore.md
+.impeccable/*.cache.json
