@@ -1,0 +1,161 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import Toc from "../components/Toc.astro";
+import SiteFoot from "../components/SiteFoot.astro";
+import SearchToggle from "../components/SearchToggle.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import { formatDate, tagSlug } from "../utils";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  headings: MarkdownHeading[];
+}
+
+const { post, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = post.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="layout">
+    <Toc headings={headings} />
+    <main>
+      <header class="hero">
+        <p class="path">
+          <b>~/blog</b> $ cat {post.id}.md
+        </p>
+        <h1 data-pagefind-meta="title">{title}</h1>
+        {tags.length > 0 && (
+          <ul class="stack" aria-label="Stack">
+            {tags.map((tag) => (
+              <li>
+                <a href={`/tags/${tagSlug(tag)}/`} data-pagefind-filter="tag">
+                  {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p class="meta">
+          <time datetime={pubDate.toISOString()} data-pagefind-meta="date">
+            {formatDate(pubDate)}
+          </time>
+          {updatedDate && (
+            <>
+              {" "}
+              · actualizado{" "}
+              <time datetime={updatedDate.toISOString()}>
+                {formatDate(updatedDate)}
+              </time>
+            </>
+          )}{" "}
+          · <SearchToggle /> <ThemeToggle />
+        </p>
+      </header>
+      <article class="content" data-pagefind-body>
+        <slot />
+      </article>
+      <div class="post-foot">
+        <a href="/blog/">← volver a todos los posts</a>
+      </div>
+      <SiteFoot />
+    </main>
+  </div>
+  <button
+    class="toc-toggle"
+    id="tocToggle"
+    type="button"
+    aria-controls="toc"
+    aria-expanded="false"
+  >
+    Índice
+  </button>
+
+  <script>
+    // Copiar bloques de código
+    document.querySelectorAll<HTMLElement>(".code").forEach((block) => {
+      const btn = block.querySelector<HTMLButtonElement>(".copy");
+      const code = block.querySelector("code");
+      if (!btn || !code) return;
+      btn.addEventListener("click", async () => {
+        const text = code.innerText;
+        const done = () => {
+          btn.textContent = "Copiado";
+          btn.classList.add("done");
+          setTimeout(() => {
+            btn.textContent = "Copiar";
+            btn.classList.remove("done");
+          }, 1600);
+        };
+        try {
+          await navigator.clipboard.writeText(text);
+          done();
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand("copy");
+            done();
+          } catch {}
+          ta.remove();
+        }
+      });
+    });
+
+    // Índice en móvil
+    const toc = document.getElementById("toc")!;
+    const toggle = document.getElementById("tocToggle")!;
+    const close = () => {
+      toc.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+    toggle.addEventListener("click", () => {
+      const open = toc.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    toc.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a")) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+
+    // Sección activa en el índice
+    const links = new Map<string, HTMLAnchorElement>();
+    toc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      links.set(decodeURIComponent(a.getAttribute("href")!.slice(1)), a);
+    });
+    const heads = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".content h1[id], .content h2[id]",
+      ),
+    );
+    let current: string | null = null;
+    const update = () => {
+      const y = window.scrollY + 120;
+      let id: string | null = null;
+      for (const h of heads) {
+        if (h.offsetTop <= y) id = h.id;
+        else break;
+      }
+      if (id === current) return;
+      if (current) links.get(current)?.classList.remove("active");
+      const a = id ? links.get(id) : undefined;
+      if (a) {
+        a.classList.add("active");
+        const top = a.offsetTop;
+        const h = toc.clientHeight;
+        if (top < toc.scrollTop + 40 || top > toc.scrollTop + h - 80)
+          toc.scrollTop = top - h / 3;
+      }
+      current = id;
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  </script>
+</BaseLayout>

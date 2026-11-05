@@ -1,0 +1,219 @@
+---
+// Buscador de posts con Pagefind (ADR 0006). El índice (dist/pagefind/) se
+// genera en `postbuild`, así que en `astro dev` no hay resultados.
+---
+
+<dialog class="search-dialog" aria-label="Buscar en el blog">
+  <div class="search-panel">
+    <div class="search-head">
+      <label class="search-prompt" for="search-input">
+        <b>~/blog</b> $ grep
+      </label>
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="kubernetes, traefik, vps…"
+        autocomplete="off"
+        spellcheck="false"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-autocomplete="list"
+      />
+      <button class="search-close" type="button" aria-label="Cerrar buscador">
+        esc
+      </button>
+    </div>
+    <ul id="search-results" class="search-results" role="listbox"></ul>
+    <p class="search-status" aria-live="polite">
+      escribe para buscar
+    </p>
+    <p class="search-hint">
+      <span>
+        <kbd>↑</kbd>
+        <kbd>↓</kbd> moverse
+      </span>
+      <span>
+        <kbd>↵</kbd> abrir
+      </span>
+      <span>
+        <kbd>esc</kbd> cerrar
+      </span>
+    </p>
+  </div>
+</dialog>
+
+<script>
+  interface PagefindResultData {
+    url: string;
+    excerpt: string;
+    meta: { title?: string; date?: string };
+  }
+  interface Pagefind {
+    init: () => Promise<void>;
+    debouncedSearch: (
+      q: string,
+      opts?: object,
+      ms?: number,
+    ) => Promise<{
+      results: { id: string; data: () => Promise<PagefindResultData> }[];
+    } | null>;
+  }
+
+  const MAX_RESULTS = 8;
+  const dialog = document.querySelector<HTMLDialogElement>(".search-dialog")!;
+  const input = dialog.querySelector<HTMLInputElement>(".search-input")!;
+  const list = dialog.querySelector<HTMLUListElement>(".search-results")!;
+  const status = dialog.querySelector<HTMLParagraphElement>(".search-status")!;
+
+  let pagefind: Pagefind | null = null;
+  let loadFailed = false;
+  let selected = -1;
+
+  async function loadPagefind(): Promise<Pagefind | null> {
+    if (pagefind || loadFailed) return pagefind;
+    try {
+      // Ruta en variable para que Vite no intente resolverla en build.
+      const path = "/pagefind/pagefind.js";
+      pagefind = (await import(/* @vite-ignore */ path)) as Pagefind;
+      await pagefind.init();
+    } catch {
+      loadFailed = true;
+      status.textContent =
+        "El índice se genera al compilar: npm run build && npm run preview";
+    }
+    return pagefind;
+  }
+
+  function open() {
+    if (dialog.open) return;
+    dialog.showModal();
+    input.select();
+    loadPagefind();
+  }
+
+  function items() {
+    return [...list.querySelectorAll<HTMLAnchorElement>("a")];
+  }
+
+  function select(i: number) {
+    const all = items();
+    if (all.length === 0) return;
+    selected = (i + all.length) % all.length;
+    all.forEach((a, n) =>
+      a.setAttribute("aria-selected", String(n === selected)),
+    );
+    all[selected].scrollIntoView({ block: "nearest" });
+  }
+
+  function render(results: PagefindResultData[]) {
+    list.replaceChildren(
+      ...results.map((r) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = r.url;
+        a.setAttribute("role", "option");
+        a.setAttribute("aria-selected", "false");
+
+        const title = document.createElement("span");
+        title.className = "search-title";
+        title.textContent = r.meta.title ?? r.url;
+
+        const url = document.createElement("span");
+        url.className = "search-url";
+        url.textContent = r.url.replace(/\/$/, "");
+
+        // El extracto lo genera Pagefind ya escapado, solo con <mark>.
+        const excerpt = document.createElement("span");
+        excerpt.className = "search-excerpt";
+        excerpt.innerHTML = r.excerpt;
+
+        a.append(title, url, excerpt);
+        li.append(a);
+        return li;
+      }),
+    );
+    selected = -1;
+    input.setAttribute("aria-expanded", String(results.length > 0));
+    if (results.length > 0) select(0);
+  }
+
+  async function search(q: string) {
+    const pf = await loadPagefind();
+    if (!pf) return;
+    if (!q.trim()) {
+      render([]);
+      status.textContent = "escribe para buscar";
+      return;
+    }
+    const res = await pf.debouncedSearch(q, {}, 150);
+    if (res === null) return; // otra búsqueda más reciente la ha sustituido
+    const data = await Promise.all(
+      res.results.slice(0, MAX_RESULTS).map((r) => r.data()),
+    );
+    if (input.value !== q) return;
+    render(data);
+    const n = res.results.length;
+    status.textContent =
+      n === 0
+        ? `sin resultados para "${q}"`
+        : `${n} ${n === 1 ? "resultado" : "resultados"}`;
+  }
+
+  input.addEventListener("input", () => search(input.value));
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      select(selected + 1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      select(selected - 1);
+    } else if (e.key === "Enter" && selected >= 0) {
+      e.preventDefault();
+      items()[selected]?.click();
+    }
+  });
+
+  list.addEventListener("mousemove", (e) => {
+    const a = (e.target as HTMLElement).closest("a");
+    const i = a ? items().indexOf(a) : -1;
+    if (i >= 0 && i !== selected) select(i);
+  });
+
+  // Clic fuera del panel (en el backdrop) o en "esc" cierra.
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog
+    .querySelector(".search-close")!
+    .addEventListener("click", () => dialog.close());
+
+  document
+    .querySelectorAll<HTMLButtonElement>(".search-toggle")
+    .forEach((btn) => btn.addEventListener("click", open));
+
+  // ⌘K / Ctrl+K en cualquier sitio; "/" si no se está escribiendo.
+  document.addEventListener("keydown", (e) => {
+    const target = e.target as HTMLElement;
+    const typing =
+      target.isContentEditable ||
+      /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (dialog.open) dialog.close();
+      else open();
+    } else if (e.key === "/" && !typing && !dialog.open) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  // En Windows/Linux el atajo se muestra como Ctrl K.
+  if (!/Mac|iPhone|iPad/.test(navigator.platform)) {
+    document
+      .querySelectorAll(".search-toggle kbd")
+      .forEach((k) => (k.textContent = "Ctrl K"));
+  }
+</script>

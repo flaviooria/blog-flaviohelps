@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteBar from "../components/SiteBar.astro";
+import SiteFoot from "../components/SiteFoot.astro";
+import PostList from "../components/PostList.astro";
+import Image from "astro/components/Image.astro";
+import Bot from "@lucide/astro/icons/bot";
+import Server from "@lucide/astro/icons/server";
+import Container from "@lucide/astro/icons/container";
+import Rss from "@lucide/astro/icons/rss";
+import { SITE_DESCRIPTION } from "../consts";
+import { blog } from "../data/blog";
+import { profile } from "../data/profile";
+import { getPosts, tagSlug } from "../utils";
+
+const icons = { bot: Bot, server: Server, container: Container };
+
+const posts = await getPosts();
+const latest = posts.slice(0, 5);
+// Los chips de cada tema enlazan a su tag si ya hay posts con él.
+const tags = new Set(posts.flatMap((p) => p.data.tags.map(tagSlug)));
+const [role] = profile.headline.split("|").map((s) => s.trim());
+---
+
+<BaseLayout description={SITE_DESCRIPTION}>
+  <div class="page">
+    <SiteBar />
+
+    <header class="hero home-hero">
+      <p class="path">
+        <b>~/blog</b> $ cat README.md
+      </p>
+      <h1>{blog.title}</h1>
+      <p class="lede">{blog.intro}</p>
+      <div class="cta">
+        <a class="btn primary" href="/blog/">
+          Leer el blog →
+        </a>
+        <a class="btn" href="/rss.xml">
+          <Rss size={14} aria-hidden="true" />
+          RSS
+        </a>
+      </div>
+      <a class="home-author" href="/about-me/">
+        <Image src={profile.avatar} alt="" width="32" height="32" />
+        <span>
+          por <b>{profile.name}</b> · {role}
+        </span>
+        <span class="go">sobre mí →</span>
+      </a>
+    </header>
+
+    <section class="home-section" aria-labelledby="topics-title">
+      <h2 id="topics-title" class="kicker">
+        // de qué va
+      </h2>
+      <div class="home-topics">
+        {blog.topics.map((t) => {
+          const Icon = icons[t.icon];
+          return (
+            <article class="tile">
+              <Icon class="topic-icon" size={22} aria-hidden="true" />
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+              <ul class="chips">
+                {t.stack.map((s) =>
+                  tags.has(tagSlug(s)) ? (
+                    <li>
+                      <a href={`/tags/${tagSlug(s)}/`}>{s}</a>
+                    </li>
+                  ) : (
+                    <li>{s}</li>
+                  ),
+                )}
+              </ul>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="home-section" aria-labelledby="latest-title">
+      <h2 id="latest-title" class="kicker">
+        // últimos posts
+      </h2>
+      <PostList posts={latest} />
+      <a class="more-link" href="/blog/">
+        ls ~/blog →
+      </a>
+    </section>
+
+    <SiteFoot />
+  </div>
+</BaseLayout>

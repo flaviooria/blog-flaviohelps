@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteBar from "../../components/SiteBar.astro";
+import SiteFoot from "../../components/SiteFoot.astro";
+import PostList from "../../components/PostList.astro";
+import { getPosts, tagSlug } from "../../utils";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = new Map<string, string>();
+  for (const p of posts) for (const t of p.data.tags) tags.set(tagSlug(t), t);
+  return [...tags].map(([slug, name]) => ({
+    params: { tag: slug },
+    props: {
+      name,
+      posts: posts.filter((p) => p.data.tags.some((t) => tagSlug(t) === slug)),
+    },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${name}`}>
+  <div class="page">
+    <SiteBar />
+    <header class="hero">
+      <p class="path">
+        <b>~/blog</b> $ grep -l "{name}" *.md
+      </p>
+      <h1>#{name}</h1>
+    </header>
+    <PostList posts={posts} />
+    <SiteFoot />
+  </div>
+</BaseLayout>

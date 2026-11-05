@@ -1,0 +1,16 @@
+---
+// Botón de tema claro/oscuro. El script de BaseLayout escucha `.theme-toggle`;
+// el icono visible (luna en oscuro, sol en claro) lo decide el CSS.
+import Moon from "@lucide/astro/icons/moon";
+import Sun from "@lucide/astro/icons/sun";
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label="Cambiar tema claro/oscuro"
+  title="Cambiar tema"
+>
+  <Moon class="icon-moon" size={14} aria-hidden="true" />
+  <Sun class="icon-sun" size={14} aria-hidden="true" />
+</button>

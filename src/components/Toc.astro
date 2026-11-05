@@ -1,0 +1,40 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+type Item = { heading: MarkdownHeading; children: MarkdownHeading[] };
+
+// depth 1 = capítulo (con subsecciones depth 2); depth 2 antes del primer capítulo = sección suelta
+const items: Item[] = [];
+for (const h of Astro.props.headings.filter((h) => h.depth <= 2)) {
+  const last = items.at(-1);
+  if (h.depth === 2 && last && last.heading.depth === 1) last.children.push(h);
+  else items.push({ heading: h, children: [] });
+}
+---
+
+<nav class="toc" id="toc" aria-label="Índice">
+  <a class="toc-back" href="/blog/">
+    ← cd ~/blog
+  </a>
+  <p class="toc-title">// índice</p>
+  <ul>
+    {items.map(({ heading, children }) => (
+      <li class={heading.depth === 1 ? "ch" : undefined}>
+        <a href={`#${heading.slug}`}>{heading.text}</a>
+        {children.length > 0 && (
+          <ul>
+            {children.map((c) => (
+              <li>
+                <a href={`#${c.slug}`}>{c.text}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>

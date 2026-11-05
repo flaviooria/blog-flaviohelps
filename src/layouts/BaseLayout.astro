@@ -1,0 +1,75 @@
+---
+import "../styles/global.css";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Search from "../components/Search.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE_TITLE}
+      href={new URL("rss.xml", Astro.site)}
+    />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      // Aplica el tema guardado antes de pintar (evita parpadeo)
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark")
+          document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <slot />
+    <Search />
+    <script>
+      document
+        .querySelectorAll<HTMLButtonElement>(".theme-toggle")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const root = document.documentElement;
+            const current =
+              root.dataset.theme ??
+              (matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark");
+            const next = current === "light" ? "dark" : "light";
+            root.dataset.theme = next;
+            try {
+              localStorage.setItem("theme", next);
+            } catch (e) {}
+          });
+        });
+    </script>
+  </body>
+</html>

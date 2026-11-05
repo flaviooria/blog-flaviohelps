@@ -1,0 +1,24 @@
+---
+import Rss from "@lucide/astro/icons/rss";
+import { SITE_AUTHOR } from "../consts";
+import SearchToggle from "./SearchToggle.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<div class="site-bar">
+  <a class="brand" href="/">
+    ~/{SITE_AUTHOR}
+  </a>
+  <nav aria-label="Principal">
+    <a href="/">Inicio</a>
+    <a href="/blog/">Posts</a>
+    <a href="/tags/">Tags</a>
+    <a href="/about-me/">Sobre mí</a>
+    <a class="nav-rss" href="/rss.xml">
+      <Rss size={14} aria-hidden="true" />
+      RSS
+    </a>
+    <SearchToggle shortcut />
+    <ThemeToggle />
+  </nav>
+</div>

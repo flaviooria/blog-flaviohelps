@@ -1,0 +1,260 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteBar from "../components/SiteBar.astro";
+import SiteFoot from "../components/SiteFoot.astro";
+import { profile } from "../data/profile";
+import {
+  getPosts,
+  formatDate,
+  readingTime,
+  postStats,
+  tagSlug,
+} from "../utils";
+import Image from "astro/components/Image.astro";
+import { getGithubData } from "../lib/github";
+
+const posts = await getPosts();
+const [featured, ...rest] = posts;
+const latest = rest.slice(0, 4);
+const featuredStats = featured ? postStats(featured.body) : null;
+
+const tagCounts = new Map<string, number>();
+for (const p of posts)
+  for (const t of p.data.tags) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+const topTags = [...tagCounts].sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+// GitHub (en build). Si falla, se usan los datos manuales de profile.ts.
+const github = await getGithubData(profile.github.user, profile.github.exclude);
+const stats = github
+  ? { repos: github.publicRepos, since: github.since }
+  : profile.stats;
+const years = new Date().getFullYear() - stats.since;
+const [role, ...specialties] = profile.headline.split("|").map((s) => s.trim());
+
+console.log(github?.repos);
+
+const projects = github
+  ? github.repos.slice(0, 4).map((r) => ({
+      name: r.name,
+      description: r.description ?? "Sin descripción todavía.",
+      lang: r.language ?? "—",
+      href: r.url,
+    }))
+  : profile.projects;
+---
+
+<BaseLayout
+  title="Sobre mí"
+  description={`${profile.fullName}: ${profile.headline}`}
+>
+  <div class="page wide">
+    <SiteBar />
+
+    <section class="bento" aria-label="Sobre mí">
+      <!-- Presentación -->
+      <article class="tile tile-hero">
+        <p class="path">
+          <b>~/{profile.handle}</b> $ whoami
+        </p>
+        <div class="hero-id">
+          <Image
+            src={profile.avatar}
+            alt=""
+            width="72"
+            height="72"
+            loading="eager"
+          />
+          <div>
+            <h1>{profile.fullName}</h1>
+            <p class="headline">
+              <b>{role}</b>
+              {specialties.length > 0 && <span>{specialties.join(" · ")}</span>}
+            </p>
+            {(profile.currentRole || profile.location) && (
+              <p class="where">
+                {[profile.currentRole, profile.location]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+            )}
+          </div>
+        </div>
+        <div class="bio">
+          {profile.about.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="/blog/">
+            Leer el blog →
+          </a>
+          <a
+            class="btn"
+            href={profile.links[0].href}
+            target="_blank"
+            rel="noopener"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </article>
+
+      <!-- Artículo destacado -->
+      {featured ? (
+        <a class="tile tile-featured" href={`/blog/${featured.id}/`}>
+          <span class="kicker">// último artículo</span>
+          <h2>{featured.data.title}</h2>
+          <p>{featured.data.description}</p>
+          <ul class="facts">
+            <li>
+              <b>{readingTime(featured.body)}</b> min
+            </li>
+            {featuredStats!.chapters > 0 && (
+              <li>
+                <b>{featuredStats!.chapters}</b> capítulos
+              </li>
+            )}
+            <li>
+              <b>{featuredStats!.codeBlocks}</b> bloques de código
+            </li>
+          </ul>
+          <ul class="stack small">
+            {featured.data.tags.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+          <span class="more">
+            <time datetime={featured.data.pubDate.toISOString()}>
+              {formatDate(featured.data.pubDate)}
+            </time>
+            <span aria-hidden="true">cat →</span>
+          </span>
+        </a>
+      ) : (
+        <div class="tile tile-featured">
+          <span class="kicker">// todavía no hay artículos</span>
+        </div>
+      )}
+
+      <!-- Intereses (LinkedIn) -->
+      {profile.interests.length > 0 && (
+        <article class="tile tile-interests">
+          <span class="kicker">// me interesa</span>
+          <ul class="chips">
+            {profile.interests.map((i) => (
+              <li>{i}</li>
+            ))}
+          </ul>
+        </article>
+      )}
+
+      <!-- Stack -->
+      <article class="tile tile-stack">
+        <span class="kicker">// stack</span>
+        <dl>
+          {profile.stack.map((g) => (
+            <div>
+              <dt>{g.area}</dt>
+              <dd>{g.items.join(" · ")}</dd>
+            </div>
+          ))}
+        </dl>
+      </article>
+
+      <!-- Números -->
+      <article class="tile tile-stat">
+        <span class="kicker">// github</span>
+        <p class="big">{stats.repos}</p>
+        <p class="label">repos públicos</p>
+        <p class="sub">
+          en GitHub desde {stats.since} · {years}+ años
+        </p>
+      </article>
+
+      <article class="tile tile-stat accent">
+        <span class="kicker">// blog</span>
+        <p class="big">{posts.length}</p>
+        <p class="label">{posts.length === 1 ? "artículo" : "artículos"}</p>
+        <p class="sub">{tagCounts.size} temas</p>
+      </article>
+
+      <!-- Últimos artículos -->
+      <article class="tile tile-latest">
+        <span class="kicker">// más artículos</span>
+        {latest.length > 0 ? (
+          <ul class="mini-posts">
+            {latest.map((p) => (
+              <li>
+                <a href={`/blog/${p.id}/`}>
+                  <time datetime={p.data.pubDate.toISOString()}>
+                    {formatDate(p.data.pubDate)}
+                  </time>
+                  <span>{p.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">
+            Pronto habrá más. Mientras, el último está arriba ↑ o en el{" "}
+            <a href="/rss.xml">RSS</a>.
+          </p>
+        )}
+        <a class="more-link" href="/blog/">
+          ls ~/blog →
+        </a>
+      </article>
+
+      <!-- Temas -->
+      <article class="tile tile-tags">
+        <span class="kicker">// temas</span>
+        <ul class="chips">
+          {topTags.map(([t, n]) => (
+            <li>
+              <a href={`/tags/${tagSlug(t)}/`}>
+                {t}
+                <small>{n}</small>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <!-- Proyectos -->
+      {projects.map((p) => (
+        <a
+          class="tile tile-project"
+          href={p.href}
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="kicker">// proyecto</span>
+          <h3>{p.name}</h3>
+          <p>{p.description}</p>
+          <span class="lang">{p.lang}</span>
+        </a>
+      ))}
+
+      <!-- Contacto -->
+      <article class="tile tile-contact">
+        <span class="kicker">// contacto</span>
+        <ul>
+          {profile.links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                target={l.href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener"
+              >
+                <span>{l.label}</span>
+                <code>{l.handle}</code>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </section>
+
+    <SiteFoot />
+  </div>
+</BaseLayout>

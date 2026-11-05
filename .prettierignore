@@ -1,0 +1,6 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+# Los posts no se reformatean (tablas y bloques de código tal cual)
+src/content/

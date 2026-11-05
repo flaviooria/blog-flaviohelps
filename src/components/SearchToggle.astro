@@ -1,0 +1,17 @@
+---
+// Botón que abre el buscador (Search.astro escucha `.search-toggle`).
+import SearchIcon from "@lucide/astro/icons/search";
+
+interface Props {
+  /** Muestra el atajo ⌘K / Ctrl K junto al texto. */
+  shortcut?: boolean;
+}
+
+const { shortcut = false } = Astro.props;
+---
+
+<button class="search-toggle" type="button" aria-label="Buscar (Ctrl+K)">
+  <SearchIcon size={14} aria-hidden="true" />
+  Buscar
+  {shortcut && <kbd>⌘K</kbd>}
+</button>

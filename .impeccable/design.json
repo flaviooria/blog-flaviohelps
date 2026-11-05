@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T09:23:30+00:00",
+  "title": "Design System: flaviooria · blog",
+  "extensions": {
+    "colorMeta": {
+      "night-canvas": {
+        "role": "neutral",
+        "displayName": "Night Canvas",
+        "canonical": "#282a36",
+        "tonalRamp": [
+          "#23242a",
+          "#3c3e4b",
+          "#54586d",
+          "#6b7090",
+          "#8e91a8",
+          "#b0b2c0",
+          "#d1d2d9",
+          "#f1f2f3"
+        ]
+      },
+      "night-well": {
+        "role": "neutral",
+        "displayName": "Night Well",
+        "canonical": "#21222c",
+        "tonalRamp": [
+          "#23242a",
+          "#3c3e4b",
+          "#55576c",
+          "#6c6f8f",
+          "#8e90a7",
+          "#b0b2c0",
+          "#d1d2d9",
+          "#f1f1f3"
+        ]
+      },
+      "night-abyss": {
+        "role": "neutral",
+        "displayName": "Night Abyss",
+        "canonical": "#191a21",
+        "tonalRamp": [
+          "#232429",
+          "#3d3e4a",
+          "#55586c",
+          "#6c718f",
+          "#8f92a7",
+          "#b1b2bf",
+          "#d1d2d9",
+          "#f1f2f3"
+        ]
+      },
+      "night-rule": {
+        "role": "neutral",
+        "displayName": "Night Rule",
+        "canonical": "#44475a",
+        "tonalRamp": [
+          "#23242a",
+          "#3c3e4a",
+          "#55586c",
+          "#6c718f",
+          "#8f92a7",
+          "#b0b3bf",
+          "#d1d2d9",
+          "#f1f2f3"
+        ]
+      },
+      "moon-ink": {
+        "role": "neutral",
+        "displayName": "Moon Ink",
+        "canonical": "#f8f8f2",
+        "tonalRamp": [
+          "#2d2d1f",
+          "#525234",
+          "#7a7a47",
+          "#a3a358",
+          "#b5b580",
+          "#c8c8a8",
+          "#ddddcd",
+          "#f4f4f0"
+        ]
+      },
+      "dusk-ink": {
+        "role": "neutral",
+        "displayName": "Dusk Ink",
+        "canonical": "#a4a9c5",
+        "tonalRamp": [
+          "#21232b",
+          "#383c4e",
+          "#4e5473",
+          "#626a99",
+          "#878dae",
+          "#acb0c4",
+          "#cfd1db",
+          "#f1f1f4"
+        ]
+      },
+      "comment-slate": {
+        "role": "neutral",
+        "displayName": "Comment Slate",
+        "canonical": "#6272a4",
+        "tonalRamp": [
+          "#20232d",
+          "#363d51",
+          "#4a5577",
+          "#5c6d9f",
+          "#838fb2",
+          "#aab1c6",
+          "#ced1dc",
+          "#f1f1f4"
+        ]
+      },
+      "dracula-violet": {
+        "role": "primary",
+        "displayName": "Dracula Violet",
+        "canonical": "#bd93f9",
+        "tonalRamp": [
+          "#23113b",
+          "#3c1770",
+          "#5316ab",
+          "#6a0eed",
+          "#8d4cea",
+          "#af88e8",
+          "#d1bded",
+          "#f1ecf8"
+        ]
+      },
+      "cursor-pink": {
+        "role": "secondary",
+        "displayName": "Cursor Pink",
+        "canonical": "#ff79c6",
+        "tonalRamp": [
+          "#3e0f2a",
+          "#75114b",
+          "#b40d6d",
+          "#fa0190",
+          "#f342a8",
+          "#ee82c0",
+          "#f0bbd9",
+          "#f9ecf3"
+        ]
+      },
+      "link-cyan": {
+        "role": "secondary",
+        "displayName": "Link Cyan",
+        "canonical": "#8be9fd",
+        "tonalRamp": [
+          "#10353d",
+          "#136374",
+          "#1095b1",
+          "#05ccf6",
+          "#45d2f0",
+          "#84daec",
+          "#bce6ef",
+          "#ecf6f8"
+        ]
+      },
+      "signal-green": {
+        "role": "tertiary",
+        "displayName": "Signal Green",
+        "canonical": "#50fa7b",
+        "tonalRamp": [
+          "#103c1b",
+          "#14732c",
+          "#12b03a",
+          "#08f343",
+          "#47ee72",
+          "#85eb9f",
+          "#bceec9",
+          "#ecf8ef"
+        ]
+      },
+      "ember-orange": {
+        "role": "tertiary",
+        "displayName": "Ember Orange",
+        "canonical": "#ffb86c",
+        "tonalRamp": [
+          "#3e270f",
+          "#754511",
+          "#b4630d",
+          "#fa8201",
+          "#f39e42",
+          "#eeba82",
+          "#f0d6bb",
+          "#f9f2ec"
+        ]
+      },
+      "lamp-yellow": {
+        "role": "tertiary",
+        "displayName": "Lamp Yellow",
+        "canonical": "#f1fa8c",
+        "tonalRamp": [
+          "#383c11",
+          "#6a7116",
+          "#a1ad14",
+          "#ddf00b",
+          "#dfec4a",
+          "#e1e987",
+          "#e9edbd",
+          "#f7f8ec"
+        ]
+      },
+      "alarm-red": {
+        "role": "tertiary",
+        "displayName": "Alarm Red",
+        "canonical": "#ff5555",
+        "tonalRamp": [
+          "#3e0f0f",
+          "#751111",
+          "#b40d0d",
+          "#fa0101",
+          "#f34242",
+          "#ee8282",
+          "#f0bbbb",
+          "#f9ecec"
+        ]
+      },
+      "paper-canvas": {
+        "role": "neutral",
+        "displayName": "Paper Canvas (Alucard)",
+        "canonical": "#fffbeb",
+        "tonalRamp": [
+          "#3e340f",
+          "#756111",
+          "#b4930d",
+          "#fac801",
+          "#f3d042",
+          "#eed882",
+          "#f0e5bb",
+          "#f9f6ec"
+        ]
+      },
+      "paper-well": {
+        "role": "neutral",
+        "displayName": "Paper Well (Alucard)",
+        "canonical": "#f5f0dc",
+        "tonalRamp": [
+          "#332e19",
+          "#5f5428",
+          "#8f7c32",
+          "#c3a738",
+          "#ccb86a",
+          "#d6ca9a",
+          "#e4dec6",
+          "#f6f4ef"
+        ]
+      },
+      "paper-abyss": {
+        "role": "neutral",
+        "displayName": "Paper Abyss (Alucard)",
+        "canonical": "#ece6cc",
+        "tonalRamp": [
+          "#312d1b",
+          "#5a522d",
+          "#87783a",
+          "#b7a145",
+          "#c3b472",
+          "#d1c79f",
+          "#e1ddc9",
+          "#f5f4ef"
+        ]
+      },
+      "paper-rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule (Alucard)",
+        "canonical": "#cfcfde",
+        "tonalRamp": [
+          "#22222b",
+          "#3a3a4d",
+          "#515170",
+          "#676795",
+          "#8a8aab",
+          "#aeaec2",
+          "#d0d0da",
+          "#f1f1f3"
+        ]
+      },
+      "paper-ink": {
+        "role": "neutral",
+        "displayName": "Paper Ink (Alucard)",
+        "canonical": "#1f1f1f",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7e7e7e",
+          "#9b9b9b",
+          "#b8b8b8",
+          "#d5d5d5",
+          "#f2f2f2"
+        ]
+      },
+      "paper-dusk-ink": {
+        "role": "neutral",
+        "displayName": "Paper Dusk Ink (Alucard)",
+        "canonical": "#4f4b3c",
+        "tonalRamp": [
+          "#292823",
+          "#4a473d",
+          "#6c6755",
+          "#8f886d",
+          "#a7a28f",
+          "#bfbcb1",
+          "#d9d7d1",
+          "#f3f3f1"
+        ]
+      },
+      "paper-comment": {
+        "role": "neutral",
+        "displayName": "Paper Comment (Alucard)",
+        "canonical": "#6c664b",
+        "tonalRamp": [
+          "#2a2922",
+          "#4c493a",
+          "#706a51",
+          "#948c67",
+          "#aba58b",
+          "#c2beae",
+          "#dad8d0",
+          "#f3f3f1"
+        ]
+      },
+      "alucard-violet": {
+        "role": "primary",
+        "displayName": "Alucard Violet",
+        "canonical": "#644ac9",
+        "tonalRamp": [
+          "#1f1a33",
+          "#33285e",
+          "#46338e",
+          "#563ac1",
+          "#7f6bcb",
+          "#a79bd5",
+          "#cdc7e3",
+          "#f0eff6"
+        ]
+      },
+      "alucard-pink": {
+        "role": "secondary",
+        "displayName": "Alucard Pink",
+        "canonical": "#a3144d",
+        "tonalRamp": [
+          "#391423",
+          "#6a1c3b",
+          "#a21f53",
+          "#df1c6a",
+          "#e0568d",
+          "#e28eaf",
+          "#eac0d1",
+          "#f7edf1"
+        ]
+      },
+      "alucard-cyan": {
+        "role": "secondary",
+        "displayName": "Alucard Cyan",
+        "canonical": "#036a96",
+        "tonalRamp": [
+          "#102f3d",
+          "#135773",
+          "#1081b1",
+          "#06aef5",
+          "#46bdf0",
+          "#84cdec",
+          "#bcdfee",
+          "#ecf5f8"
+        ]
+      },
+      "alucard-green": {
+        "role": "tertiary",
+        "displayName": "Alucard Green",
+        "canonical": "#14710a",
+        "tonalRamp": [
+          "#163a13",
+          "#226d1a",
+          "#28a71a",
+          "#2ae615",
+          "#5fe551",
+          "#94e58b",
+          "#c3ebbf",
+          "#eef8ed"
+        ]
+      },
+      "alucard-orange": {
+        "role": "tertiary",
+        "displayName": "Alucard Orange",
+        "canonical": "#a34d14",
+        "tonalRamp": [
+          "#392314",
+          "#6a3b1c",
+          "#a2531f",
+          "#df6a1c",
+          "#e08d56",
+          "#e2af8e",
+          "#ead1c0",
+          "#f7f1ed"
+        ]
+      },
+      "alucard-yellow": {
+        "role": "tertiary",
+        "displayName": "Alucard Yellow",
+        "canonical": "#846e15",
+        "tonalRamp": [
+          "#373115",
+          "#68591f",
+          "#9d8524",
+          "#d8b423",
+          "#dbc25b",
+          "#dfcf91",
+          "#e8e1c2",
+          "#f7f5ee"
+        ]
+      },
+      "alucard-red": {
+        "role": "tertiary",
+        "displayName": "Alucard Red",
+        "canonical": "#cb3a2a",
+        "tonalRamp": [
+          "#361a17",
+          "#642923",
+          "#97342a",
+          "#d03c2c",
+          "#d56c61",
+          "#db9c95",
+          "#e6c7c4",
+          "#f6efee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Título del hero de cada página y post."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos # de los posts, en violeta con prefijo # en mono."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos ## de los posts y títulos de tarjeta."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prosa de los posts, máx. 72ch."
+      },
+      "label": {
+        "displayName": "Label (mono)",
+        "purpose": "Prompts, kickers // …, fechas, chips y controles."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Bloques de código con Shiki css-variables."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog-lift",
+        "value": "0 24px 60px -20px color-mix(in srgb, var(--bg-deeper) 80%, transparent)",
+        "purpose": "Solo el modal del buscador."
+      },
+      {
+        "name": "drawer-scrim",
+        "value": "0 0 0 100vmax rgb(0 0 0 / 0.45)",
+        "purpose": "Velo de la página con el índice móvil abierto."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hover-quick",
+        "value": "0.15s ease",
+        "purpose": "Borde y elevación de 2px de las tiles enlazadas."
+      },
+      {
+        "name": "drawer",
+        "value": "transform 0.2s ease",
+        "purpose": "Apertura del índice lateral en móvil."
+      },
+      {
+        "name": "dialog-in",
+        "value": "0.14s ease-out, translateY(-6px) → 0",
+        "purpose": "Entrada del buscador."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "Todo lo anterior se desactiva con prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "bento-1col",
+        "value": "600px"
+      },
+      {
+        "name": "topics-1col",
+        "value": "760px"
+      },
+      {
+        "name": "toc-drawer",
+        "value": "900px"
+      },
+      {
+        "name": "bento-2col",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Único botón relleno por pantalla (p. ej. 'leer el blog').",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">leer el blog</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.45rem;font:500 .875rem var(--sans);padding:.55rem 1rem;border-radius:8px;border:1px solid var(--line);color:var(--fg);text-decoration:none;transition:background .15s,border-color .15s}.ds-btn-primary{background:var(--purple);border-color:var(--purple);color:var(--bg)}.ds-btn-primary:hover{background:var(--pink);border-color:var(--pink);color:var(--bg)}.ds-btn:focus-visible{outline:2px solid var(--pink);outline-offset:2px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Acción secundaria con borde fino; violeta al pasar el ratón.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">sobre mí</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;font:500 .875rem var(--sans);padding:.55rem 1rem;border-radius:8px;border:1px solid var(--line);color:var(--fg);background:transparent;text-decoration:none;transition:border-color .15s}.ds-btn-ghost:hover{border-color:var(--purple)}.ds-btn-ghost:focus-visible{outline:2px solid var(--pink);outline-offset:2px}"
+    },
+    {
+      "name": "Tool Toggle (buscar)",
+      "kind": "button",
+      "refersTo": "tool-toggle",
+      "description": "Control de herramienta de la barra: mono, borde fino, atajo en kbd.",
+      "html": "<button class=\"ds-tool\" type=\"button\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>buscar<kbd>⌘K</kbd></button>",
+      "css": ".ds-tool{font:500 .75rem var(--mono);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:5px;padding:.25rem .6rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}.ds-tool:hover{color:var(--fg);border-color:var(--purple)}.ds-tool:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-tool kbd{font:inherit;color:var(--comment);margin-left:.15rem}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Etiqueta en píldora mono cian; rosa al pasar el ratón si enlaza.",
+      "html": "<ul class=\"ds-chips\"><li><a href=\"#\">docker <small>3</small></a></li><li><a href=\"#\">fastapi <small>1</small></a></li><li><span>Traefik</span></li></ul>",
+      "css": ".ds-chips{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:0}.ds-chips a,.ds-chips span{display:inline-flex;gap:.35rem;align-items:center;font:.75rem var(--mono);color:var(--cyan);border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem;text-decoration:none}.ds-chips a:hover{border-color:var(--pink);color:var(--pink)}.ds-chips a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-chips small{color:var(--comment)}"
+    },
+    {
+      "name": "Tile",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "Tarjeta bento/tema: well, borde de 1px, radio 14px y kicker en comentario.",
+      "html": "<a class=\"ds-tile\" href=\"#\"><span class=\"ds-kicker\">// backend</span><h3>APIs con FastAPI</h3><p>Diseño, arquitectura y bases de datos que aguantan.</p></a>",
+      "css": ".ds-tile{display:flex;flex-direction:column;gap:.6rem;padding:1.35rem 1.4rem;background:var(--bg-deep);border:1px solid var(--line);border-radius:14px;color:var(--fg);text-decoration:none;max-width:22rem;transition:border-color .15s ease,transform .15s ease}.ds-tile:hover{border-color:var(--purple);transform:translateY(-2px)}.ds-tile:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-tile h3{margin:0;font:600 1.05rem var(--sans);letter-spacing:-.01em}.ds-tile p{margin:0;color:var(--muted);font-size:.9rem}.ds-kicker{font:.75rem var(--mono);color:var(--comment)}"
+    },
+    {
+      "name": "Code Block",
+      "kind": "custom",
+      "refersTo": "code-block",
+      "description": "Ventana de terminal en miniatura con cabecera de lenguaje y botón copiar.",
+      "html": "<div class=\"ds-code\"><div class=\"ds-code-head\"><span>bash</span><button type=\"button\" class=\"ds-copy\">copiar</button></div><pre><code><span style=\"color:var(--pink)\">docker</span> compose up <span style=\"color:var(--orange)\">-d</span>\n<span style=\"color:var(--comment)\"># traefik escucha en :443</span></code></pre></div>",
+      "css": ".ds-code{border:1px solid var(--line);border-radius:8px;background:var(--bg-deeper);overflow:hidden;max-width:32rem}.ds-code-head{display:flex;align-items:center;justify-content:space-between;padding:.35rem .5rem .35rem 1rem;border-bottom:1px solid var(--line);background:var(--bg-deep);font:.75rem var(--mono);color:var(--comment)}.ds-copy{font:500 .75rem var(--sans);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:5px;padding:.2rem .65rem;cursor:pointer}.ds-copy:hover{color:var(--fg);border-color:var(--purple)}.ds-copy:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-code pre{margin:0;padding:1rem 1.1rem;overflow-x:auto}.ds-code code{font:.84rem/1.6 var(--mono);color:var(--fg)}"
+    },
+    {
+      "name": "Callout",
+      "kind": "custom",
+      "refersTo": "callout",
+      "description": "Nota al margen: borde izquierdo de 3px y fondo tintado al 9%; variante aviso en naranja.",
+      "html": "<div class=\"ds-callout\"><p><strong>Nota:</strong> el socket de Docker nunca se expone directamente.</p></div><div class=\"ds-callout ds-warn\"><p><strong>Ojo:</strong> abre solo los puertos 80 y 443.</p></div>",
+      "css": ".ds-callout{margin:.75rem 0;padding:.9rem 1.1rem;border-left:3px solid var(--purple);background:color-mix(in srgb,var(--purple) 9%,var(--bg));border-radius:0 8px 8px 0;max-width:32rem;color:var(--fg);font:1rem/1.65 var(--sans)}.ds-callout p{margin:0}.ds-callout strong{color:var(--purple)}.ds-warn{border-left-color:var(--orange);background:color-mix(in srgb,var(--orange) 9%,var(--bg))}.ds-warn strong{color:var(--orange)}"
+    },
+    {
+      "name": "Site Bar",
+      "kind": "nav",
+      "refersTo": "site-bar",
+      "description": "Barra mono alineada a la columna: marca verde, enlaces en tinta secundaria.",
+      "html": "<header class=\"ds-bar\"><a class=\"ds-brand\" href=\"#\">flaviooria · blog</a><nav><a href=\"#\">blog</a><a href=\"#\">etiquetas</a><a href=\"#\">sobre mí</a></nav></header>",
+      "css": ".ds-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;max-width:50rem;padding:1.25rem 0;font:.85rem var(--mono)}.ds-brand{color:var(--green);text-decoration:none;font-weight:500}.ds-brand:hover{color:var(--pink)}.ds-bar nav{display:flex;gap:1.1rem}.ds-bar nav a{color:var(--muted);text-decoration:none}.ds-bar nav a:hover{color:var(--fg)}.ds-bar a:focus-visible{outline:2px solid var(--pink);outline-offset:2px;border-radius:3px}"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "search-dialog",
+      "description": "Cabecera del buscador: prompt de shell y input mono sin caja propia.",
+      "html": "<div class=\"ds-search\"><span class=\"ds-prompt\"><b>~/blog</b> $ grep</span><input class=\"ds-search-input\" type=\"search\" placeholder=\"traefik, fastapi…\" aria-label=\"Buscar posts\"></div>",
+      "css": ".ds-search{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.1rem;background:var(--bg-deep);border:1px solid var(--line);border-radius:14px;font-family:var(--mono);max-width:32rem}.ds-search:focus-within{border-color:var(--purple)}.ds-prompt{flex:none;font-size:.85rem;color:var(--purple)}.ds-prompt b{color:var(--green);font-weight:500}.ds-search-input{flex:1;min-width:0;font:400 .95rem var(--mono);color:var(--fg);background:transparent;border:0;padding:.2rem 0;caret-color:var(--pink)}.ds-search-input::placeholder{color:var(--comment)}.ds-search-input:focus{outline:none}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La bitácora en la shell",
+    "overview": "**Creative North Star: \"La bitácora en la shell\"**\n\nEl sitio es un cuaderno de lab escrito dentro de una sesión de terminal. La bitácora pone el contenido: pasos, decisiones, avisos, checklists y el resultado final. La shell pone el marco: la ruta `~/blog $` como cabecera, los comentarios `// sección` como rótulos y `#` / `##` delante de cada título. Quien lee un post sigue una sesión ajena, paso a paso, con su propia terminal abierta al lado.\n\nEl carácter es **nocturno, preciso y cercano**. Nocturno porque Dracula es el tema por defecto y Alucard su versión de día, no un modo secundario. Preciso porque todo vive en una columna de lectura de 50rem, con bordes de 1px y fondos escalonados en vez de sombras. Cercano porque la voz es de primera persona y la estética de terminal es un guiño de oficio, no un disfraz: nada de efectos CRT ni de texto fosforito, y legibilidad ante todo en los dos temas.\n\nLa densidad es baja en los posts (Read) y media en \"Sobre mí\", donde una rejilla bento reúne perfil, stack, números y proyectos. Nada de esto debe parecer una plantilla SaaS.",
+    "keyCharacteristics": [
+      "Dos temas de primera clase: Dracula (oscuro, por defecto) y Alucard (claro). Siguen al sistema y se pueden cambiar a mano.",
+      "Dos familias: IBM Plex Sans para leer y Fira Code para todo lo que la shell \"dice\" (rutas, kickers, fechas, chips, código).",
+      "Profundidad por fondos escalonados (canvas → well → abyss) y bordes de 1px, no por sombras.",
+      "Los acentos de Dracula tienen cada uno un papel fijo; ninguno se usa como decoración.",
+      "Controles discretos, como los de una herramienta: el color aparece al pasar el ratón o al enfocar."
+    ],
+    "rules": [
+      {
+        "name": "The One Role Rule",
+        "body": "Cada acento significa una sola cosa (violeta = marca, rosa = foco/estado activo, cian = enlace, verde = salida de la shell, naranja = énfasis/aviso, amarillo = cadena, rojo = error). Si un elemento nuevo no encaja en uno de esos papeles, va en tinta neutra.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tokens-Only Rule",
+        "body": "Ningún hex fuera de `:root`. Los fondos tintados se mezclan desde los tokens (`color-mix(in srgb, var(--purple) 9%, var(--bg))`). Un token nuevo se define en los tres sitios: `:root`, `@media (prefers-color-scheme: light)` y `:root[data-theme=\"light\"]`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readable Both Ways Rule",
+        "body": "El texto se tiene que leer bien en Dracula y en Alucard por igual: al menos 4.5:1 para texto normal. **Deuda conocida:** en oscuro, Comment Slate (#6272a4) solo da 3.0:1 sobre Night Canvas, y hoy se usa en texto pequeño (kickers, fechas, metadatos). Hasta que se corrija, no lo uses para nada que el lector tenga que leer para entender o actuar.",
+        "section": "colors"
+      },
+      {
+        "name": "The Machine Speaks Mono Rule",
+        "body": "Rutas, comandos, fechas, rótulos `//`, contadores y nombres de repo van en Fira Code. Prosa, títulos y botones de acción van en Plex Sans. No se mezclan dentro de un mismo elemento salvo `code` inline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Comment Prefix Rule",
+        "body": "Los rótulos de sección se escriben como comentarios (`// me interesa`) y los títulos de post llevan `#` / `##` generados en `::before`. Es la firma del sistema: no la sustituyas por eyebrows en mayúsculas ni por numeración.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Las superficies son planas en reposo. Lo único que \"sube\" es una tile enlazada al pasar el ratón (translateY(-2px) y borde violeta) y las capas modales (buscador y cajón del índice).",
+        "section": "elevation"
+      },
+      {
+        "name": "The Featured Glow Exception",
+        "body": "El degradado radial (violeta al 22% arriba a la derecha y rosa al 14% abajo a la izquierda sobre Night Well) está permitido **solo** en la tile de artículo destacado y en las tiles de proyecto, como marca de \"esto es lo especial\". En ningún otro sitio hay degradados.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** encabezar secciones y tiles con un kicker en comentario (`// stack`) y los títulos de post con `#` / `##` en `::before`.",
+      "**Do** usar Fira Code para todo lo que imprimiría la shell (rutas, fechas, chips, comandos) y Plex Sans para la prosa y los títulos.",
+      "**Do** dar profundidad con los tres niveles de fondo y bordes de 1px. Los separadores de lista y de bitácora van discontinuos.",
+      "**Do** asignar a cada acento su único papel (The One Role Rule) y comprobar cualquier color nuevo en Dracula y en Alucard antes de darlo por bueno.",
+      "**Do** mantener un contraste de al menos 4.5:1 en todo texto que haya que leer, en los dos temas.",
+      "**Do** respetar `prefers-reduced-motion`: el hover de las tiles, la entrada del buscador y el scroll suave se apagan.",
+      "**Do** mantener el contorno de foco rosa de 2px en todo lo interactivo."
+    ],
+    "donts": [
+      "**Don't** hacer que parezca una plantilla SaaS genérica: nada de heros de marketing, degradados fuera de la Featured Glow Exception, iconos dentro de círculos de color ni rejillas de tarjetas idénticas sin kicker ni jerarquía.",
+      "**Don't** usar los acentos de Dracula sin control: nunca más de tres acentos con peso en una misma vista, y nunca un acento solo como decoración.",
+      "**Don't** introducir colores o contrastes que desentonen con Dracula/Alucard: nada de hex sueltos, neones ajenos a la paleta ni grises fríos fuera de los tokens.",
+      "**Don't** convertir la terminal en disfraz: sin texto verde fosforito en párrafos, sin efectos CRT, scanlines ni cursores parpadeando. Signal Green solo va en fragmentos cortos (código inline, prompt, cifras).",
+      "**Don't** usar Comment Slate para texto que el lector necesite (ver The Readable Both Ways Rule).",
+      "**Don't** usar sombras para separar superficies en reposo.",
+      "**Don't** poner más de un botón relleno por pantalla."
+    ]
+  }
+}
