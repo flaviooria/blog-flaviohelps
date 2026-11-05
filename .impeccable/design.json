@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T12:06:59+00:00",
+  "generatedAt": "2026-11-05T14:46:39+00:00",
   "title": "Design System: flaviooria · blog",
   "extensions": {
     "colorMeta": {
@@ -487,16 +487,18 @@
     ],
     "breakpoints": [
       {
+        "name": "home-lists-1col",
+        "value": "600px",
+        "purpose": "Bitácora y temas de la portada pasan a 1 columna; la nav baja a otra línea."
+      },
+      {
         "name": "bento-1col",
         "value": "600px"
       },
       {
-        "name": "topics-1col",
-        "value": "760px"
-      },
-      {
         "name": "toc-drawer",
-        "value": "900px"
+        "value": "900px",
+        "purpose": "El índice pasa a cajón y el hero baja su padding superior a 2.5rem."
       },
       {
         "name": "bento-2col",
@@ -533,17 +535,25 @@
       "name": "Chip",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Etiqueta en píldora mono cian; rosa al pasar el ratón si enlaza.",
-      "html": "<ul class=\"ds-chips\"><li><a href=\"#\">docker <small>3</small></a></li><li><a href=\"#\">fastapi <small>1</small></a></li><li><span>Traefik</span></li></ul>",
-      "css": ".ds-chips{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:0}.ds-chips a,.ds-chips span{display:inline-flex;gap:.35rem;align-items:center;font:.75rem var(--mono);color:var(--cyan);border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem;text-decoration:none}.ds-chips a:hover{border-color:var(--pink);color:var(--pink)}.ds-chips a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-chips small{color:var(--comment)}"
+      "description": "Píldora mono. Enlazada: cian con borde tintado y rosa al pasar el ratón. Estática: tinta apagada y borde discontinuo.",
+      "html": "<ul class=\"ds-chips\"><li><a href=\"#\">Docker Compose</a></li><li><a href=\"#\">Traefik</a></li><li><span>k3s</span></li><li><span>FastAPI</span></li></ul>",
+      "css": ".ds-chips{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:0}.ds-chips a,.ds-chips span{display:inline-flex;align-items:center;font:.75rem var(--mono);border-radius:999px;padding:.25rem .65rem;text-decoration:none}.ds-chips a{color:var(--cyan);border:1px solid color-mix(in srgb,var(--cyan) 45%,var(--line))}.ds-chips a:hover{border-color:var(--pink);color:var(--pink)}.ds-chips a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-chips span{color:var(--muted);border:1px dashed var(--line)}"
     },
     {
       "name": "Tile",
       "kind": "card",
       "refersTo": "tile",
-      "description": "Tarjeta bento/tema: well, borde de 1px, radio 14px y kicker en comentario.",
+      "description": "Tarjeta del bento de Sobre mí: well, borde de 1px, radio 14px y kicker en comentario.",
       "html": "<a class=\"ds-tile\" href=\"#\"><span class=\"ds-kicker\">// backend</span><h3>APIs con FastAPI</h3><p>Diseño, arquitectura y bases de datos que aguantan.</p></a>",
       "css": ".ds-tile{display:flex;flex-direction:column;gap:.6rem;padding:1.35rem 1.4rem;background:var(--bg-deep);border:1px solid var(--line);border-radius:14px;color:var(--fg);text-decoration:none;max-width:22rem;transition:border-color .15s ease,transform .15s ease}.ds-tile:hover{border-color:var(--purple);transform:translateY(-2px)}.ds-tile:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-tile h3{margin:0;font:600 1.05rem var(--sans);letter-spacing:-.01em}.ds-tile p{margin:0;color:var(--muted);font-size:.9rem}.ds-kicker{font:.75rem var(--mono);color:var(--comment)}"
+    },
+    {
+      "name": "Post Log Entry (bitácora)",
+      "kind": "custom",
+      "refersTo": "post-log",
+      "description": "Entrada de la bitácora de la portada: fecha AAAA-MM-DD en columna mono y, al lado, título violeta, descripción y metadatos con etiquetas en cian.",
+      "html": "<ol class=\"ds-log\"><li><time class=\"ds-log-date\" datetime=\"2026-11-03\">2026-11-03</time><div><h3><a href=\"#\">Infraestructura VPS para side projects</a></h3><p>Un VPS reproducible y seguro con Docker Compose, Traefik, Cloudflare y CI/CD con GitHub Actions.</p><ul class=\"ds-log-meta\"><li>14 min de lectura</li><li>12 capítulos</li><li><ul class=\"ds-log-tags\"><li><a href=\"#\">Docker Compose</a></li><li><a href=\"#\">Traefik</a></li></ul></li></ul></div></li></ol>",
+      "css": ".ds-log{list-style:none;margin:0;padding:0}.ds-log>li{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:0 1.5rem;padding:1.5rem 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}.ds-log-date{padding-top:.45rem;font:400 .8rem var(--mono);color:var(--comment);white-space:nowrap}.ds-log h3{font:700 1.4rem/1.25 var(--sans);letter-spacing:-.01em;margin:0 0 .5rem}.ds-log h3 a{color:var(--purple);text-decoration:none}.ds-log h3 a:hover{color:var(--pink)}.ds-log h3 a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}.ds-log p{margin:0 0 .85rem;color:var(--muted)}.ds-log-meta,.ds-log-tags{list-style:none;display:flex;flex-wrap:wrap;gap:.15rem .6rem;margin:0;padding:0}.ds-log-meta{font:400 .8rem var(--mono);color:var(--muted)}.ds-log-meta>:not(:last-child)::after{content:'·';margin-left:.6rem;color:var(--comment)}.ds-log-tags a{color:var(--cyan);text-decoration:none}.ds-log-tags a:hover{color:var(--pink)}@media (max-width:600px){.ds-log>li{grid-template-columns:minmax(0,1fr)}.ds-log-date{padding-top:0;margin-bottom:.35rem}}"
     },
     {
       "name": "Code Block",
