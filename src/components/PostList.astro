@@ -4,12 +4,9 @@ import { formatDate, tagSlug } from "../utils";
 
 interface Props {
   posts: CollectionEntry<"blog">[];
-  /** 3 cuando la lista va bajo un título de sección (p. ej. en la portada). */
-  headingLevel?: 2 | 3;
 }
 
-const { posts, headingLevel = 2 } = Astro.props;
-const Title = headingLevel === 3 ? "h3" : "h2";
+const { posts } = Astro.props;
 ---
 
 {posts.length === 0 ? (
@@ -24,7 +21,7 @@ const Title = headingLevel === 3 ? "h3" : "h2";
           <time datetime={post.data.pubDate.toISOString()}>
             {formatDate(post.data.pubDate)}
           </time>
-          <Title>{post.data.title}</Title>
+          <h2>{post.data.title}</h2>
           <p>{post.data.description}</p>
         </a>
         {post.data.tags.length > 0 && (

@@ -2,20 +2,21 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteBar from "../components/SiteBar.astro";
 import SiteFoot from "../components/SiteFoot.astro";
-import PostList from "../components/PostList.astro";
+import PostLog from "../components/PostLog.astro";
 import Image from "astro/components/Image.astro";
-import Bot from "@lucide/astro/icons/bot";
-import Server from "@lucide/astro/icons/server";
-import Container from "@lucide/astro/icons/container";
 import { SITE_DESCRIPTION } from "../consts";
 import { blog } from "../data/blog";
 import { profile } from "../data/profile";
 import { getPosts, tagSlug } from "../utils";
+import Bot from "@lucide/astro/icons/bot";
+import Server from "@lucide/astro/icons/server";
+import Container from "@lucide/astro/icons/container";
 
+// Icono de cada tema; la clave es `icon` en src/data/blog.ts.
 const icons = { bot: Bot, server: Server, container: Container };
 
 const posts = await getPosts();
-const latest = posts.slice(0, 5);
+const latest = posts.slice(0, 6);
 // Sin posts no se ofrecen enlaces a una lista vacía.
 const hasPosts = posts.length > 0;
 // Los chips de cada tema enlazan a su tag si ya hay posts con él.
@@ -63,46 +64,50 @@ const profiles = profile.links.filter((l) =>
         )}
       </header>
 
-      <section class="home-section" aria-labelledby="topics-title">
-        <h2 id="topics-title" class="kicker">
-          <span aria-hidden="true">// </span>de qué va
+      <section class="home-section" aria-labelledby="log-title">
+        <h2 id="log-title" class="kicker">
+          <span aria-hidden="true">// </span>bitácora
         </h2>
-        <div class="home-topics">
-          {blog.topics.map((t) => {
-            const Icon = icons[t.icon];
-            return (
-              <article class="tile">
-                <Icon class="topic-icon" size={22} aria-hidden="true" />
-                <h3>{t.title}</h3>
-                <p>{t.text}</p>
-                <ul class="chips">
-                  {t.stack.map((s) =>
-                    tags.has(tagSlug(s)) ? (
-                      <li>
-                        <a href={`/tags/${tagSlug(s)}/`}>{s}</a>
-                      </li>
-                    ) : (
-                      <li>{s}</li>
-                    ),
-                  )}
-                </ul>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section class="home-section" aria-labelledby="latest-title">
-        <h2 id="latest-title" class="kicker">
-          <span aria-hidden="true">// </span>últimos posts
-        </h2>
-        <PostList posts={latest} headingLevel={3} />
-        {hasPosts && (
+        <PostLog posts={latest} />
+        {posts.length > latest.length && (
           <a class="more-link" href="/blog/">
             ls ~/blog<span class="sr-only">: todos los posts</span>{" "}
             <span aria-hidden="true">→</span>
           </a>
         )}
+      </section>
+
+      <section class="home-section" aria-labelledby="topics-title">
+        <h2 id="topics-title" class="kicker">
+          <span aria-hidden="true">// </span>de qué va
+        </h2>
+        <ul class="home-topics">
+          {blog.topics.map((t) => {
+            const Icon = icons[t.icon];
+            return (
+              <li>
+                <h3>
+                  <Icon class="topic-icon" size={18} aria-hidden="true" />
+                  {t.title}
+                </h3>
+                <div>
+                  <p>{t.text}</p>
+                  <ul class="chips">
+                    {t.stack.map((s) =>
+                      tags.has(tagSlug(s)) ? (
+                        <li>
+                          <a href={`/tags/${tagSlug(s)}/`}>{s}</a>
+                        </li>
+                      ) : (
+                        <li>{s}</li>
+                      ),
+                    )}
+                  </ul>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
     </main>
 

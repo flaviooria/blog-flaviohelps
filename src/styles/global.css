@@ -999,8 +999,8 @@ header.hero .meta {
   color: var(--comment);
 }
 
-/* h2 en /blog/ y etiquetas; h3 bajo un título de sección (portada) */
-.post-card :is(h2, h3) {
+/* Listado de /blog/ y etiquetas; la portada usa la bitácora (.post-log) */
+.post-card h2 {
   font-size: 1.4rem;
   line-height: 1.25;
   margin: 0.35rem 0 0.5rem;
@@ -1010,7 +1010,7 @@ header.hero .meta {
   overflow-wrap: break-word;
 }
 
-.post-card:hover :is(h2, h3) {
+.post-card:hover h2 {
   color: var(--pink);
 }
 
@@ -1570,30 +1570,132 @@ a.tile-featured:hover h2 {
   letter-spacing: 0;
 }
 
-.home-topics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+/* Bitácora: fecha AAAA-MM-DD a la izquierda como marca de registro, entrada a la derecha */
+.post-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.home-topics .topic-icon {
+.post-log > li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0 1.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px dashed var(--line);
+}
+
+.post-log > li:last-child {
+  border-bottom: 1px dashed var(--line);
+}
+
+.log-date {
+  /* alinea la fecha con la primera línea del título */
+  padding-top: 0.45rem;
+  font: 400 0.8rem var(--mono);
+  color: var(--comment);
+  white-space: nowrap;
+}
+
+.log-entry h3 {
+  font-size: 1.4rem;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+
+.log-entry h3 a {
   color: var(--purple);
+  text-decoration: none;
+}
+
+.log-entry h3 a:hover {
+  color: var(--pink);
+}
+
+.log-entry > p {
+  margin: 0 0 0.85rem;
+  color: var(--muted);
+  max-width: 68ch;
+}
+
+.log-meta,
+.log-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.log-meta {
+  font: 400 0.8rem var(--mono);
+  color: var(--muted);
+}
+
+/* Separador al final: si la línea parte, no empieza con "·" */
+.log-meta > :not(:last-child)::after {
+  content: "·";
+  margin-left: 0.6rem;
+  color: var(--comment);
+}
+
+.log-tags a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.log-tags a:hover {
+  color: var(--pink);
+}
+
+@media (max-width: 600px) {
+  .post-log > li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .log-date {
+    padding-top: 0;
+    margin-bottom: 0.35rem;
+  }
+}
+
+/* Temas: filas compactas (título | texto y chips) bajo la bitácora */
+.home-topics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-topics > li {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 0.4rem 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px dashed var(--line);
 }
 
 .home-topics h3 {
-  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.5;
   margin: 0;
+}
+
+.home-topics .topic-icon {
+  flex: none;
+  color: var(--purple);
 }
 
 .home-topics p {
   color: var(--muted);
   font-size: 0.9rem;
-  margin: 0;
-}
-
-.home-topics .chips {
-  margin-top: auto;
-  padding-top: 0.4rem;
+  margin: 0 0 0.6rem;
 }
 
 .home-section .more-link {
@@ -1601,8 +1703,8 @@ a.tile-featured:hover h2 {
   margin-top: 1.25rem;
 }
 
-@media (max-width: 760px) {
-  .home-topics {
+@media (max-width: 600px) {
+  .home-topics > li {
     grid-template-columns: minmax(0, 1fr);
   }
 }

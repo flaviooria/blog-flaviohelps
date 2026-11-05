@@ -1,0 +1,56 @@
+---
+// Bitácora de la portada: una entrada por post, con la fecha como marca de
+// registro a la izquierda y título, entradilla y metadatos a la derecha.
+import type { CollectionEntry } from "astro:content";
+import { postStats, readingTime, tagSlug } from "../utils";
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+}
+
+const { posts } = Astro.props;
+
+// AAAA-MM-DD, como en un log (sin depender de la zona horaria del build).
+const isoDay = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+{posts.length === 0 ? (
+  <p class="empty">
+    <span aria-hidden="true">// </span>todavía no hay entradas
+  </p>
+) : (
+  <ol class="post-log">
+    {posts.map((post) => {
+      const minutes = readingTime(post.body);
+      const { chapters } = postStats(post.body);
+      return (
+        <li>
+          <time class="log-date" datetime={post.data.pubDate.toISOString()}>
+            {isoDay(post.data.pubDate)}
+          </time>
+          <div class="log-entry">
+            <h3>
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            </h3>
+            <p>{post.data.description}</p>
+            <ul class="log-meta">
+              <li>{minutes} min de lectura</li>
+              {chapters > 1 && <li>{chapters} capítulos</li>}
+              {post.data.tags.length > 0 && (
+                <li>
+                  <ul class="log-tags" aria-label="Etiquetas">
+                    {post.data.tags.map((tag) => (
+                      <li>
+                        <a href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              )}
+            </ul>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+)}

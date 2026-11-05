@@ -40,7 +40,9 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 - `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con prompt, título, entradilla, línea de autor (`.home-author`: avatar de 44px, nombre que enlaza a `/about-me/`, rol y perfiles de GitHub y LinkedIn) y un único CTA. Después vienen las secciones `.home-section` con kicker `// …`.
 - El pie (`SiteFoot`) muestra `// © año nombre` y los enlaces de `profile.links` (perfiles y RSS). Es el único sitio visible del RSS, que también se anuncia en el `<head>`.
-- Temas en `.home-topics`: 3 `.tile` con icono Lucide en `--purple` → 1 columna por debajo de 760px. Los chips enlazan al tag solo si ya existe.
+- Orden: primero `// bitácora` y luego `// de qué va`. La portada es una bitácora con entradas fechadas.
+- Bitácora (`PostLog`, `.post-log`): una fila por post (los 6 últimos), con la fecha `AAAA-MM-DD` en mono `--comment` en una columna de 6.5rem y, al lado, el título `h3` en `--purple`, la descripción y una línea de metadatos en mono (`min de lectura · capítulos · etiquetas`, con las etiquetas en `--cyan`). Por debajo de 600px la fecha pasa encima. `ls ~/blog →` solo aparece si hay más posts que los mostrados.
+- Temas en `.home-topics`: filas compactas sin tiles (icono Lucide de 18px en `--purple` delante del título, en una columna de 10rem y, al lado, texto y chips), que pasan a 1 columna por debajo de 600px. Los chips enlazan al tag solo si ya existe.
 - Los chips sin enlace (`.chips li` sin `a`) van en `--cyan`.
 
 ## Sobre mí (bento)
