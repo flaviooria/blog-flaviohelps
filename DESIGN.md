@@ -237,7 +237,7 @@ Una paleta Dracula disciplinada: un lienzo nocturno casi neutro y siete acentos,
 
 Una columna de lectura de **50rem** centrada, con margen lateral fluido de clamp(1.25rem, 5vw, 4rem). La usan la portada, `/blog/`, las etiquetas y el cuerpo de los posts, y la barra superior y el pie se alinean a ella. "Sobre mí" se abre a **72rem** con una rejilla bento de 4 columnas y 1rem de separación.
 
-- **Post:** índice lateral pegajoso de 240–300px a la izquierda y contenido a la derecha. Por debajo de 900px, el índice pasa a ser un cajón que se abre desde un botón flotante abajo a la derecha (en la zona del pulgar).
+- **Post:** la barra del sitio arriba (buscar y tema a la derecha) y el contenido en la columna de 50rem. En escritorio con ratón, el índice vive en una pestaña de 2.25rem en el borde izquierdo (icono y "índice" en vertical): se abre como cajón de 300px al pasar el ratón o al enfocar, se cierra con 0.3s de retardo al salir, y el botón de la chincheta lo deja como columna fija y aparta el contenido (se recuerda en `localStorage`). Por debajo de 900px o en pantallas táctiles, el índice es un cajón que se abre desde un botón flotante abajo a la derecha (en la zona del pulgar).
 - **Archivo (`/blog/` y cada tag):** la misma bitácora que la portada, con todos los posts agrupados por año bajo un kicker `// 2026 · N posts` (h2), separados 3rem. Cada tag añade bajo su H1 `N posts · ← todas las tags`, y `/tags/` muestra todas las tags como chips enlazados con su recuento.
 - **Portada:** hero con el nombre en el H1 ("Hola, soy Flavio Oria, te doy la bienvenida.", el nombre en Dracula Violet) y una línea de autor que no lo repite (avatar, rol y GitHub · LinkedIn · sobre mí); luego secciones separadas por 3rem, cada una con su kicker `// …`. Primero la bitácora: entradas fechadas con la fecha `AAAA-MM-DD` en una columna de 6.5rem a la izquierda y título, descripción y metadatos (lectura, capítulos, etiquetas) a la derecha, separadas por líneas discontinuas. Después, los temas en filas compactas sin tiles: icono Lucide de 18px en Dracula Violet y título en una columna de 10rem, y al lado el texto y los chips. Las dos listas pasan a 1 columna por debajo de 600px.
 - **Bento:** cada fila suma 4 columnas. Hero y destacado ocupan 2×2; stack, últimos artículos y temas, 2; intereses y contacto, la fila entera; el resto, 1. Por debajo de 960px pasa a 2 columnas (`dense`) y por debajo de 600px a 1.
@@ -252,6 +252,7 @@ El sistema es plano y se apila por tonos. La profundidad viene de tres niveles d
 
 - **Dialog lift** (`box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--bg-deeper) 80%, transparent)`): solo en el modal del buscador, junto con un fondo velado con `blur(4px)`.
 - **Drawer scrim** (`box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.45)`): oscurece la página cuando el índice móvil está abierto.
+- **Drawer lift** (`box-shadow: 12px 0 32px -12px rgb(0 0 0 / 0.45)`): separa del contenido el índice abierto al pasar el ratón; desaparece al fijarlo.
 
 ### Named Rules
 
@@ -306,7 +307,7 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 
 - **Site bar:** alineada a la columna, en Fira Code a 0.85rem. La marca `~/flaviooria` va en Signal Green y lleva a la portada; solo hay tres secciones (Posts, Tags, Sobre mí) más buscar y tema. Los enlaces van en Dusk Ink y pasan a tinta principal al pasar el ratón. La sección actual (`aria-current="page"`) va en tinta principal con subrayado rosa de 2px. Por debajo de 600px la nav baja a una segunda línea, y en táctil cada control tiene 44px de alto. El RSS no va en la barra: vive en el pie y en el `<head>`.
 - **Pie:** en Fira Code a 0.78rem y Comment Slate. A la izquierda `// © año Flavio Oria` y a la derecha los perfiles (LinkedIn, GitHub, X) y el RSS como enlaces cian. Por debajo del ancho de la columna, los enlaces bajan a una segunda línea.
-- **Índice del post:** sobre Night Abyss, con enlaces en Dusk Ink, capítulos en tinta principal 500 y subsecciones sangradas a 0.82rem. La sección activa va en rosa con borde izquierdo y fondo Night Well. En móvil se convierte en un cajón lateral.
+- **Índice del post:** sobre Night Abyss, con enlaces en Dusk Ink, capítulos en tinta principal 500 y subsecciones sangradas a 0.82rem. La sección activa va en rosa con borde izquierdo y fondo Night Well. En escritorio se abre desde la pestaña del borde y lleva arriba `← cd ~/blog` y el control de fijar (botón de herramienta cuadrado de 1.75rem solo con el icono de chincheta centrado; rosa con `aria-pressed="true"`). En móvil y táctil es un cajón lateral que se cierra al elegir un enlace, con Escape o con un clic fuera.
 
 ### Code block (signature)
 

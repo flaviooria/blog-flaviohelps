@@ -4,8 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import Toc from "../components/Toc.astro";
 import SiteFoot from "../components/SiteFoot.astro";
-import SearchToggle from "../components/SearchToggle.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
+import SiteBar from "../components/SiteBar.astro";
 import { formatDate, tagSlug } from "../utils";
 
 interface Props {
@@ -18,9 +17,17 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
 ---
 
 <BaseLayout title={title} description={description}>
+  <script is:inline>
+    // Índice fijado: se aplica antes de pintar para que el contenido no salte
+    try {
+      if (localStorage.getItem("toc") === "pinned")
+        document.documentElement.dataset.toc = "pinned";
+    } catch (e) {}
+  </script>
   <div class="layout">
     <Toc headings={headings} />
     <main>
+      <SiteBar />
       <header class="hero">
         <p class="path">
           <b>~/blog</b> $ cat {post.id}.md
@@ -49,8 +56,7 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
                 {formatDate(updatedDate)}
               </time>
             </>
-          )}{" "}
-          · <SearchToggle /> <ThemeToggle />
+          )}
         </p>
       </header>
       <article class="content" data-pagefind-body>
@@ -107,6 +113,25 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
       });
     });
 
+    // Fijar el índice (escritorio con ratón); la preferencia se guarda
+    const root = document.documentElement;
+    const pin = document.getElementById("tocPin")!;
+    const syncPin = () =>
+      pin.setAttribute("aria-pressed", String(root.dataset.toc === "pinned"));
+    pin.addEventListener("click", () => {
+      const pinned = root.dataset.toc !== "pinned";
+      if (pinned) root.dataset.toc = "pinned";
+      else delete root.dataset.toc;
+      try {
+        if (pinned) localStorage.setItem("toc", "pinned");
+        else localStorage.removeItem("toc");
+      } catch {}
+      syncPin();
+      // al soltarlo, que no se quede abierto por tener el foco dentro
+      if (!pinned) pin.blur();
+    });
+    syncPin();
+
     // Índice en móvil
     const toc = document.getElementById("toc")!;
     const toggle = document.getElementById("tocToggle")!;
@@ -121,6 +146,20 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
     toc.addEventListener("click", (e) => {
       if ((e.target as HTMLElement).closest("a")) close();
     });
+    // Un clic fuera del cajón (en el fondo oscurecido) solo lo cierra: se
+    // captura antes que nada para no activar un enlace que haya debajo
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (!toc.classList.contains("open")) return;
+        const t = e.target as Node;
+        if (toc.contains(t) || toggle.contains(t)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+      },
+      true,
+    );
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
     });

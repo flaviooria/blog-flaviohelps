@@ -46,6 +46,12 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Chips (`.chips`): los enlazados van en `--cyan` con borde sólido tintado de cian; los que no enlazan (`.chips li` sin `a`) van en `--muted` con borde discontinuo, para que no parezcan clicables.
 - Etiquetas de un post (`.post-tags`, en `PostLog`): una línea de enlaces en mono 0.8rem y `--cyan`, no una columna.
 
+## Post
+
+- Arriba va la `SiteBar` (buscar y tema a la derecha, como en el resto del sitio); la línea `.meta` del hero solo lleva la fecha.
+- Índice (`Toc` → `.toc-dock`): por defecto es el cajón móvil con el botón flotante `.toc-toggle`. Solo en `@media (min-width: 901px) and (hover: hover)` pasa a pestaña `.toc-handle` en el borde que abre `nav.toc` con `:hover`/`:focus-within` (cierre con 0.3s de retardo) y muestra el botón `.toc-pin`.
+- Fijado: `html[data-toc="pinned"]` (clave `toc` en `localStorage`, aplicada con un script inline antes de pintar) deja el índice visible y pone `.layout` con `padding-left: 300px`.
+
 ## Archivo (/blog/ y /tags/<tag>/)
 
 - Ambas páginas van en `<main>` y usan la misma bitácora que la portada (`PostLog` con `byYear`): un `h2.kicker.log-year` `// 2026 · N posts` por año y debajo su `ol.post-log`, dentro de `.log-archive` (50rem). Los títulos de post son siempre `h3`.

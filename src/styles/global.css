@@ -108,23 +108,72 @@ a:hover {
   border-radius: 3px;
 }
 
-/* Layout */
+/* Layout del post: el índice vive en un cajón fijo a la izquierda */
 .layout {
-  display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
   min-height: 100vh;
 }
 
+.toc-dock {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 20;
+}
+
+/* Pestaña del borde izquierdo (solo escritorio con ratón) */
+.toc-handle {
+  display: none;
+}
+
 nav.toc {
-  position: sticky;
-  align-self: start;
-  top: 0;
-  height: 100vh;
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(85vw, 300px);
+  height: 100dvh;
   overflow-y: auto;
   background: var(--bg-deeper);
   border-right: 1px solid var(--line);
-  padding: 2rem 1.25rem 3rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) 1.25rem 3rem;
   font-size: 0.875rem;
+  transform: translateX(-105%);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+nav.toc.open {
+  transform: none;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.45);
+}
+
+.toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+/* Fijar: control de herramienta, solo escritorio con ratón */
+.toc-pin {
+  display: none;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toc-pin:hover {
+  color: var(--fg);
+  border-color: var(--purple);
+}
+
+.toc-pin[aria-pressed="true"] {
+  color: var(--pink);
+  border-color: var(--pink);
 }
 
 nav.toc .toc-title {
@@ -541,62 +590,106 @@ p.ref strong {
   border-color: var(--yellow);
 }
 
-/* Mobile */
+/* Botón flotante del índice (móvil y pantallas táctiles) */
 .toc-toggle {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: fixed;
+  right: 1rem;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+  z-index: 30;
+  font: 500 0.85rem var(--sans);
+  color: var(--bg);
+  background: var(--purple);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
 }
 
-@media (max-width: 900px) {
+/* Escritorio con ratón: pestaña en el borde, se abre al pasar el ratón o
+   al enfocar, y se puede fijar como columna (html[data-toc="pinned"]) */
+@media (min-width: 901px) and (hover: hover) {
+  .toc-toggle {
+    display: none;
+  }
+
   .layout {
-    grid-template-columns: minmax(0, 1fr);
+    padding-left: 2.25rem;
+  }
+
+  .toc-handle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: 2.25rem;
+    height: 100dvh;
+    padding-top: 1.45rem;
+    background: var(--bg-deeper);
+    border-right: 1px solid var(--line);
+    font: 400 0.75rem var(--mono);
+    color: var(--comment);
+    transition: color 0.15s;
+  }
+
+  .toc-handle span {
+    writing-mode: vertical-rl;
+  }
+
+  .toc-dock:hover .toc-handle {
+    color: var(--pink);
+  }
+
+  .toc-pin {
+    display: grid;
   }
 
   nav.toc {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: min(85vw, 320px);
-    z-index: 20;
-    transform: translateX(-105%);
-    transition: transform 0.2s ease;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+    width: 300px;
+    transform: translateX(-100%);
+    /* se cierra con retardo: salir un instante no lo esconde */
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
   }
 
-  nav.toc.open {
+  .toc-dock:hover nav.toc,
+  .toc-dock:focus-within nav.toc {
     transform: none;
-    box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.45);
+    transition-delay: 0s;
+    box-shadow: 12px 0 32px -12px rgb(0 0 0 / 0.45);
   }
 
-  .toc-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    position: fixed;
-    right: 1rem;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
-    z-index: 30;
-    font: 500 0.85rem var(--sans);
-    color: var(--bg);
-    background: var(--purple);
-    border: 0;
-    border-radius: 999px;
-    padding: 0.65rem 1rem;
-    cursor: pointer;
+  :root[data-toc="pinned"] .layout {
+    padding-left: 300px;
   }
 
+  :root[data-toc="pinned"] .toc-handle {
+    display: none;
+  }
+
+  :root[data-toc="pinned"] nav.toc {
+    transform: none;
+    transition: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 900px) {
   header.hero {
     padding-top: 2.5rem;
   }
 }
 
 @media print {
-  nav.toc,
+  .toc-dock,
   .toc-toggle,
   .copy {
     display: none;
   }
 
   .layout {
-    display: block;
+    padding-left: 0;
   }
 }
 
@@ -1018,7 +1111,7 @@ nav.toc .toc-back {
   font-size: 0.8rem;
   color: var(--green);
   text-decoration: none;
-  margin: 0 0 1.5rem;
+  margin: 0;
   padding: 0;
   border: 0;
 }

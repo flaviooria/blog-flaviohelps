@@ -1,5 +1,10 @@
 ---
+// Índice del post. En escritorio con ratón vive oculto en el borde izquierdo:
+// se abre al pasar el ratón (o al enfocar) por la pestaña y se puede fijar
+// como columna. En móvil y en pantallas táctiles es un cajón con botón.
 import type { MarkdownHeading } from "astro";
+import ListTree from "@lucide/astro/icons/list-tree";
+import Pin from "@lucide/astro/icons/pin";
 
 interface Props {
   headings: MarkdownHeading[];
@@ -16,25 +21,43 @@ for (const h of Astro.props.headings.filter((h) => h.depth <= 2)) {
 }
 ---
 
-<nav class="toc" id="toc" aria-label="Índice">
-  <a class="toc-back" href="/blog/">
-    ← cd ~/blog
-  </a>
-  <p class="toc-title">// índice</p>
-  <ul>
-    {items.map(({ heading, children }) => (
-      <li class={heading.depth === 1 ? "ch" : undefined}>
-        <a href={`#${heading.slug}`}>{heading.text}</a>
-        {children.length > 0 && (
-          <ul>
-            {children.map((c) => (
-              <li>
-                <a href={`#${c.slug}`}>{c.text}</a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </li>
-    ))}
-  </ul>
-</nav>
+<div class="toc-dock">
+  <div class="toc-handle" aria-hidden="true">
+    <ListTree size={16} />
+    <span>índice</span>
+  </div>
+  <nav class="toc" id="toc" aria-label="Índice">
+    <div class="toc-head">
+      <a class="toc-back" href="/blog/">
+        ← cd ~/blog
+      </a>
+      <button
+        class="toc-pin"
+        id="tocPin"
+        type="button"
+        aria-pressed="false"
+        aria-label="Fijar el índice"
+        title="Fijar el índice"
+      >
+        <Pin size={14} aria-hidden="true" />
+      </button>
+    </div>
+    <p class="toc-title">// índice</p>
+    <ul>
+      {items.map(({ heading, children }) => (
+        <li class={heading.depth === 1 ? "ch" : undefined}>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+          {children.length > 0 && (
+            <ul>
+              {children.map((c) => (
+                <li>
+                  <a href={`#${c.slug}`}>{c.text}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
