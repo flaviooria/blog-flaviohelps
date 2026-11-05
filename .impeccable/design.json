@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T10:01:40+00:00",
+  "generatedAt": "2026-11-05T10:11:35+00:00",
   "title": "Design System: flaviooria · blog",
   "extensions": {
     "colorMeta": {
@@ -557,9 +557,9 @@
       "name": "Callout",
       "kind": "custom",
       "refersTo": "callout",
-      "description": "Nota al margen: borde izquierdo de 3px y fondo tintado al 9%; variante aviso en naranja.",
-      "html": "<div class=\"ds-callout\"><p><strong>Nota:</strong> el socket de Docker nunca se expone directamente.</p></div><div class=\"ds-callout ds-warn\"><p><strong>Ojo:</strong> abre solo los puertos 80 y 443.</p></div>",
-      "css": ".ds-callout{margin:.75rem 0;padding:.9rem 1.1rem;border-left:3px solid var(--purple);background:color-mix(in srgb,var(--purple) 9%,var(--bg));border-radius:0 8px 8px 0;max-width:32rem;color:var(--fg);font:1rem/1.65 var(--sans)}.ds-callout p{margin:0}.ds-callout strong{color:var(--purple)}.ds-warn{border-left-color:var(--orange);background:color-mix(in srgb,var(--orange) 9%,var(--bg))}.ds-warn strong{color:var(--orange)}"
+      "description": "Caja con borde fino y cabecera // nota o // aviso, como un bloque de código; --tone es el color del tipo.",
+      "html": "<aside class=\"ds-callout\"><p class=\"ds-callout-head\"><span aria-hidden=\"true\">// </span>nota</p><div class=\"ds-callout-body\"><p><strong>Criterio:</strong> activa parches automáticos de seguridad.</p></div></aside><aside class=\"ds-callout ds-warn\"><p class=\"ds-callout-head\"><span aria-hidden=\"true\">// </span>aviso</p><div class=\"ds-callout-body\"><p><strong>Ojo:</strong> abre solo los puertos 80 y 443.</p></div></aside>",
+      "css": ".ds-callout{--tone:var(--purple);margin:.75rem 0;border:1px solid color-mix(in srgb,var(--tone) 45%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--tone) 7%,var(--bg));overflow:hidden;max-width:32rem;color:var(--fg);font:1rem/1.65 var(--sans)}.ds-warn{--tone:var(--orange)}.ds-callout-head{margin:0;padding:.35rem 1.1rem;border-bottom:1px dashed color-mix(in srgb,var(--tone) 35%,var(--line));font:.75rem var(--mono);color:var(--tone)}.ds-callout-head span{color:var(--comment)}.ds-callout-body{padding:.75rem 1.1rem .85rem}.ds-callout-body p{margin:0}.ds-callout strong{color:var(--tone)}"
     },
     {
       "name": "Site Bar",

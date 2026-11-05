@@ -121,4 +121,25 @@ const codeHeader = defineHastPlugin({
   },
 });
 
-export const draculaPlugins = [draculaMarkdown, codeHeader];
+// 2ª pasada: cabecera "// nota" o "// aviso" dentro de cada aside.callout,
+// con el mismo aire que la cabecera de los bloques de código.
+const calloutHeader = defineHastPlugin({
+  name: "dracula-callout-header",
+  element: {
+    filter: ["aside"],
+    visit(node, ctx) {
+      const kinds = cls(node);
+      if (!kinds.includes("callout")) return;
+      const label = kinds.includes("note") ? "nota" : "aviso";
+      ctx.prependChild(
+        node,
+        el("p", { className: ["callout-head"], dataPagefindIgnore: "all" }, [
+          el("span", { ariaHidden: "true" }, [txt("// ")]),
+          txt(label),
+        ]),
+      );
+    },
+  },
+});
+
+export const draculaPlugins = [draculaMarkdown, codeHeader, calloutHeader];

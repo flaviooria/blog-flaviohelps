@@ -37,8 +37,8 @@ Los genera `src/plugins/dracula-markdown.mjs`:
 
 | Escribes                                              | Sale                                           |
 | ----------------------------------------------------- | ---------------------------------------------- |
-| `> texto`                                             | Callout de **aviso** (naranja)                 |
-| `> [!NOTE] texto` (también `TIP`, `INFO`)             | Callout de **nota** (morado)                   |
+| `> texto`                                             | Callout de **aviso** (naranja, `// aviso`)     |
+| `> [!NOTE] texto` (también `TIP`, `INFO`)             | Callout de **nota** (morado, `// nota`)        |
 | `**Referencia:** [enlace](https://…)`                 | Párrafo de referencia, separado y gris         |
 | ` ```bash `                                           | Bloque con cabecera de lenguaje y botón Copiar |
 | Una tabla                                             | Tabla con scroll horizontal                    |

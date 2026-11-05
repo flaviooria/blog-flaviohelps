@@ -242,7 +242,7 @@ El sistema es plano y se apila por tonos. La profundidad viene de tres niveles d
 
 Esquinas suaves y escalonadas por tamaño: cuanto más grande la superficie, más radio. 3px para el contorno de foco, 4px para el código inline, 5px para los controles de herramienta (copiar, tema, buscar, cerrar), 8px para bloques de código, tablas, botones y callouts, y 14px para tiles y el modal del buscador. Los chips, badges y el botón flotante del índice son píldoras (999px), y los avatares, círculos.
 
-Los callouts tienen un borde izquierdo de 3px y redondean solo el lado derecho (0 8px 8px 0), como una nota pegada al margen. El índice activo y el resultado de búsqueda seleccionado usan un borde izquierdo de 2px en rosa: el "cursor" de la sesión.
+Los callouts son cajas cerradas de 8px con borde de 1px y cabecera, como los bloques de código. Nada de franjas laterales gruesas en tarjetas o avisos. El índice activo y el resultado de búsqueda seleccionado usan un borde izquierdo de 2px en rosa: el "cursor" de la sesión.
 
 ## Components
 
@@ -291,8 +291,10 @@ Una ventana de terminal en miniatura: cabecera en Night Well con el lenguaje en 
 
 ### Callouts
 
-- **Nota:** borde izquierdo de 3px en violeta y fondo violeta al 9% sobre el canvas; el `strong` va en violeta.
-- **Aviso:** lo mismo en Ember Orange.
+Primos de los bloques de código: una caja con cabecera, no una franja lateral. El plugin de markdown les añade la cabecera en la segunda pasada.
+
+- **Nota:** borde de 1px (violeta al 45% sobre Night Rule), radio de 8px y fondo violeta al 7% sobre el canvas. La cabecera `// nota` va en Fira Code a 0.75rem y en violeta (el `//` en Comment Slate y oculto al lector de pantalla), separada del cuerpo por una línea discontinua. El `strong` va en violeta.
+- **Aviso:** lo mismo en Ember Orange, con cabecera `// aviso`. El color del tipo vive en la variable `--tone` del callout.
 - **Referencias:** párrafo a 0.85rem en Dusk Ink bajo una línea discontinua.
 
 ### Search dialog (signature)

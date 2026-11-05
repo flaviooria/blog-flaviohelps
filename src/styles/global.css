@@ -414,30 +414,45 @@ td:first-child {
   font-weight: 500;
 }
 
-/* Callouts */
+/* Callouts: caja con borde fino y cabecera "// nota" | "// aviso",
+   como un bloque de código; --tone es el color del tipo */
 .callout {
+  --tone: var(--purple);
   margin: 1.5rem 0;
-  padding: 0.9rem 1.1rem;
-  border-left: 3px solid var(--purple);
-  background: color-mix(in srgb, var(--purple) 9%, var(--bg));
-  border-radius: 0 8px 8px 0;
+  border: 1px solid color-mix(in srgb, var(--tone) 45%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--tone) 7%, var(--bg));
+  overflow: hidden;
 }
 
-.callout p {
+.callout.warn {
+  --tone: var(--orange);
+}
+
+.callout .callout-head {
+  max-width: none;
+  margin: 0;
+  padding: 0.35rem 1.1rem;
+  border-bottom: 1px dashed color-mix(in srgb, var(--tone) 35%, var(--line));
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--tone);
+}
+
+.callout .callout-head span {
+  color: var(--comment);
+}
+
+.callout-body {
+  padding: 0.75rem 1.1rem 0.85rem;
+}
+
+.callout-body p {
   margin: 0.3rem 0;
 }
 
 .callout strong {
-  color: var(--purple);
-}
-
-.callout.warn {
-  border-left-color: var(--orange);
-  background: color-mix(in srgb, var(--orange) 9%, var(--bg));
-}
-
-.callout.warn strong {
-  color: var(--orange);
+  color: var(--tone);
 }
 
 /* References */
@@ -610,11 +625,6 @@ pre.astro-code {
 
 .content > h2:first-child {
   margin-top: 3rem;
-}
-
-/* Callout tipo nota (el original usaba la clase "note") */
-.callout.note {
-  border-left-color: var(--purple);
 }
 
 /* Barra superior del sitio */
@@ -1069,7 +1079,6 @@ footer.site-foot a {
 /* El blockquote original queda dentro del callout */
 .callout > blockquote {
   margin: 0;
-  padding: 0;
 }
 
 /* ───────────── Sobre mí (bento) ───────────── */
