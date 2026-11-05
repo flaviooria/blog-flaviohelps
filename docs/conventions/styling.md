@@ -44,7 +44,12 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Bitácora (`PostLog`, `.post-log`): una fila por post (los 6 últimos), con la fecha `AAAA-MM-DD` en mono `--comment` en una columna de 6.5rem y, al lado, el título `h3` en `--purple`, la descripción y una línea de metadatos en mono (`min de lectura · capítulos · etiquetas`, con las etiquetas en `--cyan`). Por debajo de 600px la fecha pasa encima. `ls ~/blog →` solo aparece si hay más posts que los mostrados.
 - Temas en `.home-topics`: filas compactas sin tiles (icono Lucide de 18px en `--purple` delante del título, en una columna de 10rem y, al lado, texto y chips), que pasan a 1 columna por debajo de 600px. Los chips enlazan al tag solo si ya existe.
 - Chips (`.chips`): los enlazados van en `--cyan` con borde sólido tintado de cian; los que no enlazan (`.chips li` sin `a`) van en `--muted` con borde discontinuo, para que no parezcan clicables.
-- Etiquetas de un post (`.post-tags`, en `PostLog` y `PostList`): una línea de enlaces en mono 0.8rem y `--cyan`, no una columna.
+- Etiquetas de un post (`.post-tags`, en `PostLog`): una línea de enlaces en mono 0.8rem y `--cyan`, no una columna.
+
+## Archivo (/blog/ y /tags/<tag>/)
+
+- Ambas páginas van en `<main>` y usan la misma bitácora que la portada (`PostLog` con `byYear`): un `h2.kicker.log-year` `// 2026 · N posts` por año y debajo su `ol.post-log`, dentro de `.log-archive` (50rem). Los títulos de post son siempre `h3`.
+- No hay otro componente de listado: si cambias una entrada, cambia en la portada y en los archivos a la vez.
 
 ## Sobre mí (bento)
 

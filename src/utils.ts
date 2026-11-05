@@ -11,7 +11,9 @@ export async function getPosts(): Promise<CollectionEntry<"blog">[]> {
 }
 
 export function formatDate(date: Date): string {
+  // pubDate es medianoche UTC: sin timeZone, en un huso negativo saldría el día anterior.
   return date.toLocaleDateString("es-ES", {
+    timeZone: "UTC",
     year: "numeric",
     month: "long",
     day: "numeric",

@@ -1,56 +1,81 @@
 ---
-// Bitácora de la portada: una entrada por post, con la fecha como marca de
-// registro a la izquierda y título, entradilla y metadatos a la derecha.
+// Bitácora: una entrada por post, con la fecha como marca de registro a la
+// izquierda y título, entradilla y metadatos a la derecha. La usan la portada
+// (últimos posts) y los archivos /blog/ y /tags/<tag>/ (agrupados por año).
 import type { CollectionEntry } from "astro:content";
 import { postStats, readingTime, tagSlug } from "../utils";
 
 interface Props {
   posts: CollectionEntry<"blog">[];
+  /** Agrupa por año con un h2 `// 2026` por grupo (archivos). */
+  byYear?: boolean;
 }
 
-const { posts } = Astro.props;
+const { posts, byYear = false } = Astro.props;
 
 // AAAA-MM-DD, como en un log (sin depender de la zona horaria del build).
 const isoDay = (d: Date) => d.toISOString().slice(0, 10);
+
+// Los posts llegan ordenados del más reciente al más antiguo.
+const groups: [string | null, CollectionEntry<"blog">[]][] = [];
+for (const post of posts) {
+  const key = byYear ? String(post.data.pubDate.getUTCFullYear()) : null;
+  const last = groups.at(-1);
+  if (last && last[0] === key) last[1].push(post);
+  else groups.push([key, [post]]);
+}
 ---
 
 {posts.length === 0 ? (
   <p class="empty">
-    <span aria-hidden="true">// </span>todavía no hay entradas
+    <span aria-hidden="true">// </span>todavía no hay posts
   </p>
 ) : (
-  <ol class="post-log">
-    {posts.map((post) => {
-      const minutes = readingTime(post.body);
-      const { chapters } = postStats(post.body);
-      return (
-        <li>
-          <time class="log-date" datetime={post.data.pubDate.toISOString()}>
-            {isoDay(post.data.pubDate)}
-          </time>
-          <div class="log-entry">
-            <h3>
-              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-            </h3>
-            <p>{post.data.description}</p>
-            <ul class="log-meta">
-              <li>{minutes} min de lectura</li>
-              {chapters > 1 && <li>{chapters} capítulos</li>}
-              {post.data.tags.length > 0 && (
-                <li>
-                  <ul class="post-tags" aria-label="Etiquetas">
-                    {post.data.tags.map((tag) => (
-                      <li>
-                        <a href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              )}
-            </ul>
-          </div>
-        </li>
-      );
-    })}
-  </ol>
+  groups.map(([year, items]) => (
+    <Fragment>
+      {year && (
+        <h2 id={`y-${year}`} class="kicker log-year">
+          <span aria-hidden="true">// </span>
+          {year}
+          <span class="log-year-count">
+            · {items.length} {items.length === 1 ? "post" : "posts"}
+          </span>
+        </h2>
+      )}
+      <ol class="post-log" aria-labelledby={year ? `y-${year}` : undefined}>
+        {items.map((post) => {
+          const minutes = readingTime(post.body);
+          const { chapters } = postStats(post.body);
+          return (
+            <li>
+              <time class="log-date" datetime={post.data.pubDate.toISOString()}>
+                {isoDay(post.data.pubDate)}
+              </time>
+              <div class="log-entry">
+                <h3>
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                </h3>
+                <p>{post.data.description}</p>
+                <ul class="log-meta">
+                  <li>{minutes} min de lectura</li>
+                  {chapters > 1 && <li>{chapters} capítulos</li>}
+                  {post.data.tags.length > 0 && (
+                    <li>
+                      <ul class="post-tags" aria-label="Tags">
+                        {post.data.tags.map((tag) => (
+                          <li>
+                            <a href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </Fragment>
+  ))
 )}

@@ -13,13 +13,13 @@ Sitio **estático** con Astro 7. Todo se resuelve en `npm run build`; no hay ser
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------- |
 | `pages/index.astro`            | Portada del blog: presentación, bitácora de posts (`PostLog`) y temas (`data/blog.ts`)                          |
 | `pages/about-me.astro`         | Sobre mí (bento): perfil de LinkedIn, último post, intereses, stack, números y proyectos de GitHub              |
-| `pages/blog/index.astro`       | Listado de todos los posts                                                                                      |
+| `pages/blog/index.astro`       | Archivo: todos los posts en la bitácora (`PostLog byYear`), agrupados por año                                   |
 | `pages/blog/[...id].astro`     | Página de cada post (usa `PostLayout`)                                                                          |
 | `pages/tags/`                  | Índice de etiquetas y página por etiqueta                                                                       |
 | `pages/rss.xml.ts`             | Feed RSS                                                                                                        |
 | `layouts/BaseLayout.astro`     | `<head>`, fuentes, tema claro/oscuro (botón `.theme-toggle` + `localStorage`)                                   |
 | `layouts/PostLayout.astro`     | Post: índice lateral, hero, contenido; scripts de copiar código y sección activa                                |
-| `components/`                  | `SiteBar`, `SiteFoot`, `PostList`, `PostLog`, `Toc`, `Search` (modal Pagefind), `SearchToggle`, `ThemeToggle`   |
+| `components/`                  | `SiteBar`, `SiteFoot`, `PostLog`, `Toc`, `Search` (modal Pagefind), `SearchToggle`, `ThemeToggle`               |
 | `content/blog/*.md`            | Posts (colección `blog`, esquema en `content.config.ts`)                                                        |
 | `content.config.ts`            | Esquema zod del frontmatter de los posts                                                                        |
 | `data/profile.ts`              | Datos de "Sobre mí" (titular y resumen de LinkedIn, intereses, stack, enlaces, exclusiones de GitHub, respaldo) |

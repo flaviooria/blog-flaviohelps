@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteBar from "../../components/SiteBar.astro";
 import SiteFoot from "../../components/SiteFoot.astro";
-import PostList from "../../components/PostList.astro";
+import PostLog from "../../components/PostLog.astro";
 import { SITE_DESCRIPTION } from "../../consts";
 import { getPosts } from "../../utils";
 
@@ -12,14 +12,18 @@ const posts = await getPosts();
 <BaseLayout title="Posts">
   <div class="page">
     <SiteBar />
-    <header class="hero">
-      <p class="path">
-        <b>~/blog</b> $ ls -t
-      </p>
-      <h1>Todos los posts</h1>
-      <p class="lede">{SITE_DESCRIPTION}</p>
-    </header>
-    <PostList posts={posts} />
+    <main>
+      <header class="hero">
+        <p class="path">
+          <b>~/blog</b> $ ls -t
+        </p>
+        <h1>Todos los posts</h1>
+        <p class="lede">{SITE_DESCRIPTION}</p>
+      </header>
+      <section class="log-archive" aria-label="Posts por año">
+        <PostLog posts={posts} byYear />
+      </section>
+    </main>
     <SiteFoot />
   </div>
 </BaseLayout>

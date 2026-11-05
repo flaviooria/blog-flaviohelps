@@ -974,52 +974,6 @@ header.hero .meta {
   margin: 1.25rem 0 0;
 }
 
-/* Listado de posts */
-.post-list {
-  list-style: none;
-  max-width: 50rem;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.post-list > li {
-  border-bottom: 1px dashed var(--line);
-}
-
-.post-card {
-  display: block;
-  padding: 1.75rem 0;
-  text-decoration: none;
-  color: inherit;
-}
-
-.post-card time {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--comment);
-}
-
-/* Listado de /blog/ y etiquetas; la portada usa la bitácora (.post-log) */
-.post-card h2 {
-  font-size: 1.4rem;
-  line-height: 1.25;
-  margin: 0.35rem 0 0.5rem;
-  color: var(--purple);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  overflow-wrap: break-word;
-}
-
-.post-card:hover h2 {
-  color: var(--pink);
-}
-
-.post-card p {
-  margin: 0 0 0.9rem;
-  color: var(--muted);
-  max-width: 68ch;
-}
-
 ul.stack.small {
   font-size: 0.78rem;
 }
@@ -1090,12 +1044,6 @@ footer.site-foot ul {
 
 footer.site-foot a {
   text-decoration: none;
-}
-
-/* Etiquetas en línea bajo la tarjeta del post (/blog/ y etiquetas) */
-.post-list > li > .post-tags {
-  margin: -0.75rem 0 1.75rem;
-  font: 400 0.8rem var(--mono);
 }
 
 /* El blockquote original queda dentro del callout */
@@ -1572,6 +1520,27 @@ a.tile-featured:hover h2 {
   font: 400 0.8rem var(--mono);
   color: var(--comment);
   letter-spacing: 0;
+}
+
+/* Archivo (/blog/ y /tags/<tag>/): la bitácora completa, agrupada por año */
+.log-archive {
+  max-width: 50rem;
+  margin: 2.5rem auto 0;
+}
+
+.log-year {
+  margin: 0 0 1rem;
+  font: 400 0.8rem var(--mono);
+  color: var(--comment);
+  letter-spacing: 0;
+}
+
+.post-log + .log-year {
+  margin-top: 3rem;
+}
+
+.log-year-count {
+  margin-left: 0.4rem;
 }
 
 /* Bitácora: fecha AAAA-MM-DD a la izquierda como marca de registro, entrada a la derecha */
