@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T09:23:30+00:00",
+  "generatedAt": "2026-11-05T09:58:10+00:00",
   "title": "Design System: flaviooria · blog",
   "extensions": {
     "colorMeta": {
@@ -97,16 +97,16 @@
       "comment-slate": {
         "role": "neutral",
         "displayName": "Comment Slate",
-        "canonical": "#6272a4",
+        "canonical": "#8390c0",
         "tonalRamp": [
-          "#20232d",
-          "#363d51",
-          "#4a5577",
-          "#5c6d9f",
-          "#838fb2",
-          "#aab1c6",
-          "#ced1dc",
-          "#f1f1f4"
+          "#1f222e",
+          "#333a54",
+          "#45517c",
+          "#5566a6",
+          "#7e8ab8",
+          "#a6aec9",
+          "#ccd0de",
+          "#f0f1f4"
         ]
       },
       "dracula-violet": {
@@ -601,7 +601,7 @@
       },
       {
         "name": "The Readable Both Ways Rule",
-        "body": "El texto se tiene que leer bien en Dracula y en Alucard por igual: al menos 4.5:1 para texto normal. **Deuda conocida:** en oscuro, Comment Slate (#6272a4) solo da 3.0:1 sobre Night Canvas, y hoy se usa en texto pequeño (kickers, fechas, metadatos). Hasta que se corrija, no lo uses para nada que el lector tenga que leer para entender o actuar.",
+        "body": "El texto se tiene que leer bien en Dracula y en Alucard por igual: al menos 4.5:1 para texto normal. Por eso Comment Slate es más claro que el comentario original de Dracula (#6272a4, que daba 3.0:1): da 4.55:1 sobre Night Canvas, 5.05:1 sobre Night Well y 5.55:1 sobre Night Abyss, y sigue un escalón por debajo de Dusk Ink. Cualquier tinta o fondo nuevo se comprueba contra los tres fondos de cada tema.",
         "section": "colors"
       },
       {
@@ -639,7 +639,7 @@
       "**Don't** usar los acentos de Dracula sin control: nunca más de tres acentos con peso en una misma vista, y nunca un acento solo como decoración.",
       "**Don't** introducir colores o contrastes que desentonen con Dracula/Alucard: nada de hex sueltos, neones ajenos a la paleta ni grises fríos fuera de los tokens.",
       "**Don't** convertir la terminal en disfraz: sin texto verde fosforito en párrafos, sin efectos CRT, scanlines ni cursores parpadeando. Signal Green solo va en fragmentos cortos (código inline, prompt, cifras).",
-      "**Don't** usar Comment Slate para texto que el lector necesite (ver The Readable Both Ways Rule).",
+      "**Don't** oscurecer Comment Slate hacia el #6272a4 original de Dracula: bajaría de 4.5:1 (ver The Readable Both Ways Rule).",
       "**Don't** usar sombras para separar superficies en reposo.",
       "**Don't** poner más de un botón relleno por pantalla."
     ]

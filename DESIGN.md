@@ -8,7 +8,7 @@ colors:
   night-rule: "#44475a"
   moon-ink: "#f8f8f2"
   dusk-ink: "#a4a9c5"
-  comment-slate: "#6272a4"
+  comment-slate: "#8390c0"
   dracula-violet: "#bd93f9"
   cursor-pink: "#ff79c6"
   link-cyan: "#8be9fd"
@@ -188,7 +188,7 @@ Una paleta Dracula disciplinada: un lienzo nocturno casi neutro y siete acentos,
 
 **The Tokens-Only Rule.** Ningún hex fuera de `:root`. Los fondos tintados se mezclan desde los tokens (`color-mix(in srgb, var(--purple) 9%, var(--bg))`). Un token nuevo se define en los tres sitios: `:root`, `@media (prefers-color-scheme: light)` y `:root[data-theme="light"]`.
 
-**The Readable Both Ways Rule.** El texto se tiene que leer bien en Dracula y en Alucard por igual: al menos 4.5:1 para texto normal. **Deuda conocida:** en oscuro, Comment Slate (#6272a4) solo da 3.0:1 sobre Night Canvas, y hoy se usa en texto pequeño (kickers, fechas, metadatos). Hasta que se corrija, no lo uses para nada que el lector tenga que leer para entender o actuar.
+**The Readable Both Ways Rule.** El texto se tiene que leer bien en Dracula y en Alucard por igual: al menos 4.5:1 para texto normal. Por eso Comment Slate es más claro que el comentario original de Dracula (#6272a4, que daba 3.0:1): da 4.55:1 sobre Night Canvas, 5.05:1 sobre Night Well y 5.55:1 sobre Night Abyss, y sigue un escalón por debajo de Dusk Ink. Cualquier tinta o fondo nuevo se comprueba contra los tres fondos de cada tema.
 
 ## Typography
 
@@ -316,6 +316,6 @@ Un `<dialog>` nativo de hasta 40rem sobre Night Well, con radio de 14px y el Dia
 - **Don't** usar los acentos de Dracula sin control: nunca más de tres acentos con peso en una misma vista, y nunca un acento solo como decoración.
 - **Don't** introducir colores o contrastes que desentonen con Dracula/Alucard: nada de hex sueltos, neones ajenos a la paleta ni grises fríos fuera de los tokens.
 - **Don't** convertir la terminal en disfraz: sin texto verde fosforito en párrafos, sin efectos CRT, scanlines ni cursores parpadeando. Signal Green solo va en fragmentos cortos (código inline, prompt, cifras).
-- **Don't** usar Comment Slate para texto que el lector necesite (ver The Readable Both Ways Rule).
+- **Don't** oscurecer Comment Slate hacia el #6272a4 original de Dracula: bajaría de 4.5:1 (ver The Readable Both Ways Rule).
 - **Don't** usar sombras para separar superficies en reposo.
 - **Don't** poner más de un botón relleno por pantalla.
