@@ -282,6 +282,7 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 ### Navigation
 
 - **Site bar:** alineada a la columna, en Fira Code a 0.85rem. La marca `~/flaviooria` va en Signal Green y lleva a la portada; solo hay tres secciones (Posts, Tags, Sobre mí) más buscar y tema. Los enlaces van en Dusk Ink y pasan a tinta principal al pasar el ratón. La sección actual (`aria-current="page"`) va en tinta principal con subrayado rosa de 2px. Por debajo de 600px la nav baja a una segunda línea, y en táctil cada control tiene 44px de alto. El RSS no va en la barra: vive en el pie y en el `<head>`.
+- **Pie:** en Fira Code a 0.78rem y Comment Slate. A la izquierda `// © año Flavio Oria` y a la derecha los perfiles (LinkedIn, GitHub, X) y el RSS como enlaces cian. Por debajo del ancho de la columna, los enlaces bajan a una segunda línea.
 - **Índice del post:** sobre Night Abyss, con enlaces en Dusk Ink, capítulos en tinta principal 500 y subsecciones sangradas a 0.82rem. La sección activa va en rosa con borde izquierdo y fondo Night Well. En móvil se convierte en un cajón lateral.
 
 ### Code block (signature)

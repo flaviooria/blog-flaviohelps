@@ -1,8 +1,18 @@
 ---
-import { SITE_AUTHOR } from "../consts";
+import { profile } from "../data/profile";
 ---
 
 <footer class="site-foot">
-  // © {new Date().getFullYear()} Designed by {SITE_AUTHOR} · hecho con ❤️ y
-  mucho cariño de tu amigo Flavio.
+  <span>
+    // © {new Date().getFullYear()} {profile.name}
+  </span>
+  <ul aria-label="Perfiles y RSS">
+    {profile.links.map((l) => (
+      <li>
+        <a href={l.href} rel={l.label === "RSS" ? undefined : "me"}>
+          {l.label}
+        </a>
+      </li>
+    ))}
+  </ul>
 </footer>

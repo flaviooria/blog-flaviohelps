@@ -1040,9 +1040,26 @@ footer.site-foot {
   max-width: 50rem;
   margin: 0 auto;
   padding: 2rem 0 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
   font-family: var(--mono);
   font-size: 0.78rem;
   color: var(--comment);
+}
+
+footer.site-foot ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+footer.site-foot a {
+  text-decoration: none;
 }
 
 .post-list > li > ul.stack {
@@ -1464,36 +1481,52 @@ a.tile-featured:hover h2 {
   gap: 0.45rem;
 }
 
+/* Autor: nombre (a Sobre mí), rol y perfiles, justo bajo la entradilla */
 .home-author {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
-  margin-top: 2rem;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--comment);
-  text-decoration: none;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
 }
 
 .home-author img {
-  width: 32px;
-  height: 32px;
+  flex: none;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--line);
+  background: var(--bg-deep);
 }
 
-.home-author b {
+.home-author .name {
+  font-weight: 600;
   color: var(--fg);
-  font-weight: 500;
+  text-decoration: none;
 }
 
-.home-author .go {
-  color: var(--cyan);
-}
-
-.home-author:hover .go {
+.home-author .name:hover {
   color: var(--pink);
+}
+
+.home-author .author-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.6rem;
+  margin: 0.15rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.home-author .author-meta a {
+  text-decoration: none;
+}
+
+/* Separador al final: si la línea parte, no empieza con "·" */
+.home-author .author-meta > :not(:last-child)::after {
+  content: "·";
+  margin-left: 0.6rem;
+  color: var(--comment);
 }
 
 .home-section {

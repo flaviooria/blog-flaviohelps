@@ -7,7 +7,6 @@ import Image from "astro/components/Image.astro";
 import Bot from "@lucide/astro/icons/bot";
 import Server from "@lucide/astro/icons/server";
 import Container from "@lucide/astro/icons/container";
-import Rss from "@lucide/astro/icons/rss";
 import { SITE_DESCRIPTION } from "../consts";
 import { blog } from "../data/blog";
 import { profile } from "../data/profile";
@@ -20,6 +19,10 @@ const latest = posts.slice(0, 5);
 // Los chips de cada tema enlazan a su tag si ya hay posts con él.
 const tags = new Set(posts.flatMap((p) => p.data.tags.map(tagSlug)));
 const [role] = profile.headline.split("|").map((s) => s.trim());
+// Perfiles profesionales junto al nombre: lo primero que busca un reclutador.
+const profiles = profile.links.filter((l) =>
+  ["GitHub", "LinkedIn"].includes(l.label),
+);
 ---
 
 <BaseLayout description={SITE_DESCRIPTION}>
@@ -32,22 +35,27 @@ const [role] = profile.headline.split("|").map((s) => s.trim());
       </p>
       <h1>{blog.title}</h1>
       <p class="lede">{blog.intro}</p>
+      <div class="home-author">
+        <Image src={profile.avatar} alt="" width="44" height="44" />
+        <div>
+          <a class="name" href="/about-me/">
+            {profile.name}
+          </a>
+          <p class="author-meta">
+            <span>{role}</span>
+            {profiles.map((l) => (
+              <a href={l.href} rel="me">
+                {l.label}
+              </a>
+            ))}
+          </p>
+        </div>
+      </div>
       <div class="cta">
         <a class="btn primary" href="/blog/">
           Leer el blog →
         </a>
-        <a class="btn" href="/rss.xml">
-          <Rss size={14} aria-hidden="true" />
-          RSS
-        </a>
       </div>
-      <a class="home-author" href="/about-me/">
-        <Image src={profile.avatar} alt="" width="32" height="32" />
-        <span>
-          por <b>{profile.name}</b> · {role}
-        </span>
-        <span class="go">sobre mí →</span>
-      </a>
     </header>
 
     <section class="home-section" aria-labelledby="topics-title">

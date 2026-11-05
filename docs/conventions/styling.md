@@ -38,7 +38,8 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 ## Portada
 
-- `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con CTAs y línea de autor (`.home-author`), y secciones `.home-section` con kicker `// …`.
+- `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con prompt, título, entradilla, línea de autor (`.home-author`: avatar de 44px, nombre que enlaza a `/about-me/`, rol y perfiles de GitHub y LinkedIn) y un único CTA. Después vienen las secciones `.home-section` con kicker `// …`.
+- El pie (`SiteFoot`) muestra `// © año nombre` y los enlaces de `profile.links` (perfiles y RSS). Es el único sitio visible del RSS, que también se anuncia en el `<head>`.
 - Temas en `.home-topics`: 3 `.tile` con icono Lucide en `--purple` → 1 columna por debajo de 760px. Los chips enlazan al tag solo si ya existe.
 - Los chips sin enlace (`.chips li` sin `a`) van en `--cyan`.
 
