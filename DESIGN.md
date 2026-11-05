@@ -178,7 +178,7 @@ Una paleta Dracula disciplinada: un lienzo nocturno casi neutro y siete acentos,
 ### Secondary
 
 - **Cursor Pink** (`cursor-pink` / `alucard-pink`): el color de "estás aquí". Contorno de foco, hover de enlaces y títulos, sección activa del índice, resultado seleccionado del buscador, viñetas de lista y el cursor del input de búsqueda.
-- **Link Cyan** (`link-cyan` / `alucard-cyan`): enlaces en reposo, cabeceras de tabla, chips y las etiquetas `dt` del stack.
+- **Link Cyan** (`link-cyan` / `alucard-cyan`): enlaces en reposo, cabeceras de tabla, chips enlazados, etiquetas de los posts y las etiquetas `dt` del stack.
 
 ### Tertiary
 
@@ -283,8 +283,10 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 
 ### Chips
 
-- **Style:** píldora, borde de 1px en Night Rule, Fira Code a 0.75rem en Link Cyan y padding 0.25rem 0.65rem.
-- **State:** si enlazan a una etiqueta existente, al pasar el ratón el borde y el texto pasan a Cursor Pink. Si no enlazan (intereses, stack), se quedan estáticos en cian.
+- **Style:** píldora, Fira Code a 0.75rem y padding 0.25rem 0.65rem.
+- **Enlazado** (a una etiqueta existente): texto en Link Cyan y borde de 1px sólido en cian al 45% sobre Night Rule. Al pasar el ratón, borde y texto pasan a Cursor Pink.
+- **Estático** (intereses, stack de los temas): texto en Dusk Ink y borde de 1px discontinuo en Night Rule. No reacciona al ratón: así no parece clicable.
+- **Etiquetas de un post** (bitácora, `/blog/`, etiquetas): no son chips, sino una línea de enlaces en mono 0.8rem y Link Cyan, que pasan a Cursor Pink.
 
 ### Cards / Containers (tiles)
 

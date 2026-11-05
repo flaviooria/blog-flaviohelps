@@ -25,7 +25,7 @@ const { posts } = Astro.props;
           <p>{post.data.description}</p>
         </a>
         {post.data.tags.length > 0 && (
-          <ul class="stack small" aria-label="Etiquetas">
+          <ul class="post-tags" aria-label="Etiquetas">
             {post.data.tags.map((tag) => (
               <li>
                 <a href={`/tags/${tagSlug(tag)}/`}>{tag}</a>

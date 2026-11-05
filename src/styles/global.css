@@ -1092,8 +1092,10 @@ footer.site-foot a {
   text-decoration: none;
 }
 
-.post-list > li > ul.stack {
+/* Etiquetas en línea bajo la tarjeta del post (/blog/ y etiquetas) */
+.post-list > li > .post-tags {
   margin: -0.75rem 0 1.75rem;
+  font: 400 0.8rem var(--mono);
 }
 
 /* El blockquote original queda dentro del callout */
@@ -1467,7 +1469,8 @@ a.tile-featured:hover h2 {
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--cyan);
-  border: 1px solid var(--line);
+  /* borde tintado: se distingue del chip estático, que no es clicable */
+  border: 1px solid color-mix(in srgb, var(--cyan) 45%, var(--line));
   border-radius: 999px;
   padding: 0.25rem 0.65rem;
   text-decoration: none;
@@ -1482,12 +1485,12 @@ a.tile-featured:hover h2 {
   color: var(--comment);
 }
 
-/* Chip sin enlace (intereses, stack de los temas) */
+/* Chip sin enlace (intereses, stack de los temas): tinta apagada y borde discontinuo */
 .chips li:not(:has(a)) {
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--cyan);
-  border: 1px solid var(--line);
+  color: var(--muted);
+  border: 1px dashed var(--line);
   border-radius: 999px;
   padding: 0.25rem 0.65rem;
 }
@@ -1622,7 +1625,7 @@ a.tile-featured:hover h2 {
 }
 
 .log-meta,
-.log-tags {
+.post-tags {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -1643,12 +1646,13 @@ a.tile-featured:hover h2 {
   color: var(--comment);
 }
 
-.log-tags a {
+/* Etiquetas de un post (bitácora y listado): enlaces en cian, en línea */
+.post-tags a {
   color: var(--cyan);
   text-decoration: none;
 }
 
-.log-tags a:hover {
+.post-tags a:hover {
   color: var(--pink);
 }
 

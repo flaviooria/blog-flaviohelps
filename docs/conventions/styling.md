@@ -43,7 +43,8 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Orden: primero `// bitácora` y luego `// de qué va`. La portada es una bitácora con entradas fechadas.
 - Bitácora (`PostLog`, `.post-log`): una fila por post (los 6 últimos), con la fecha `AAAA-MM-DD` en mono `--comment` en una columna de 6.5rem y, al lado, el título `h3` en `--purple`, la descripción y una línea de metadatos en mono (`min de lectura · capítulos · etiquetas`, con las etiquetas en `--cyan`). Por debajo de 600px la fecha pasa encima. `ls ~/blog →` solo aparece si hay más posts que los mostrados.
 - Temas en `.home-topics`: filas compactas sin tiles (icono Lucide de 18px en `--purple` delante del título, en una columna de 10rem y, al lado, texto y chips), que pasan a 1 columna por debajo de 600px. Los chips enlazan al tag solo si ya existe.
-- Los chips sin enlace (`.chips li` sin `a`) van en `--cyan`.
+- Chips (`.chips`): los enlazados van en `--cyan` con borde sólido tintado de cian; los que no enlazan (`.chips li` sin `a`) van en `--muted` con borde discontinuo, para que no parezcan clicables.
+- Etiquetas de un post (`.post-tags`, en `PostLog` y `PostList`): una línea de enlaces en mono 0.8rem y `--cyan`, no una columna.
 
 ## Sobre mí (bento)
 
