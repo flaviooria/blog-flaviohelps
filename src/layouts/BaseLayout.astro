@@ -53,23 +53,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <slot />
     <Search />
     <script>
-      document
-        .querySelectorAll<HTMLButtonElement>(".theme-toggle")
-        .forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const root = document.documentElement;
-            const current =
-              root.dataset.theme ??
-              (matchMedia("(prefers-color-scheme: light)").matches
-                ? "light"
-                : "dark");
-            const next = current === "light" ? "dark" : "light";
-            root.dataset.theme = next;
-            try {
-              localStorage.setItem("theme", next);
-            } catch (e) {}
-          });
+      const root = document.documentElement;
+      const toggles =
+        document.querySelectorAll<HTMLButtonElement>(".theme-toggle");
+      const currentTheme = () =>
+        root.dataset.theme ??
+        (matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark");
+      // El nombre accesible dice a qué tema se cambia, no solo "cambiar tema".
+      const label = () => {
+        const text =
+          currentTheme() === "light"
+            ? "Cambiar a tema oscuro"
+            : "Cambiar a tema claro";
+        toggles.forEach((btn) => {
+          btn.setAttribute("aria-label", text);
+          btn.title = text;
         });
+      };
+      toggles.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const next = currentTheme() === "light" ? "dark" : "light";
+          root.dataset.theme = next;
+          try {
+            localStorage.setItem("theme", next);
+          } catch (e) {}
+          label();
+        });
+      });
+      matchMedia("(prefers-color-scheme: light)").addEventListener(
+        "change",
+        label,
+      );
+      label();
     </script>
   </body>
 </html>

@@ -53,9 +53,24 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.65
+  label-xs:
+    fontFamily: "Fira Code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    fontSize: "0.72rem"
+    fontWeight: 400
+    lineHeight: 1.4
+  label-sm:
+    fontFamily: "Fira Code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 400
+    lineHeight: 1.4
   label:
     fontFamily: "Fira Code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
     fontSize: "0.8rem"
+    fontWeight: 400
+    lineHeight: 1.4
+  label-md:
+    fontFamily: "Fira Code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    fontSize: "0.85rem"
     fontWeight: 400
     lineHeight: 1.4
   code:
@@ -204,7 +219,12 @@ Una paleta Dracula disciplinada: un lienzo nocturno casi neutro y siete acentos,
 - **Headline** (700, 1.75rem, 1.2): los `#` de un post, en Dracula Violet y precedidos de `#` en mono Comment Slate.
 - **Title** (600, 1.3rem, 1.3): los `##` de un post, en tinta principal y precedidos de `##`. Los títulos de tarjeta de post usan 1.4rem/700 en violeta.
 - **Body** (400, 1rem, 1.65): párrafos limitados a 72ch en los posts y a 60–68ch en entradillas y resúmenes.
-- **Label** (Fira Code 400–500, 0.72–0.85rem): prompts, kickers `// …`, fechas, chips, botones de la barra y del buscador. Siempre en minúsculas, sin tracking añadido.
+- **Label** (Fira Code 400–500, sin tracking añadido y siempre en minúsculas), en cuatro pasos:
+  - `label-xs` (0.72rem): rutas de resultados del buscador, lenguaje de los proyectos.
+  - `label-sm` (0.75rem): kickers de tile, chips, cabeceras de bloque de código y de callout, controles de la barra.
+  - `label` (0.8rem): fechas, kickers de sección, línea de autor.
+  - `label-md` (0.85rem): prompts del hero, barra del sitio.
+  - Los valores intermedios que quedan en el CSS (0.7, 0.78 y 0.82rem) son deriva y deben converger al paso más cercano.
 - **Code** (Fira Code 400, 0.84rem, 1.6, ligaduras contextuales): bloques de código. El código inline va al 0.86em del texto que lo rodea.
 
 ### Named Rules

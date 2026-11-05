@@ -10,7 +10,12 @@ interface Props {
 const { shortcut = false } = Astro.props;
 ---
 
-<button class="search-toggle" type="button" aria-label="Buscar (Ctrl+K)">
+<button
+  class="search-toggle"
+  type="button"
+  aria-label="Buscar"
+  aria-keyshortcuts="Meta+K Control+K /"
+>
   <SearchIcon size={14} aria-hidden="true" />
   Buscar
   {shortcut && <kbd>⌘K</kbd>}

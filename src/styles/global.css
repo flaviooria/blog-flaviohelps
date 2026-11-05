@@ -180,6 +180,24 @@ main {
   padding: 0 clamp(1.25rem, 5vw, 4rem) 6rem;
 }
 
+/* En las páginas simples el margen lateral ya lo pone .page */
+.page > main {
+  padding: 0;
+}
+
+/* Solo para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .content {
   max-width: 50rem;
   margin: 0 auto;
@@ -981,16 +999,18 @@ header.hero .meta {
   color: var(--comment);
 }
 
-.post-card h2 {
+/* h2 en /blog/ y etiquetas; h3 bajo un título de sección (portada) */
+.post-card :is(h2, h3) {
   font-size: 1.4rem;
   line-height: 1.25;
   margin: 0.35rem 0 0.5rem;
   color: var(--purple);
   font-weight: 700;
   letter-spacing: -0.01em;
+  overflow-wrap: break-word;
 }
 
-.post-card:hover h2 {
+.post-card:hover :is(h2, h3) {
   color: var(--pink);
 }
 
