@@ -37,7 +37,11 @@ const profiles = profile.links.filter((l) =>
         <p class="path">
           <b>~/blog</b> $ cat README.md
         </p>
-        <h1>{blog.title}</h1>
+        {/* Quién escribe, en el H1: lo primero que lee un reclutador. */}
+        <h1>
+          Hola, soy <span class="who">{profile.name}</span>, te doy la
+          bienvenida. {blog.title}
+        </h1>
         <p class="lede">{blog.intro}</p>
         <div class="home-author">
           <Image
@@ -49,16 +53,14 @@ const profiles = profile.links.filter((l) =>
             loading="eager"
           />
           <div>
-            <a class="name" href="/about-me/">
-              {profile.name}
-            </a>
+            <p class="role">{role}</p>
             <p class="author-meta">
-              <span>{role}</span>
               {profiles.map((l) => (
                 <a href={l.href} rel="me">
                   {l.label}
                 </a>
               ))}
+              <a href="/about-me/">sobre mí</a>
             </p>
           </div>
         </div>

@@ -2,7 +2,8 @@
 // `icon` es el nombre de un icono de Lucide importado en src/pages/index.astro.
 
 export const blog = {
-  title: "Construir, desplegar y contarlo",
+  // Segunda frase del H1, tras "Hola, soy <nombre>, te doy la bienvenida."
+  title: "Aquí construyo, despliego y te lo cuento.",
   intro:
     "Un cuaderno de bitácora sobre lo que monto, rompo y arreglo: backends en Python, agentes de IA e infraestructura propia. Guías prácticas, decisiones con sus pros y contras, y side projects que acaban (o no) en producción.",
   topics: [

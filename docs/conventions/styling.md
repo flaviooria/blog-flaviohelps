@@ -38,7 +38,7 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 ## Portada
 
-- `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con prompt, título, entradilla, línea de autor (`.home-author`: avatar de 44px, nombre que enlaza a `/about-me/`, rol y perfiles de GitHub y LinkedIn) y un único CTA. Después vienen las secciones `.home-section` con kicker `// …`.
+- `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con prompt, H1 con el nombre ("Hola, soy `.who`, te doy la bienvenida." + `blog.title`; el nombre en `--purple`), entradilla, línea de autor (`.home-author`: avatar de 44px, rol en negrita y debajo GitHub · LinkedIn · sobre mí) y un único CTA. Después vienen las secciones `.home-section` con kicker `// …`.
 - El pie (`SiteFoot`) muestra `// © año nombre` y los enlaces de `profile.links` (perfiles y RSS). Es el único sitio visible del RSS, que también se anuncia en el `<head>`.
 - Orden: primero `// bitácora` y luego `// de qué va`. La portada es una bitácora con entradas fechadas.
 - Bitácora (`PostLog`, `.post-log`): una fila por post (los 6 últimos), con la fecha `AAAA-MM-DD` en mono `--comment` en una columna de 6.5rem y, al lado, el título `h3` en `--purple`, la descripción y una línea de metadatos en mono (`min de lectura · capítulos · etiquetas`, con las etiquetas en `--cyan`). Por debajo de 600px la fecha pasa encima. `ls ~/blog →` solo aparece si hay más posts que los mostrados.

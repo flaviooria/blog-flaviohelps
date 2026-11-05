@@ -1530,14 +1530,15 @@ a.tile-featured:hover h2 {
   background: var(--bg-deep);
 }
 
-.home-author .name {
-  font-weight: 600;
-  color: var(--fg);
-  text-decoration: none;
+/* El nombre en el H1 lleva la voz de la marca */
+.home-hero h1 .who {
+  color: var(--purple);
 }
 
-.home-author .name:hover {
-  color: var(--pink);
+.home-author .role {
+  margin: 0;
+  font-weight: 600;
+  color: var(--fg);
 }
 
 .home-author .author-meta {
