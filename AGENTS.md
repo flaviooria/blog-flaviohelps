@@ -39,7 +39,7 @@ docs/
 │   ├── content.md                            # Frontmatter de un post, títulos #/## para el índice, callouts [!NOTE], referencias, badges y task lists
 │   └── styling.md                            # Paleta Dracula/Alucard como tokens CSS, tema claro/oscuro, tipografía, bento y responsive
 └── workflow/
-    ├── development.md                        # Comandos (dev en background, build, format), cómo verificar un cambio y variables de entorno
+    ├── development.md                        # Comandos (dev en background, build, format), cómo verificar un cambio, caché de contenido de los plugins y variables de entorno
     └── docs-and-adrs.md                      # Cuándo escribir o actualizar un doc o un ADR, numeración, estados y cómo se regenera el árbol de AGENTS.md
 ```
 

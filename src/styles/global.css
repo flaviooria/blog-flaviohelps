@@ -481,10 +481,13 @@ td:first-child {
   font-weight: 500;
 }
 
-/* Callouts: caja con borde fino y cabecera "// nota" | "// aviso",
-   como un bloque de código; --tone es el color del tipo */
+/* Callouts: caja con borde fino y cabecera con icono y "// nota", "// info",
+   "// aviso", "// precaución" o "// error", como un bloque de código;
+   --tone es el color del tipo */
 .callout {
   --tone: var(--purple);
+  /* tinta del rótulo y del strong: el tono, salvo donde no llega a 4.5:1 */
+  --ink: var(--tone);
   margin: 1.5rem 0;
   border: 1px solid color-mix(in srgb, var(--tone) 45%, var(--line));
   border-radius: 8px;
@@ -492,22 +495,46 @@ td:first-child {
   overflow: hidden;
 }
 
+.callout.info {
+  --tone: var(--cyan);
+}
+
 .callout.warn {
   --tone: var(--orange);
 }
 
+/* Amarillo (claro) y rojo (los dos temas) se acercan a la tinta principal
+   para pasar AA sobre el fondo tintado del callout */
+.callout.caution {
+  --tone: var(--yellow);
+  --ink: color-mix(in srgb, var(--tone) 85%, var(--fg));
+}
+
+.callout.error {
+  --tone: var(--red);
+  --ink: color-mix(in srgb, var(--tone) 85%, var(--fg));
+}
+
 .callout .callout-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   max-width: none;
   margin: 0;
   padding: 0.35rem 1.1rem;
   border-bottom: 1px dashed color-mix(in srgb, var(--tone) 35%, var(--line));
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--tone);
+  color: var(--ink);
 }
 
-.callout .callout-head span {
+/* El icono y el rótulo van en el color del tipo; el "// " en Comment Slate */
+.callout .callout-label span {
   color: var(--comment);
+}
+
+.callout .callout-icon {
+  flex: none;
 }
 
 .callout-body {
@@ -519,7 +546,7 @@ td:first-child {
 }
 
 .callout strong {
-  color: var(--tone);
+  color: var(--ink);
 }
 
 /* References */
@@ -608,6 +635,58 @@ p.ref strong {
   cursor: pointer;
 }
 
+/* Volver arriba: abajo a la derecha, aparece al bajar (ver BackToTop) */
+.to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+  z-index: 25;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--muted);
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.2s,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.2s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.to-top:hover {
+  color: var(--fg);
+  border-color: var(--purple);
+}
+
+/* Donde está el botón flotante del índice, va encima de él */
+@media (max-width: 900px), (hover: none) {
+  body:has(.toc-toggle) .to-top {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 4.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top {
+    transform: none;
+  }
+}
+
 /* Escritorio con ratón: pestaña en el borde, se abre al pasar el ratón o
    al enfocar, y se puede fijar como columna (html[data-toc="pinned"]) */
 @media (min-width: 901px) and (hover: hover) {
@@ -684,6 +763,7 @@ p.ref strong {
 @media print {
   .toc-dock,
   .toc-toggle,
+  .to-top,
   .copy {
     display: none;
   }

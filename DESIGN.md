@@ -199,7 +199,7 @@ Una paleta Dracula disciplinada: un lienzo nocturno casi neutro y siete acentos,
 
 ### Named Rules
 
-**The One Role Rule.** Cada acento significa una sola cosa (violeta = marca, rosa = foco/estado activo, cian = enlace, verde = salida de la shell, naranja = énfasis/aviso, amarillo = cadena, rojo = error). Si un elemento nuevo no encaja en uno de esos papeles, va en tinta neutra.
+**The One Role Rule.** Cada acento significa una sola cosa (violeta = marca, rosa = foco/estado activo, cian = enlace (y el callout de info), verde = salida de la shell, naranja = énfasis/aviso, amarillo = cadena (y el callout de precaución), rojo = error). Si un elemento nuevo no encaja en uno de esos papeles, va en tinta neutra.
 
 **The Tokens-Only Rule.** Ningún hex fuera de `:root`. Los fondos tintados se mezclan desde los tokens (`color-mix(in srgb, var(--purple) 9%, var(--bg))`). Un token nuevo se define en los tres sitios: `:root`, `@media (prefers-color-scheme: light)` y `:root[data-theme="light"]`.
 
@@ -313,12 +313,17 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 
 Una ventana de terminal en miniatura: cabecera en Night Well con el lenguaje en mono Comment Slate a la izquierda y el botón "copiar" a la derecha, y cuerpo en Night Abyss con Shiki en un tema `css-variables` mapeado a la paleta (keyword rosa, función verde, cadena amarilla, constante violeta, parámetro naranja, comentario Comment Slate). Así el resaltado cambia con el tema claro/oscuro.
 
+### Volver arriba
+
+- Botón circular de 2.75rem (44px) abajo a la derecha, en Night Abyss con borde de 1px en Night Rule y flecha de Lucide de 18px en Dusk Ink; al pasar el ratón, tinta principal y borde violeta. Aparece al bajar 0.6 pantallas (fundido y 0.5rem de desplazamiento, sin desplazamiento con reduced-motion) y lleva al inicio con scroll suave. Donde está el botón flotante del índice (móvil y táctil), se apila encima de él.
+
 ### Callouts
 
 Primos de los bloques de código: una caja con cabecera, no una franja lateral. El plugin de markdown les añade la cabecera en la segunda pasada.
 
 - **Nota:** borde de 1px (violeta al 45% sobre Night Rule), radio de 8px y fondo violeta al 7% sobre el canvas. La cabecera `// nota` va en Fira Code a 0.75rem y en violeta (el `//` en Comment Slate y oculto al lector de pantalla), separada del cuerpo por una línea discontinua. El `strong` va en violeta.
-- **Aviso:** lo mismo en Ember Orange, con cabecera `// aviso`. El color del tipo vive en la variable `--tone` del callout.
+- **Tipos:** nota (violeta), info (cian), aviso (Ember Orange; también el `>` sin marca), precaución (amarillo) y error (rojo). El color del tipo vive en `--tone`; el rótulo y el `strong` usan `--ink`, que es el tono salvo en precaución y error, donde se mezcla al 85% con la tinta principal para pasar 4.5:1 en los dos temas.
+- **Icono:** cada cabecera empieza con un icono de Lucide de 14px en el color del tipo (lápiz, círculo con i, triángulo con !, círculo con !, octógono con aspa). Lo inserta el plugin como SVG en línea, oculto al lector de pantalla; el rótulo ya dice el tipo.
 - **Referencias:** párrafo a 0.85rem en Dusk Ink bajo una línea discontinua.
 
 ### Search dialog (signature)

@@ -1,0 +1,50 @@
+---
+// Botón flotante "volver arriba": aparece al bajar algo más de media pantalla
+// y lleva al inicio (sin animación si el sistema pide reducir movimiento).
+import ArrowUp from "@lucide/astro/icons/arrow-up";
+---
+
+<button
+  class="to-top"
+  id="toTop"
+  type="button"
+  aria-label="Volver arriba"
+  title="Volver arriba"
+>
+  <ArrowUp size={18} aria-hidden="true" />
+</button>
+
+<script>
+  const btn = document.getElementById("toTop")!;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    btn.classList.toggle(
+      "is-visible",
+      window.scrollY > window.innerHeight * 0.6,
+    );
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true },
+  );
+  update();
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduce.matches ? "auto" : "smooth" });
+    // El botón se oculta arriba: el foco pasa al título de la página
+    const h1 = document.querySelector<HTMLElement>("main h1");
+    if (h1) {
+      h1.setAttribute("tabindex", "-1");
+      h1.focus({ preventScroll: true });
+    }
+  });
+</script>

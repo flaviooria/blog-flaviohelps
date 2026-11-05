@@ -35,15 +35,18 @@ draft: false # true = solo visible en npm run dev
 
 Los genera `src/plugins/dracula-markdown.mjs`:
 
-| Escribes                                              | Sale                                           |
-| ----------------------------------------------------- | ---------------------------------------------- |
-| `> texto`                                             | Callout de **aviso** (naranja, `// aviso`)     |
-| `> [!NOTE] texto` (también `TIP`, `INFO`)             | Callout de **nota** (morado, `// nota`)        |
-| `**Referencia:** [enlace](https://…)`                 | Párrafo de referencia, separado y gris         |
-| ` ```bash `                                           | Bloque con cabecera de lenguaje y botón Copiar |
-| Una tabla                                             | Tabla con scroll horizontal                    |
-| `- [ ] tarea`                                         | Casilla marcable                               |
-| `<span class="badge ok\|partial\|check">Texto</span>` | Badge de estado (verde / naranja / amarillo)   |
+| Escribes                                              | Sale                                                                 |
+| ----------------------------------------------------- | -------------------------------------------------------------------- |
+| `> texto` o `> [!WARNING]` (también `WARN`)           | Callout de **aviso** (naranja, triángulo, `// aviso`)                |
+| `> [!NOTE] texto` (también `TIP`)                     | Callout de **nota** (morado, lápiz, `// nota`)                       |
+| `> [!INFO] texto` (también `IMPORTANT`)               | Callout de **info** (cian, círculo con i, `// info`)                 |
+| `> [!CAUTION] texto`                                  | Callout de **precaución** (amarillo, círculo con !, `// precaución`) |
+| `> [!ERROR] texto` (también `DANGER`)                 | Callout de **error** (rojo, octógono con aspa, `// error`)           |
+| `**Referencia:** [enlace](https://…)`                 | Párrafo de referencia, separado y gris                               |
+| ` ```bash `                                           | Bloque con cabecera de lenguaje y botón Copiar                       |
+| Una tabla                                             | Tabla con scroll horizontal                                          |
+| `- [ ] tarea`                                         | Casilla marcable                                                     |
+| `<span class="badge ok\|partial\|check">Texto</span>` | Badge de estado (verde / naranja / amarillo)                         |
 
 - Indica siempre el lenguaje del bloque de código; sin él, la cabecera dice `text`.
 - Los enlaces `http(s)` se abren en una pestaña nueva automáticamente.

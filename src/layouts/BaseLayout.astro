@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Search from "../components/Search.astro";
+import BackToTop from "../components/BackToTop.astro";
 
 interface Props {
   title?: string;
@@ -51,6 +52,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+    <BackToTop />
     <Search />
     <script>
       const root = document.documentElement;

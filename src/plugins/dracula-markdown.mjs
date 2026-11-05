@@ -12,12 +12,106 @@ const el = (tagName, properties = {}, children = []) => ({
 const txt = (value) => ({ type: "text", value });
 const cls = (node) => [].concat(node.properties?.className ?? []);
 
-const NOTE_MARKER = /^\s*\[!(NOTE|WARN|WARNING|TIP|INFO|CAUTION)\]\s*/i;
+const CALLOUT_MARKER =
+  /^\s*\[!(NOTE|TIP|INFO|IMPORTANT|WARN|WARNING|CAUTION|ERROR|DANGER)\]\s*/i;
+
+// Marca de GitHub -> tipo de callout. Sin marca, el callout es un aviso.
+const CALLOUT_KIND = {
+  NOTE: "note",
+  TIP: "note",
+  INFO: "info",
+  IMPORTANT: "info",
+  WARN: "warn",
+  WARNING: "warn",
+  CAUTION: "caution",
+  ERROR: "error",
+  DANGER: "error",
+};
+
+// Rótulo e icono (trazos de Lucide, 24×24) de cada tipo. Se copian aquí
+// porque el plugin corre en build y no puede usar los componentes de Astro.
+const CALLOUTS = {
+  note: {
+    label: "nota",
+    icon: [
+      ["path", { d: "M13 21h8" }],
+      ["path", { d: "m15 5 4 4" }],
+      [
+        "path",
+        {
+          d: "M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z",
+        },
+      ],
+    ], // pencil-line
+  },
+  info: {
+    label: "info",
+    icon: [
+      ["circle", { cx: "12", cy: "12", r: "10" }],
+      ["path", { d: "M12 16v-4" }],
+      ["path", { d: "M12 8h.01" }],
+    ], // info
+  },
+  warn: {
+    label: "aviso",
+    icon: [
+      [
+        "path",
+        {
+          d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3",
+        },
+      ],
+      ["path", { d: "M12 9v4" }],
+      ["path", { d: "M12 17h.01" }],
+    ], // triangle-exclamation-point
+  },
+  caution: {
+    label: "precaución",
+    icon: [
+      ["circle", { cx: "12", cy: "12", r: "10" }],
+      ["path", { d: "M12 8v4" }],
+      ["path", { d: "M12 16h.01" }],
+    ], // circle-exclamation-point
+  },
+  error: {
+    label: "error",
+    icon: [
+      ["path", { d: "m15 9-6 6" }],
+      [
+        "path",
+        {
+          d: "M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z",
+        },
+      ],
+      ["path", { d: "m9 9 6 6" }],
+    ], // octagon-x
+  },
+};
+
+const svgIcon = (nodes) =>
+  el(
+    "svg",
+    {
+      className: ["callout-icon"],
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "14",
+      height: "14",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      ariaHidden: "true",
+      focusable: "false",
+    },
+    nodes.map(([tag, attrs]) => el(tag, attrs)),
+  );
 
 export const draculaMarkdown = defineHastPlugin({
   name: "dracula-markdown",
   element: [
-    // > [!NOTE] ...  -> <aside class="callout note">; resto -> callout warn
+    // > [!NOTE] ... -> <aside class="callout note"> (ver CALLOUT_KIND); sin marca -> warn
     {
       filter: ["blockquote"],
       visit(node, ctx) {
@@ -28,11 +122,10 @@ export const draculaMarkdown = defineHastPlugin({
         const firstText = firstP?.children?.[0];
         const m =
           firstText?.type === "text"
-            ? firstText.value.match(NOTE_MARKER)
+            ? firstText.value.match(CALLOUT_MARKER)
             : null;
         if (m) {
-          const t = m[1].toUpperCase();
-          kind = t === "NOTE" || t === "TIP" || t === "INFO" ? "note" : "warn";
+          kind = CALLOUT_KIND[m[1].toUpperCase()];
           const rest = firstText.value.slice(m[0].length);
           if (rest) ctx.replaceNode(firstText, txt(rest));
           else ctx.removeNode(firstText);
@@ -121,8 +214,8 @@ const codeHeader = defineHastPlugin({
   },
 });
 
-// 2ª pasada: cabecera "// nota" o "// aviso" dentro de cada aside.callout,
-// con el mismo aire que la cabecera de los bloques de código.
+// 2ª pasada: cabecera con icono y "// nota", "// aviso"… dentro de cada
+// aside.callout, con el mismo aire que la cabecera de los bloques de código.
 const calloutHeader = defineHastPlugin({
   name: "dracula-callout-header",
   element: {
@@ -130,12 +223,16 @@ const calloutHeader = defineHastPlugin({
     visit(node, ctx) {
       const kinds = cls(node);
       if (!kinds.includes("callout")) return;
-      const label = kinds.includes("note") ? "nota" : "aviso";
+      const kind = Object.keys(CALLOUTS).find((k) => kinds.includes(k));
+      const { label, icon } = CALLOUTS[kind ?? "warn"];
       ctx.prependChild(
         node,
         el("p", { className: ["callout-head"], dataPagefindIgnore: "all" }, [
-          el("span", { ariaHidden: "true" }, [txt("// ")]),
-          txt(label),
+          svgIcon(icon),
+          el("span", { className: ["callout-label"] }, [
+            el("span", { ariaHidden: "true" }, [txt("// ")]),
+            txt(label),
+          ]),
         ]),
       );
     },

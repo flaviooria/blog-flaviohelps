@@ -1,6 +1,6 @@
 ---
 title: Desarrollo y verificación
-description: Comandos (dev en background, build, format), cómo verificar un cambio y variables de entorno
+description: Comandos (dev en background, build, format), cómo verificar un cambio, caché de contenido de los plugins y variables de entorno
 ---
 
 # Desarrollo y verificación
@@ -30,7 +30,16 @@ Requiere Node ≥ 22 (`engines` en `package.json`).
 ## Buscador
 
 - La búsqueda solo funciona sobre `dist/`: `npm run build && npm run preview`. En `astro dev` el modal avisa de que no hay índice.
-- Si cambias un plugin hast y `dist/` no refleja el cambio, es la caché de contenido de Astro: `npx astro build --force` y luego `npm run build`.
+
+## Caché de contenido (plugins de markdown)
+
+Astro guarda los posts ya renderizados en `node_modules/.astro/data-store.json` y solo los vuelve a renderizar si cambia el `.md`. Si tocas `src/plugins/dracula-markdown.mjs` (callouts, bloques de código, tablas…), ni `npm run build` ni `astro dev` lo reflejan hasta que borres esa caché:
+
+```bash
+rm -f node_modules/.astro/data-store.json   # luego npm run build
+```
+
+En desarrollo, además, el plugin solo se carga al arrancar: `npx astro dev stop`, borra la caché y vuelve a lanzar `npx astro dev --background`.
 
 ## Variables de entorno
 
