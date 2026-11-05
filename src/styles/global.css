@@ -978,6 +978,14 @@ header.hero .meta a {
   text-decoration: none;
 }
 
+header.hero .meta kbd {
+  font: inherit;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 0.3rem;
+}
+
 /* /tags/: todas las tags como chips enlazados, con su nº de posts */
 .tag-cloud {
   gap: 0.5rem;

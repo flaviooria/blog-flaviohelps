@@ -40,7 +40,7 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 - `/` es una columna de 50rem como `/blog/`: `header.hero.home-hero` con prompt, H1 con el nombre ("Hola, soy `.who`, te doy la bienvenida." + `blog.title`; el nombre en `--purple`), entradilla, línea de autor (`.home-author`: avatar de 44px, rol en negrita y debajo GitHub · LinkedIn · sobre mí) y un único CTA. Después vienen las secciones `.home-section` con kicker `// …`.
 - El pie (`SiteFoot`) muestra `// © año nombre` y los enlaces de `profile.links` (perfiles y RSS). Es el único sitio visible del RSS, que también se anuncia en el `<head>`.
-- Orden: primero `// bitácora` y luego `// de qué va`. La portada es una bitácora con entradas fechadas.
+- Orden: primero `// últimos posts` y luego `// de qué va`. La portada es una bitácora con entradas fechadas.
 - Bitácora (`PostLog`, `.post-log`): una fila por post (los 6 últimos), con la fecha `AAAA-MM-DD` en mono `--comment` en una columna de 6.5rem y, al lado, el título `h3` en `--purple`, la descripción y una línea de metadatos en mono (`min de lectura · capítulos · etiquetas`, con las etiquetas en `--cyan`). Por debajo de 600px la fecha pasa encima. `ls ~/blog →` solo aparece si hay más posts que los mostrados.
 - Temas en `.home-topics`: filas compactas sin tiles (icono Lucide de 18px en `--purple` delante del título, en una columna de 10rem y, al lado, texto y chips), que pasan a 1 columna por debajo de 600px. Los chips enlazan al tag solo si ya existe.
 - Chips (`.chips`): los enlazados van en `--cyan` con borde sólido tintado de cian; los que no enlazan (`.chips li` sin `a`) van en `--muted` con borde discontinuo, para que no parezcan clicables.
@@ -49,6 +49,8 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 ## Archivo (/blog/ y /tags/<tag>/)
 
 - Ambas páginas van en `<main>` y usan la misma bitácora que la portada (`PostLog` con `byYear`): un `h2.kicker.log-year` `// 2026 · N posts` por año y debajo su `ol.post-log`, dentro de `.log-archive` (50rem). Los títulos de post son siempre `h3`.
+- Vocabulario visible: **posts** y **tags** (barra, H1, recuentos y kickers). "Bitácora" queda como metáfora en la prosa, no como rótulo.
+- `/blog/` lleva como H1 "Todo lo que he montado, roto y arreglado" y debajo una línea `.meta` con `N posts · M tags · busca con <kbd>/</kbd>` (las tags enlazan a `/tags/`). Cada página tiene su propia meta description.
 - Cada `/tags/<tag>/` lleva bajo el H1 una línea `.meta` con `N posts · ← todas las tags`.
 - `/tags/` lista todas las tags como chips enlazados (`.chips.tag-cloud`, en cian) con su nº de posts en `small`, fuera del hero y en `<main>`.
 - No hay otro componente de listado: si cambias una entrada, cambia en la portada y en los archivos a la vez.

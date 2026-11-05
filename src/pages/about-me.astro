@@ -103,7 +103,7 @@ const projects = github
       <!-- Artículo destacado -->
       {featured ? (
         <a class="tile tile-featured" href={`/blog/${featured.id}/`}>
-          <span class="kicker">// último artículo</span>
+          <span class="kicker">// último post</span>
           <h2>{featured.data.title}</h2>
           <p>{featured.data.description}</p>
           <ul class="facts">
@@ -133,7 +133,7 @@ const projects = github
         </a>
       ) : (
         <div class="tile tile-featured">
-          <span class="kicker">// todavía no hay artículos</span>
+          <span class="kicker">// todavía no hay posts</span>
         </div>
       )}
 
@@ -175,13 +175,13 @@ const projects = github
       <article class="tile tile-stat accent">
         <span class="kicker">// blog</span>
         <p class="big">{posts.length}</p>
-        <p class="label">{posts.length === 1 ? "artículo" : "artículos"}</p>
+        <p class="label">{posts.length === 1 ? "post" : "posts"}</p>
         <p class="sub">{tagCounts.size} temas</p>
       </article>
 
       <!-- Últimos artículos -->
       <article class="tile tile-latest">
-        <span class="kicker">// más artículos</span>
+        <span class="kicker">// más posts</span>
         {latest.length > 0 ? (
           <ul class="mini-posts">
             {latest.map((p) => (

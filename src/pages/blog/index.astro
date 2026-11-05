@@ -3,13 +3,18 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteBar from "../../components/SiteBar.astro";
 import SiteFoot from "../../components/SiteFoot.astro";
 import PostLog from "../../components/PostLog.astro";
-import { SITE_DESCRIPTION } from "../../consts";
-import { getPosts } from "../../utils";
+import { getPosts, tagSlug } from "../../utils";
 
 const posts = await getPosts();
+const tagCount = new Set(posts.flatMap((p) => p.data.tags.map(tagSlug))).size;
+const plural = (n: number, one: string, many: string) =>
+  `${n} ${n === 1 ? one : many}`;
 ---
 
-<BaseLayout title="Posts">
+<BaseLayout
+  title="Posts"
+  description="Todos los posts de Flavio Oria sobre IA y agentes, backend con Python e infraestructura self-hosted, del más reciente al más antiguo."
+>
   <div class="page">
     <SiteBar />
     <main>
@@ -17,8 +22,14 @@ const posts = await getPosts();
         <p class="path">
           <b>~/blog</b> $ ls -t
         </p>
-        <h1>Todos los posts</h1>
-        <p class="lede">{SITE_DESCRIPTION}</p>
+        <h1>Todo lo que he montado, roto y arreglado</h1>
+        {posts.length > 0 && (
+          <p class="meta">
+            {plural(posts.length, "post", "posts")} ·{" "}
+            <a href="/tags/">{plural(tagCount, "tag", "tags")}</a> · busca con{" "}
+            <kbd>/</kbd>
+          </p>
+        )}
       </header>
       <section class="log-archive" aria-label="Posts por año">
         <PostLog posts={posts} byYear />
