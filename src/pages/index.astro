@@ -40,7 +40,14 @@ const profiles = profile.links.filter((l) =>
         <h1>{blog.title}</h1>
         <p class="lede">{blog.intro}</p>
         <div class="home-author">
-          <Image src={profile.avatar} alt="" width="44" height="44" />
+          <Image
+            src={profile.avatar}
+            alt=""
+            width="44"
+            height="44"
+            densities={[1, 2]}
+            loading="eager"
+          />
           <div>
             <a class="name" href="/about-me/">
               {profile.name}
