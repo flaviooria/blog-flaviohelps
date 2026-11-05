@@ -49,6 +49,8 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 ## Archivo (/blog/ y /tags/<tag>/)
 
 - Ambas páginas van en `<main>` y usan la misma bitácora que la portada (`PostLog` con `byYear`): un `h2.kicker.log-year` `// 2026 · N posts` por año y debajo su `ol.post-log`, dentro de `.log-archive` (50rem). Los títulos de post son siempre `h3`.
+- Cada `/tags/<tag>/` lleva bajo el H1 una línea `.meta` con `N posts · ← todas las tags`.
+- `/tags/` lista todas las tags como chips enlazados (`.chips.tag-cloud`, en cian) con su nº de posts en `small`, fuera del hero y en `<main>`.
 - No hay otro componente de listado: si cambias una entrada, cambia en la portada y en los archivos a la vez.
 
 ## Sobre mí (bento)

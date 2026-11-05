@@ -974,6 +974,15 @@ header.hero .meta {
   margin: 1.25rem 0 0;
 }
 
+header.hero .meta a {
+  text-decoration: none;
+}
+
+/* /tags/: todas las tags como chips enlazados, con su nº de posts */
+.tag-cloud {
+  gap: 0.5rem;
+}
+
 ul.stack.small {
   font-size: 0.78rem;
 }

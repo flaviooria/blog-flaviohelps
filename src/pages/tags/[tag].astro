@@ -30,6 +30,12 @@ const { name, posts } = Astro.props;
           <b>~/blog</b> $ grep -l "{name}" *.md
         </p>
         <h1>#{name}</h1>
+        <p class="meta">
+          {posts.length} {posts.length === 1 ? "post" : "posts"} ·{" "}
+          <a href="/tags/">
+            <span aria-hidden="true">←</span> todas las tags
+          </a>
+        </p>
       </header>
       <section class="log-archive" aria-label="Posts por año">
         <PostLog posts={posts} byYear />
