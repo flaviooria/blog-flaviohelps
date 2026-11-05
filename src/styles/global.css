@@ -2131,21 +2131,63 @@ a.tile-featured:hover h2 {
   }
 }
 
+/* Móvil: todo a ancho completo salvo las dos cifras, que van en pareja.
+   Se resetean todos los spans: uno de 2 olvidado crea una columna fantasma. */
 @media (max-width: 600px) {
   .bento {
-    grid-template-columns: minmax(0, 1fr);
+    --gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .tile-hero,
-  .tile-featured,
-  .tile-stack,
-  .tile-latest {
+  .bento > * {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .bento > .tile-stat {
     grid-column: auto;
+  }
+
+  .tile {
+    padding: 1.15rem 1.2rem;
   }
 
   .tile-hero,
   .tile-featured {
-    padding: 1.5rem;
+    padding: 1.4rem 1.25rem;
+  }
+
+  /* Avatar encima del nombre: el nombre completo no se parte en un hueco estrecho */
+  .hero-id {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .hero-id img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tile-hero .cta .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .tile-stat .big {
+    font-size: 2.2rem;
+  }
+
+  /* Contacto en lista: un enlace por fila, usuario a la derecha, 44px de alto */
+  .tile-contact ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tile-contact a {
+    display: flex;
+    justify-content: space-between;
+    min-height: 44px;
   }
 
   .mini-posts a {

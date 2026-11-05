@@ -69,7 +69,7 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 ## Sobre mí (bento)
 
-- Rejilla de 4 columnas (`.bento`) → 2 columnas por debajo de 960px (`grid-auto-flow: dense`) → 1 por debajo de 600px.
+- Rejilla de 4 columnas (`.bento`) → 2 columnas por debajo de 960px (`grid-auto-flow: dense`) → por debajo de 600px, 2 columnas en las que todas las tiles ocupan la fila entera (`.bento > * { grid-column: 1 / -1 }`) salvo `.tile-stat`, que van en pareja. Resetea siempre los spans ahí: un `span 2` olvidado en una rejilla de 1 columna crea una columna fantasma y desborda.
 - Cada fila debe sumar 4 columnas. Spans actuales: hero y destacado `2×2`; stack, "más artículos" y "temas" `2`; "me interesa" y contacto toda la fila; el resto `1`.
 - Las tarjetas son `.tile` (con `a.tile` para las que enlazan, con hover que eleva 2px).
 
