@@ -15,6 +15,7 @@
   --pink: #ff79c6;
   --purple: #bd93f9;
   --red: #ff5555;
+  --glow: 0.12; /* opacidad del brillo ambiental */
   --yellow: #f1fa8c;
   --sans:
     "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -41,6 +42,7 @@
     --pink: #a3144d;
     --purple: #644ac9;
     --red: #cb3a2a;
+    --glow: 0.1; /* opacidad del brillo ambiental */
     --yellow: #846e15;
   }
 }
@@ -60,6 +62,7 @@
   --pink: #a3144d;
   --purple: #644ac9;
   --red: #cb3a2a;
+  --glow: 0.1; /* opacidad del brillo ambiental */
   --yellow: #846e15;
 }
 
@@ -180,30 +183,92 @@ nav.toc .toc-title {
   font-family: var(--mono);
   font-size: 0.8rem;
   color: var(--comment);
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
+}
+
+/* Índice como la salida de `tree`: raíz, ramas con líneas y resumen final.
+   --tree-x es el centro del icono de una fila: de ahí baja el tronco. */
+nav.toc {
+  --tree-line: color-mix(in srgb, var(--comment) 55%, transparent);
+  --tree-x: calc(2px + 0.5rem + 7px);
+}
+
+nav.toc .toc-root {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.3rem 0.5rem 0.3rem calc(2px + 0.5rem);
+  font: 500 0.82rem var(--mono);
+  color: var(--fg);
+}
+
+nav.toc .toc-root .tree-icon {
+  color: var(--green);
 }
 
 nav.toc ul {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 var(--tree-x);
   padding: 0;
 }
 
 nav.toc li {
+  --row-top: 0rem;
+  position: relative;
   margin: 0;
+  padding: var(--row-top) 0 0 1rem;
 }
 
-nav.toc a {
-  display: block;
+nav.toc li.ch {
+  --row-top: 0.65rem;
+}
+
+nav.toc ul ul li {
+  font-size: 0.82rem;
+}
+
+/* Tronco (│) y conector (──); en el último hijo el tronco se corta (└──) */
+nav.toc li::before,
+nav.toc li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  border-color: var(--tree-line);
+  border-style: solid;
+  border-width: 0;
+}
+
+nav.toc li::before {
+  top: 0;
+  bottom: 0;
+  border-left-width: 1px;
+}
+
+nav.toc li::after {
+  top: calc(var(--row-top) + 0.3rem + 0.675em);
+  width: 0.8rem;
+  border-top-width: 1px;
+}
+
+nav.toc li:last-child::before {
+  bottom: auto;
+  height: calc(var(--row-top) + 0.3rem + 0.675em);
+}
+
+nav.toc .toc-tree a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
   color: var(--muted);
   text-decoration: none;
-  padding: 0.3rem 0.6rem;
+  padding: 0.3rem 0.5rem;
   border-left: 2px solid transparent;
   border-radius: 0 4px 4px 0;
   line-height: 1.35;
 }
 
-nav.toc a:hover {
+nav.toc .toc-tree a:hover {
   color: var(--fg);
   background: var(--bg-deep);
 }
@@ -211,18 +276,44 @@ nav.toc a:hover {
 nav.toc li.ch > a {
   color: var(--fg);
   font-weight: 500;
-  margin-top: 0.65rem;
 }
 
-nav.toc ul ul a {
-  padding-left: 1.4rem;
-  font-size: 0.82rem;
+/* Iconos: carpeta violeta por capítulo (abierta si lees dentro), # por sección */
+nav.toc .tree-icon {
+  flex: none;
+  display: inline-flex;
+  margin-top: calc(0.675em - 7.5px);
+  color: var(--comment);
 }
 
-nav.toc a.active {
+nav.toc .tree-icon.folder {
+  color: var(--purple);
+}
+
+nav.toc .tree-icon .opened,
+nav.toc li.ch:has(a.active) > a .tree-icon .closed {
+  display: none;
+}
+
+nav.toc li.ch:has(a.active) > a .tree-icon .opened {
+  display: block;
+}
+
+nav.toc .toc-tree a.active {
   color: var(--pink);
   border-left-color: var(--pink);
   background: var(--bg-deep);
+}
+
+nav.toc .toc-tree a.active .tree-icon {
+  color: var(--pink);
+}
+
+nav.toc .toc-summary {
+  margin: 1rem 0 0;
+  padding-left: calc(2px + 0.5rem);
+  font: 400 0.75rem var(--mono);
+  color: var(--comment);
 }
 
 main {
@@ -633,6 +724,93 @@ p.ref strong {
   border-radius: 999px;
   padding: 0.65rem 1rem;
   cursor: pointer;
+}
+
+/* Brillo ambiental (todas las páginas): un círculo con degradado
+   de la paleta, difuminado, que gira y rebota por toda la ventana, también
+   detrás del texto. Por eso es tenue (--glow): en oscuro el gris de
+   comentarios baja de 4.5:1 mientras pasa por detrás (decisión aceptada). */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Rebote tipo salvapantallas del DVD: el eje X (.ambient-bounce) y el eje Y
+   (.ambient-orb) van de pared a pared por separado, en lineal y con
+   duraciones que no son múltiplo una de otra, así el recorrido barre toda la
+   ventana sin repetirse enseguida. --size es el diámetro del círculo. */
+.ambient {
+  --size: clamp(16rem, 30vw, 28rem);
+  /* duración de cada trayecto y esquina de salida (0 = izquierda/arriba,
+     -1 = derecha/abajo; la elige al azar un script en BaseLayout) */
+  --dur-x: 17s;
+  --dur-y: 11s;
+  --from-x: 0;
+  --from-y: 0;
+}
+
+.ambient-bounce {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size);
+  height: var(--size);
+  animation: orb-x var(--dur-x) linear calc(var(--from-x) * var(--dur-x))
+    infinite alternate;
+}
+
+.ambient-orb {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--purple),
+    var(--pink),
+    var(--cyan),
+    var(--purple)
+  );
+  filter: blur(72px);
+  opacity: var(--glow);
+  will-change: translate, rotate;
+  animation:
+    orb-y var(--dur-y) linear calc(var(--from-y) * var(--dur-y)) infinite
+      alternate,
+    orb-spin 20s linear infinite;
+}
+
+@keyframes orb-x {
+  to {
+    translate: calc(100vw - var(--size)) 0;
+  }
+}
+
+@keyframes orb-y {
+  to {
+    translate: 0 calc(100vh - var(--size));
+  }
+}
+
+@keyframes orb-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-bounce,
+  .ambient-orb {
+    animation: none;
+  }
+}
+
+@media print {
+  .ambient {
+    display: none;
+  }
 }
 
 /* Volver arriba: abajo a la derecha, aparece al bajar (ver BackToTop) */

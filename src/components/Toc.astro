@@ -1,13 +1,19 @@
 ---
-// Índice del post. En escritorio con ratón vive oculto en el borde izquierdo:
+// Índice del post, dibujado como `tree`: carpetas para los capítulos y
+// hojas (file-text) para las secciones. En escritorio con ratón vive oculto en el borde izquierdo:
 // se abre al pasar el ratón (o al enfocar) por la pestaña y se puede fijar
 // como columna. En móvil y en pantallas táctiles es un cajón con botón.
 import type { MarkdownHeading } from "astro";
 import ListTree from "@lucide/astro/icons/list-tree";
 import Pin from "@lucide/astro/icons/pin";
+import Folder from "@lucide/astro/icons/folder";
+import FolderOpen from "@lucide/astro/icons/folder-open";
+import FileText from "@lucide/astro/icons/file-text";
 
 interface Props {
   headings: MarkdownHeading[];
+  /** Raíz del árbol (el id del post), como la primera línea de `tree`. */
+  root: string;
 }
 
 type Item = { heading: MarkdownHeading; children: MarkdownHeading[] };
@@ -19,6 +25,15 @@ for (const h of Astro.props.headings.filter((h) => h.depth <= 2)) {
   if (h.depth === 2 && last && last.heading.depth === 1) last.children.push(h);
   else items.push({ heading: h, children: [] });
 }
+
+// Resumen final, como el "3 directories, 12 files" de `tree`
+const chapters = items.filter((i) => i.heading.depth === 1).length;
+const sections = items.reduce(
+  (n, i) => n + i.children.length + (i.heading.depth === 2 ? 1 : 0),
+  0,
+);
+const plural = (n: number, one: string, many: string) =>
+  `${n} ${n === 1 ? one : many}`;
 ---
 
 <div class="toc-dock">
@@ -43,15 +58,32 @@ for (const h of Astro.props.headings.filter((h) => h.depth <= 2)) {
       </button>
     </div>
     <p class="toc-title">// índice</p>
-    <ul>
+    <p class="toc-root">
+      <FolderOpen class="tree-icon" size={15} aria-hidden="true" />
+      <span>{Astro.props.root}/</span>
+    </p>
+    <ul class="toc-tree">
       {items.map(({ heading, children }) => (
         <li class={heading.depth === 1 ? "ch" : undefined}>
-          <a href={`#${heading.slug}`}>{heading.text}</a>
+          <a href={`#${heading.slug}`}>
+            {heading.depth === 1 ? (
+              <span class="tree-icon folder" aria-hidden="true">
+                <Folder class="closed" size={15} />
+                <FolderOpen class="opened" size={15} />
+              </span>
+            ) : (
+              <FileText class="tree-icon" size={14} aria-hidden="true" />
+            )}
+            <span>{heading.text}</span>
+          </a>
           {children.length > 0 && (
             <ul>
               {children.map((c) => (
                 <li>
-                  <a href={`#${c.slug}`}>{c.text}</a>
+                  <a href={`#${c.slug}`}>
+                    <FileText class="tree-icon" size={14} aria-hidden="true" />
+                    <span>{c.text}</span>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -59,5 +91,13 @@ for (const h of Astro.props.headings.filter((h) => h.depth <= 2)) {
         </li>
       ))}
     </ul>
+    <p class="toc-summary">
+      {[
+        chapters > 0 && plural(chapters, "capítulo", "capítulos"),
+        sections > 0 && plural(sections, "sección", "secciones"),
+      ]
+        .filter(Boolean)
+        .join(", ")}
+    </p>
   </nav>
 </div>

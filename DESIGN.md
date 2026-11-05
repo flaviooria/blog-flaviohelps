@@ -258,7 +258,9 @@ El sistema es plano y se apila por tonos. La profundidad viene de tres niveles d
 
 **The Flat-By-Default Rule.** Las superficies son planas en reposo. Lo único que "sube" es una tile enlazada al pasar el ratón (translateY(-2px) y borde violeta) y las capas modales (buscador y cajón del índice).
 
-**The Featured Glow Exception.** El degradado radial (violeta al 22% arriba a la derecha y rosa al 14% abajo a la izquierda sobre Night Well) está permitido **solo** en la tile de artículo destacado y en las tiles de proyecto, como marca de "esto es lo especial". En ningún otro sitio hay degradados.
+**The Featured Glow Exception.** El degradado radial (violeta al 22% arriba a la derecha y rosa al 14% abajo a la izquierda sobre Night Well) está permitido **solo** en la tile de artículo destacado y en las tiles de proyecto, como marca de "esto es lo especial". Fuera de eso, solo existe el Ambient Glow.
+
+**The Ambient Glow Exception.** En todas las páginas hay un círculo con degradado cónico de violeta, rosa y cian, difuminado 72px, que gira sobre sí mismo (20s) y rebota por toda la ventana como el salvapantallas del DVD (eje X en 17s y eje Y en 11s, lineales y de pared a pared; en cada carga sale de una esquina al azar), también por detrás del texto; con reduced-motion se queda quieto. Por eso es tenue: 12% en oscuro y 10% en claro. Es una excepción aceptada a The Readable Both Ways Rule: en claro todo sigue por encima de 4.5:1, pero en oscuro Comment Slate baja a unos 3.3:1 mientras el círculo pasa por detrás.
 
 ## Shapes
 
@@ -307,7 +309,7 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 
 - **Site bar:** alineada a la columna, en Fira Code a 0.85rem. La marca `~/flaviooria` va en Signal Green y lleva a la portada; solo hay tres secciones (Posts, Tags, Sobre mí) más buscar y tema. Los enlaces van en Dusk Ink y pasan a tinta principal al pasar el ratón. La sección actual (`aria-current="page"`) va en tinta principal con subrayado rosa de 2px. Por debajo de 600px la nav baja a una segunda línea, y en táctil cada control tiene 44px de alto. El RSS no va en la barra: vive en el pie y en el `<head>`.
 - **Pie:** en Fira Code a 0.78rem y Comment Slate. A la izquierda `// © año Flavio Oria` y a la derecha los perfiles (LinkedIn, GitHub, X) y el RSS como enlaces cian. Por debajo del ancho de la columna, los enlaces bajan a una segunda línea.
-- **Índice del post:** sobre Night Abyss, con enlaces en Dusk Ink, capítulos en tinta principal 500 y subsecciones sangradas a 0.82rem. La sección activa va en rosa con borde izquierdo y fondo Night Well. En escritorio se abre desde la pestaña del borde y lleva arriba `← cd ~/blog` y el control de fijar (botón de herramienta cuadrado de 1.75rem solo con el icono de chincheta centrado; rosa con `aria-pressed="true"`). En móvil y táctil es un cajón lateral que se cierra al elegir un enlace, con Escape o con un clic fuera.
+- **Índice del post:** sobre Night Abyss, dibujado como la salida de `tree`: una raíz `<post>/` en mono con carpeta abierta en Signal Green, ramas con líneas de 1px (Comment Slate al 55%) que acaban en esquina en el último hijo, y un resumen final en mono ("12 capítulos, 31 secciones"). Cada capítulo lleva una carpeta violeta (abierta mientras lees dentro) y cada sección una hoja (`file-text`) en Comment Slate (iconos de Lucide). Enlaces en Dusk Ink, capítulos en tinta principal 500 y subsecciones a 0.82rem. La sección activa va en rosa con borde izquierdo y fondo Night Well. En escritorio se abre desde la pestaña del borde y lleva arriba `← cd ~/blog` y el control de fijar (botón de herramienta cuadrado de 1.75rem solo con el icono de chincheta centrado; rosa con `aria-pressed="true"`). En móvil y táctil es un cajón lateral que se cierra al elegir un enlace, con Escape o con un clic fuera.
 
 ### Code block (signature)
 
@@ -344,7 +346,7 @@ Un `<dialog>` nativo de hasta 40rem sobre Night Well, con radio de 14px y el Dia
 
 ### Don't:
 
-- **Don't** hacer que parezca una plantilla SaaS genérica: nada de heros de marketing, degradados fuera de la Featured Glow Exception, iconos dentro de círculos de color ni rejillas de tarjetas idénticas sin kicker ni jerarquía.
+- **Don't** hacer que parezca una plantilla SaaS genérica: nada de heros de marketing, degradados fuera de la Featured Glow y la Ambient Glow Exception, iconos dentro de círculos de color ni rejillas de tarjetas idénticas sin kicker ni jerarquía.
 - **Don't** usar los acentos de Dracula sin control: nunca más de tres acentos con peso en una misma vista, y nunca un acento solo como decoración.
 - **Don't** introducir colores o contrastes que desentonen con Dracula/Alucard: nada de hex sueltos, neones ajenos a la paleta ni grises fríos fuera de los tokens.
 - **Don't** convertir la terminal en disfraz: sin texto verde fosforito en párrafos, sin efectos CRT, scanlines ni cursores parpadeando. Signal Green solo va en fragmentos cortos (código inline, prompt, cifras).

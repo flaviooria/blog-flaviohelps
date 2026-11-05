@@ -50,7 +50,13 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 
 - Arriba va la `SiteBar` (buscar y tema a la derecha, como en el resto del sitio); la línea `.meta` del hero solo lleva la fecha.
 - Índice (`Toc` → `.toc-dock`): por defecto es el cajón móvil con el botón flotante `.toc-toggle`. Solo en `@media (min-width: 901px) and (hover: hover)` pasa a pestaña `.toc-handle` en el borde que abre `nav.toc` con `:hover`/`:focus-within` (cierre con 0.3s de retardo) y muestra el botón `.toc-pin`.
+- Árbol: `Toc` recibe `root` (el id del post) y pinta `.toc-root`, `ul.toc-tree` y `.toc-summary`. Las ramas son `li::before` (tronco) y `li::after` (conector) desde `--tree-x`, el centro del icono de la fila; `--row-top` compensa el aire extra de los capítulos. La carpeta abierta se muestra con `li.ch:has(a.active)`.
 - Fijado: `html[data-toc="pinned"]` (clave `toc` en `localStorage`, aplicada con un script inline antes de pintar) deja el índice visible y pone `.layout` con `padding-left: 300px`.
+
+## Brillo ambiental
+
+- `BaseLayout` pinta `.ambient > .ambient-bounce > .ambient-orb` en todas las páginas. Un script inline pone al azar `--from-x` / `--from-y` a `-1` en cada carga: el retraso negativo de un trayecto entero hace que el eje empiece en la pared contraria, así sale de una esquina distinta. Rebota como el salvapantallas del DVD: `.ambient-bounce` lleva el eje X (`orb-x`, 17s) y `.ambient-orb` el eje Y (`orb-y`, 11s), ambos lineales y `alternate` de pared a pared (`--size` es el diámetro); el orbe además gira (`orb-spin`, 20s). Las duraciones no deben ser múltiplo una de otra o el recorrido se repite. Es `position: fixed` con `z-index: -1` (el fondo del `body` se propaga al lienzo, así que queda detrás del contenido).
+- Recorre toda la página, también detrás del texto (sin máscara). Por eso la opacidad del token `--glow` es baja: 0.12 en oscuro y 0.1 en claro. No la subas: en oscuro, `--comment` ya baja de 4.5:1 mientras el círculo pasa por detrás.
 
 ## Archivo (/blog/ y /tags/<tag>/)
 

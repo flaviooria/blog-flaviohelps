@@ -25,7 +25,7 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
     } catch (e) {}
   </script>
   <div class="layout">
-    <Toc headings={headings} />
+    <Toc headings={headings} root={post.id} />
     <main>
       <SiteBar />
       <header class="hero">

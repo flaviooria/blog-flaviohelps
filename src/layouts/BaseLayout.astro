@@ -51,6 +51,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body>
+    <div class="ambient" id="ambient" aria-hidden="true">
+      <div class="ambient-bounce">
+        <div class="ambient-orb" />
+      </div>
+    </div>
+    <script is:inline>
+      // Brillo ambiental: cada carga sale de una esquina al azar. Retrasar un
+      // eje un trayecto entero equivale a empezar en la pared contraria.
+      (function () {
+        var s = document.getElementById("ambient").style;
+        if (Math.random() < 0.5) s.setProperty("--from-x", "-1");
+        if (Math.random() < 0.5) s.setProperty("--from-y", "-1");
+      })();
+    </script>
     <slot />
     <BackToTop />
     <Search />
