@@ -20,7 +20,7 @@ El blog es estático: la imagen compila con pnpm y sirve `dist/` con nginx. En e
   ```sh
   docker build --secret id=github_token,env=GITHUB_TOKEN -t blog-flaviohelps .
   ```
-- `docker/nginx.conf`: assets de `/_astro/` inmutables (1 año), Pagefind y RSS 1 hora, páginas siempre revalidadas, gzip y `absolute_redirect off` para que `/blog` → `/blog/` no filtre el puerto interno detrás de Traefik.
+- `docker/nginx.conf`: assets de `/_astro/` inmutables (1 año), Pagefind y RSS 1 hora, páginas siempre revalidadas, gzip, `error_page 404 /404.html` (la 404 del blog) y `absolute_redirect off` para que `/blog` → `/blog/` no filtre el puerto interno detrás de Traefik.
 
 ## Local (`compose.yml`)
 
@@ -43,4 +43,3 @@ Labels de Traefik (router y servicio `blog-flaviohelps`): ``Host(`blog.${DOMAIN}
 
 - Publicar la imagen en GHCR desde CI (`latest` + `sha-<commit>`) y desplegar siempre el SHA.
 - Recompilar de forma periódica para refrescar los datos de GitHub.
-- Página 404 propia: hoy nginx devuelve la suya por defecto.

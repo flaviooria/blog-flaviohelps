@@ -1,0 +1,96 @@
+---
+// 404: la shell no encuentra la ruta. Muestra el error como lo daría `cd`,
+// rutas a las que ir (como comandos) y los últimos posts. La ruta pedida la
+// rellena un script: la página es estática y no la conoce en build.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteBar from "../components/SiteBar.astro";
+import SiteFoot from "../components/SiteFoot.astro";
+import SearchToggle from "../components/SearchToggle.astro";
+import PostLog from "../components/PostLog.astro";
+import { getPosts } from "../utils";
+
+const latest = (await getPosts()).slice(0, 3);
+
+const routes = [
+  { cmd: "cd ~", href: "/", label: "la portada" },
+  { cmd: "ls ~/blog", href: "/blog/", label: "todos los posts" },
+  { cmd: "ls tags/", href: "/tags/", label: "los posts por tema" },
+  { cmd: "whoami", href: "/about-me/", label: "quién escribe esto" },
+];
+---
+
+<BaseLayout
+  title="404"
+  description="Esta ruta no existe en el blog de Flavio Oria."
+  noindex
+>
+  <div class="page">
+    <SiteBar />
+    <main>
+      <header class="hero not-found">
+        <p class="path">
+          <b>~/blog</b> $ cd{" "}
+          <span class="nf-path" data-path>
+            esta-ruta
+          </span>
+        </p>
+        <p class="nf-error">
+          bash: cd: <span data-path>esta-ruta</span>: No existe el fichero o el
+          directorio
+        </p>
+        <h1>
+          <span class="nf-code">404</span> Aquí no hay nada (todavía)
+        </h1>
+        <p class="lede">
+          La página que buscas no existe o ha cambiado de sitio. Puede que la
+          haya movido al reorganizar el blog, o que el enlace tenga una errata.
+        </p>
+      </header>
+
+      <section class="home-section" aria-labelledby="nf-routes">
+        <h2 id="nf-routes" class="kicker">
+          <span aria-hidden="true">// </span>prueba con
+        </h2>
+        <ul class="nf-routes">
+          {routes.map((r) => (
+            <li>
+              <a href={r.href}>
+                <code>{r.cmd}</code>
+                <span>{r.label}</span>
+              </a>
+            </li>
+          ))}
+          <li class="nf-search">
+            <code>grep</code>
+            <span>o búscalo:</span>
+            <SearchToggle shortcut />
+          </li>
+        </ul>
+      </section>
+
+      {latest.length > 0 && (
+        <section class="home-section" aria-labelledby="nf-latest">
+          <h2 id="nf-latest" class="kicker">
+            <span aria-hidden="true">// </span>últimos posts
+          </h2>
+          <PostLog posts={latest} />
+        </section>
+      )}
+    </main>
+    <SiteFoot />
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  // La ruta pedida, como texto (nunca como HTML)
+  (function () {
+    var p = location.pathname;
+    try {
+      p = decodeURIComponent(p);
+    } catch (e) {}
+    if (p.length > 60) p = p.slice(0, 57) + "…";
+    document.querySelectorAll("[data-path]").forEach(function (el) {
+      el.textContent = p;
+    });
+  })();
+</script>

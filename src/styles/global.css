@@ -2067,6 +2067,96 @@ a.tile-featured:hover h2 {
   margin-left: 0.4rem;
 }
 
+/* 404: el error de `cd` como lo daría la shell y rutas a las que ir */
+.not-found .nf-path {
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+/* Rojo = error; mezclado con la tinta para pasar 4.5:1 como en los callouts */
+.not-found .nf-error {
+  margin: -0.5rem 0 1.5rem;
+  font: 400 0.85rem/1.5 var(--mono);
+  color: color-mix(in srgb, var(--red) 85%, var(--fg));
+  overflow-wrap: anywhere;
+}
+
+.not-found .nf-code {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: color-mix(in srgb, var(--red) 85%, var(--fg));
+}
+
+.nf-routes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nf-routes > li {
+  border-top: 1px dashed var(--line);
+}
+
+.nf-routes > li:last-child {
+  border-bottom: 1px dashed var(--line);
+}
+
+.nf-routes a,
+.nf-routes .nf-search {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+  min-height: 44px;
+  padding: 0.6rem 0;
+  text-decoration: none;
+}
+
+.nf-routes code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: 400 0.85rem var(--mono);
+  color: var(--cyan);
+}
+
+.nf-routes a span,
+.nf-routes .nf-search span {
+  color: var(--muted);
+}
+
+.nf-routes a:hover code,
+.nf-routes a:hover span {
+  color: var(--pink);
+}
+
+.nf-routes .nf-search {
+  grid-template-columns: 8rem auto 1fr;
+}
+
+.nf-routes .nf-search code {
+  color: var(--comment);
+}
+
+.nf-routes .nf-search .search-toggle {
+  justify-self: start;
+}
+
+@media (max-width: 600px) {
+  .nf-routes a,
+  .nf-routes .nf-search {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nf-routes .nf-search {
+    grid-template-columns: auto 1fr;
+  }
+
+  .nf-routes .nf-search code {
+    display: none;
+  }
+}
+
 /* Bitácora: fecha AAAA-MM-DD a la izquierda como marca de registro, entrada a la derecha */
 .post-log {
   list-style: none;

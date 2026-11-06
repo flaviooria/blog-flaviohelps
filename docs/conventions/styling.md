@@ -53,6 +53,12 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Árbol: `Toc` recibe `root` (el id del post) y pinta `.toc-root`, `ul.toc-tree` y `.toc-summary`. Las ramas son `li::before` (tronco) y `li::after` (conector) desde `--tree-x`, el centro del icono de la fila; `--row-top` compensa el aire extra de los capítulos. La carpeta abierta se muestra con `li.ch:has(a.active)`.
 - Fijado: `html[data-toc="pinned"]` (clave `toc` en `localStorage`, aplicada con un script inline antes de pintar) deja el índice visible y pone `.layout` con `padding-left: 300px`.
 
+## 404
+
+- `src/pages/404.astro` usa `BaseLayout` con `noindex` (meta robots y sin canonical). El hero `.not-found` imita a la shell: `~/blog $ cd <ruta>` y debajo `bash: cd: <ruta>: No existe el fichero o el directorio` (`.nf-error`). La ruta la rellena un script inline con `textContent` (la página es estática).
+- El error y el `404` del H1 van en rojo mezclado al 85% con `--fg`, como los callouts de error, para pasar 4.5:1.
+- `// prueba con` lista rutas como comandos (`.nf-routes`: comando en `--cyan`, descripción en `--muted`, filas de 44px con separadores discontinuos) y el botón de búsqueda; debajo, `// últimos posts` con `PostLog` (3).
+
 ## Barras de scroll
 
 - Se tematizan con `scrollbar-width: thin` y `scrollbar-color` usando las variables `--thumb` y `--thumb-hover` (en `html`, `pre`, `.table-wrap`, `.search-results` y `nav.toc`). Un contenedor nuevo con scroll propio se añade a esa lista.

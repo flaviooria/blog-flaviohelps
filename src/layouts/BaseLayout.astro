@@ -7,9 +7,11 @@ import BackToTop from "../components/BackToTop.astro";
 interface Props {
   title?: string;
   description?: string;
+  /** Páginas que no deben indexarse ni declarar URL canónica (p. ej. la 404). */
+  noindex?: boolean;
 }
 
-const { title, description = SITE_DESCRIPTION } = Astro.props;
+const { title, description = SITE_DESCRIPTION, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -24,7 +26,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="alternate"

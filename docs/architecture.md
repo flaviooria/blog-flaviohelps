@@ -17,6 +17,7 @@ Sitio **estático** con Astro 7. Todo se resuelve en `pnpm build`; no hay servid
 | `pages/blog/[...id].astro`     | Página de cada post (usa `PostLayout`)                                                                               |
 | `pages/tags/`                  | Índice de etiquetas y página por etiqueta                                                                            |
 | `pages/rss.xml.ts`             | Feed RSS                                                                                                             |
+| `pages/404.astro`              | Página 404 (`noindex`): error de `cd`, rutas sugeridas y últimos posts; nginx la sirve con `error_page`              |
 | `layouts/BaseLayout.astro`     | `<head>`, fuentes, tema claro/oscuro (botón `.theme-toggle` + `localStorage`)                                        |
 | `layouts/PostLayout.astro`     | Post: barra del sitio, índice (cajón con hover y fijado), hero, contenido; scripts de copiar, fijar y sección activa |
 | `components/`                  | `SiteBar`, `SiteFoot`, `PostLog`, `Toc`, `BackToTop`, `Search` (modal Pagefind), `SearchToggle`, `ThemeToggle`       |
