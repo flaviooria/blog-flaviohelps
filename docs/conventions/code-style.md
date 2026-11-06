@@ -8,7 +8,7 @@ description: TypeScript strict, estructura de componentes Astro, nombres, Pretti
 ## Formato
 
 - **Prettier** con `prettier-plugin-astro` y la configuración por defecto: comillas **dobles**, punto y coma, `printWidth` 80. Ver [ADR 0004](../adr/0004-prettier-double-quotes.md).
-- `npm run format` antes de dar un cambio por terminado; `npm run format:check` lo verifica.
+- `pnpm format` antes de dar un cambio por terminado; `pnpm format:check` lo verifica.
 - `src/content/` está excluido de Prettier: los posts se escriben a mano.
 
 ## TypeScript

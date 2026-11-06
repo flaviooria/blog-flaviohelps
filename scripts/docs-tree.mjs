@@ -53,7 +53,7 @@ if (next === agents) {
 }
 if (args.has("--check")) {
   console.error(
-    "[docs-tree] AGENTS.md está desactualizado: ejecuta npm run docs:tree",
+    "[docs-tree] AGENTS.md está desactualizado: ejecuta pnpm docs:tree",
   );
   process.exit(1);
 }

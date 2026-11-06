@@ -13,12 +13,12 @@ Blog estático con Astro 7 y estilo Dracula/Alucard. Este archivo es el punto de
 - Si cambias una convención, actualiza su doc en `docs/conventions/` en el mismo cambio.
 - Si tomas una decisión de arquitectura, crea un ADR desde `docs/adr/0000-template.md`.
 - Todo doc nuevo lleva frontmatter con `title` y `description` (una línea; es lo que sale en el árbol).
-- Antes de terminar: `npm run format:check` y `npm run build` (ver `docs/workflow/development.md`).
+- Antes de terminar: `pnpm format:check` y `pnpm build` (ver `docs/workflow/development.md`).
 - Para trabajo de diseño (revisar, refinar o documentar la interfaz) usa la skill `impeccable`; `PRODUCT.md` y `DESIGN.md` son su contexto (ver `docs/workflow/design-skills.md`).
 
 ## Docs
 
-El bloque siguiente se genera con `scripts/docs-tree.mjs`; **no lo edites a mano**. Se regenera solo al crear o editar docs (hook de Claude Code) y en `npm run dev`/`build`.
+El bloque siguiente se genera con `scripts/docs-tree.mjs`; **no lo edites a mano**. Se regenera solo al crear o editar docs (hook de Claude Code) y en `pnpm dev`/`build`.
 
 <!-- docs-tree:start -->
 
@@ -34,7 +34,8 @@ docs/
 │   ├── 0004-prettier-double-quotes.md        # El formato lo impone Prettier (con prettier-plugin-astro) usando sus valores por defecto, comillas dobles incluidas
 │   ├── 0005-github-data-without-activity.md  # Reemplaza a 0003; la portada ya no muestra "últimos movimientos" y GitHub solo aporta números y proyectos
 │   ├── 0006-search-pagefind.md               # Búsqueda de posts con Pagefind (índice en postbuild, modal ⌘K propio) y cuándo y cómo migrar a Algolia
-│   └── 0007-lucide-icons.md                  # Los iconos son componentes de @lucide/astro, renderizados como SVG en línea en build e importados de uno en uno
+│   ├── 0007-lucide-icons.md                  # Los iconos son componentes de @lucide/astro, renderizados como SVG en línea en build e importados de uno en uno
+│   └── 0008-pnpm.md                          # Se pasa de npm a pnpm 10 (fijado en packageManager con corepack), con pnpm-lock.yaml importado del lock de npm
 ├── conventions/
 │   ├── code-style.md                         # TypeScript strict, estructura de componentes Astro, nombres, Prettier (comillas dobles) y comentarios
 │   ├── content.md                            # Frontmatter de un post, títulos #/## para el índice, callouts [!NOTE], referencias, badges y task lists

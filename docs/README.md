@@ -18,7 +18,7 @@ Esta carpeta es la fuente de verdad sobre **cómo** está hecho el blog y **por 
 
 1. Crea el `.md` en la carpeta que toque.
 2. Ponle frontmatter con `title` y `description`. La `description` es lo que aparece en el árbol de `AGENTS.md`: una línea, concreta.
-3. El árbol se regenera solo (hook de Claude Code, `npm run dev`/`build`). A mano: `npm run docs:tree`.
+3. El árbol se regenera solo (hook de Claude Code, `pnpm dev`/`build`). A mano: `pnpm docs:tree`.
 
 ## Añadir un ADR
 

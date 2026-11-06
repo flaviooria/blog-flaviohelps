@@ -25,8 +25,8 @@ description: Cuándo escribir o actualizar un doc o un ADR, numeración, estados
 | Disparador                                    | Cuándo                                                                                         |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Hook `PostToolUse` en `.claude/settings.json` | Un agente crea o edita un archivo dentro de `docs/` (sesión de Claude Code abierta en `blog/`) |
-| `predev` / `prebuild`                         | `npm run dev` y `npm run build`                                                                |
-| `npm run docs:tree`                           | A mano (por ejemplo, tras borrar un doc con `rm`)                                              |
+| `predev` / `prebuild`                         | `pnpm dev` y `pnpm build`                                                                      |
+| `pnpm docs:tree`                              | A mano (por ejemplo, tras borrar un doc con `rm`)                                              |
 
 `node scripts/docs-tree.mjs --check` sale con código 1 si el árbol está desactualizado (útil en CI).
 

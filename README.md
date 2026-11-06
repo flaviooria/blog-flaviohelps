@@ -14,6 +14,7 @@ terminal, en Dracula 🦇 (oscuro) y Alucard ☀️ (claro).
 
 ![Astro 7](https://img.shields.io/badge/Astro-7-bc52ee?logo=astro&logoColor=white)
 ![Node ≥ 22](https://img.shields.io/badge/Node-%E2%89%A5%2022-50fa7b?logo=node.js&logoColor=white)
+![pnpm 10](https://img.shields.io/badge/pnpm-10-ffb86c?logo=pnpm&logoColor=white)
 ![Pagefind](https://img.shields.io/badge/búsqueda-Pagefind-8be9fd)
 ![Estático](https://img.shields.io/badge/JS%20de%20framework-0%20KB-ff79c6)
 ![Tema](https://img.shields.io/badge/tema-Dracula%20%2F%20Alucard-bd93f9)
@@ -57,13 +58,14 @@ El sistema completo está en [`DESIGN.md`](DESIGN.md).
 ## 🚀 Arrancar
 
 ```sh
-npm install
-npm run dev        # http://localhost:4321
+corepack enable    # usa el pnpm fijado en package.json
+pnpm install
+pnpm dev        # http://localhost:4321
 ```
 
 ```sh
-npm run build      # genera ./dist y el índice de búsqueda
-npm run preview    # sirve ./dist (la búsqueda solo funciona aquí)
+pnpm build      # genera ./dist y el índice de búsqueda
+pnpm preview    # sirve ./dist (la búsqueda solo funciona aquí)
 ```
 
 > [!TIP]
@@ -139,14 +141,14 @@ Todo se genera en build: no hay servidor ni JavaScript de framework en el client
 
 ## 🧰 Comandos
 
-| Comando                           | Para qué                                              |
-| --------------------------------- | ----------------------------------------------------- |
-| `npm run dev`                     | Servidor de desarrollo                                |
-| `npx astro dev --background`      | Lo mismo, en segundo plano (`status`, `logs`, `stop`) |
-| `npm run build`                   | Build + índice de Pagefind                            |
-| `npm run preview`                 | Sirve `dist/`                                         |
-| `npm run format` / `format:check` | Prettier                                              |
-| `npm run docs:tree`               | Regenera el árbol de `docs/` en `AGENTS.md`           |
+| Comando                        | Para qué                                              |
+| ------------------------------ | ----------------------------------------------------- |
+| `pnpm dev`                     | Servidor de desarrollo                                |
+| `pnpm astro dev --background`  | Lo mismo, en segundo plano (`status`, `logs`, `stop`) |
+| `pnpm build`                   | Build + índice de Pagefind                            |
+| `pnpm preview`                 | Sirve `dist/`                                         |
+| `pnpm format` / `format:check` | Prettier                                              |
+| `pnpm docs:tree`               | Regenera el árbol de `docs/` en `AGENTS.md`           |
 
 Variable opcional: `GITHUB_TOKEN` para tener más cuota en la API de GitHub durante el build.
 

@@ -5,7 +5,7 @@ description: Mapa del código (qué hay en cada carpeta de src/) y flujo de dato
 
 # Arquitectura
 
-Sitio **estático** con Astro 7. Todo se resuelve en `npm run build`; no hay servidor ni JS de framework en el cliente (solo pequeños `<script>`).
+Sitio **estático** con Astro 7. Todo se resuelve en `pnpm build`; no hay servidor ni JS de framework en el cliente (solo pequeños `<script>`).
 
 ## Mapa de `src/`
 

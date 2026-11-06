@@ -18,7 +18,7 @@ description: "Resumen de una o dos frases (portada, listados, RSS y meta descrip
 pubDate: 2026-11-03
 updatedDate: 2026-11-10 # opcional
 tags: ["Docker", "Traefik"]
-draft: false # true = solo visible en npm run dev
+draft: false # true = solo visible en pnpm dev
 ---
 ```
 
