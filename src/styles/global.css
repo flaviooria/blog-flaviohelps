@@ -16,6 +16,7 @@
   --purple: #bd93f9;
   --red: #ff5555;
   --glow: 0.12; /* opacidad del brillo ambiental */
+  --spark: 0.55; /* opacidad máxima de las partículas */
   --yellow: #f1fa8c;
   --sans:
     "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -43,6 +44,7 @@
     --purple: #644ac9;
     --red: #cb3a2a;
     --glow: 0.1; /* opacidad del brillo ambiental */
+    --spark: 0.45; /* opacidad máxima de las partículas */
     --yellow: #846e15;
   }
 }
@@ -63,6 +65,7 @@
   --purple: #644ac9;
   --red: #cb3a2a;
   --glow: 0.1; /* opacidad del brillo ambiental */
+  --spark: 0.45; /* opacidad máxima de las partículas */
   --yellow: #846e15;
 }
 
@@ -726,8 +729,8 @@ p.ref strong {
   cursor: pointer;
 }
 
-/* Brillo ambiental (todas las páginas): un círculo con degradado
-   de la paleta, difuminado, que gira y rebota por toda la ventana, también
+/* Brillo ambiental (todas las páginas): una nube de humo con los colores
+   de la paleta y partículas, que rebota por toda la ventana, también
    detrás del texto. Por eso es tenue (--glow): en oscuro el gris de
    comentarios baja de 4.5:1 mientras pasa por detrás (decisión aceptada). */
 .ambient {
@@ -762,24 +765,116 @@ p.ref strong {
     infinite alternate;
 }
 
+/* Eje Y del rebote; dentro van el humo y las partículas */
 .ambient-orb {
+  position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    var(--purple),
-    var(--pink),
-    var(--cyan),
-    var(--purple)
-  );
-  filter: blur(72px);
+  animation: orb-y var(--dur-y) linear calc(var(--from-y) * var(--dur-y))
+    infinite alternate;
+}
+
+/* Humo: tres bocanadas irregulares que giran alrededor de un punto
+   descentrado y respiran a ritmos distintos, así la nube cambia de forma.
+   Solo se anima transform: el blur de cada bocanada no se recalcula. */
+.ambient-smoke {
+  position: absolute;
+  inset: 0;
   opacity: var(--glow);
-  will-change: translate, rotate;
+}
+
+.puff {
+  --c: var(--purple);
+  position: absolute;
+  border-radius: 42% 58% 63% 37% / 45% 39% 61% 55%;
+  background: radial-gradient(
+    circle at 45% 45%,
+    var(--c) 0%,
+    color-mix(in srgb, var(--c) 55%, transparent) 38%,
+    transparent 70%
+  );
+  filter: blur(48px);
+  will-change: rotate, scale;
+}
+
+.puff-a {
+  inset: 0 18% 22% 4%;
+  transform-origin: 62% 58%;
   animation:
-    orb-y var(--dur-y) linear calc(var(--from-y) * var(--dur-y)) infinite
-      alternate,
-    orb-spin 20s linear infinite;
+    puff-turn 26s linear infinite,
+    puff-breathe 9s ease-in-out infinite alternate;
+}
+
+.puff-b {
+  --c: var(--pink);
+  inset: 30% 0 4% 34%;
+  border-radius: 61% 39% 48% 52% / 37% 58% 42% 63%;
+  transform-origin: 35% 40%;
+  animation:
+    puff-turn 34s linear infinite reverse,
+    puff-breathe 12s ease-in-out -4s infinite alternate;
+}
+
+.puff-c {
+  --c: var(--cyan);
+  inset: 38% 40% 0 0;
+  border-radius: 55% 45% 36% 64% / 60% 47% 53% 40%;
+  transform-origin: 55% 30%;
+  animation:
+    puff-turn 30s linear -10s infinite,
+    puff-breathe 10s ease-in-out -2s infinite alternate;
+}
+
+@keyframes puff-turn {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes puff-breathe {
+  from {
+    scale: 0.85;
+  }
+  to {
+    scale: 1.2;
+  }
+}
+
+/* Partículas: motas que suben desde la nube y se desvanecen. Cada una lleva
+   en línea su posición (--x, --y), tamaño (--s), color (--c), duración (--t)
+   y retraso (--d). Son pequeñas: apenas tapan el texto al pasar. */
+.ambient-sparks {
+  position: absolute;
+  inset: 0;
+}
+
+.ambient-sparks i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 calc(var(--s) * 2) var(--c);
+  opacity: 0;
+  animation: spark-rise var(--t) ease-out var(--d) infinite;
+}
+
+@keyframes spark-rise {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+    scale: 0.6;
+  }
+  20% {
+    opacity: var(--spark);
+  }
+  100% {
+    opacity: 0;
+    translate: 1.5rem -9rem;
+    scale: 1.1;
+  }
 }
 
 @keyframes orb-x {
@@ -794,16 +889,15 @@ p.ref strong {
   }
 }
 
-@keyframes orb-spin {
-  to {
-    rotate: 1turn;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ambient-bounce,
-  .ambient-orb {
+  .ambient-orb,
+  .puff {
     animation: none;
+  }
+
+  .ambient-sparks {
+    display: none;
   }
 }
 

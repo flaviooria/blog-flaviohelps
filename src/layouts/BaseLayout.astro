@@ -53,7 +53,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <body>
     <div class="ambient" id="ambient" aria-hidden="true">
       <div class="ambient-bounce">
-        <div class="ambient-orb" />
+        <div class="ambient-orb">
+          <div class="ambient-smoke">
+            <span class="puff puff-a"></span>
+            <span class="puff puff-b"></span>
+            <span class="puff puff-c"></span>
+          </div>
+          <div class="ambient-sparks">
+            <i style="--x:12%;--y:70%;--s:5px;--t:7s;--d:0s;--c:var(--purple)"></i>
+            <i style="--x:28%;--y:55%;--s:3px;--t:9s;--d:-2s;--c:var(--pink)"></i>
+            <i style="--x:40%;--y:75%;--s:4px;--t:8s;--d:-5s;--c:var(--cyan)"></i>
+            <i style="--x:55%;--y:60%;--s:6px;--t:10s;--d:-1s;--c:var(--purple)"></i>
+            <i style="--x:66%;--y:72%;--s:3px;--t:7.5s;--d:-4s;--c:var(--pink)"></i>
+            <i style="--x:78%;--y:58%;--s:5px;--t:9.5s;--d:-6s;--c:var(--cyan)"></i>
+            <i style="--x:22%;--y:45%;--s:4px;--t:11s;--d:-3s;--c:var(--pink)"></i>
+            <i style="--x:48%;--y:40%;--s:3px;--t:8.5s;--d:-7s;--c:var(--purple)"></i>
+            <i style="--x:70%;--y:42%;--s:4px;--t:10.5s;--d:-2.5s;--c:var(--cyan)"></i>
+            <i style="--x:35%;--y:62%;--s:5px;--t:9s;--d:-8s;--c:var(--cyan)"></i>
+            <i style="--x:60%;--y:50%;--s:3px;--t:7s;--d:-5.5s;--c:var(--purple)"></i>
+            <i style="--x:85%;--y:66%;--s:4px;--t:12s;--d:-9s;--c:var(--pink)"></i>
+          </div>
+        </div>
       </div>
     </div>
     <script is:inline>
