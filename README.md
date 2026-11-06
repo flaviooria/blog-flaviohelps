@@ -72,6 +72,17 @@ pnpm preview    # sirve ./dist (la búsqueda solo funciona aquí)
 > Si tocas el plugin de markdown y no ves el cambio, borra la caché de contenido de Astro:
 > `rm -f node_modules/.astro/data-store.json`. Más en [`development.md`](docs/workflow/development.md).
 
+## 🐳 Desplegar
+
+Imagen multi-stage (pnpm → build → nginx sin root) y compose con labels de Traefik:
+
+```sh
+docker compose up --build                                         # local: http://localhost:8080
+docker compose -f compose.prod.yml --env-file .env.prod up -d     # VPS, detrás de Traefik en blog.${DOMAIN}
+```
+
+Variables en [`.env.example`](.env.example). Todo el detalle en [`docs/workflow/deploy.md`](docs/workflow/deploy.md).
+
 ## ✍️ Escribir un post
 
 Crea un `.md` en `src/content/blog/`:
@@ -162,6 +173,7 @@ Variable opcional: `GITHUB_TOKEN` para tener más cuota en la API de GitHub dura
 | Comandos y cómo verificar un cambio          | [`docs/workflow/development.md`](docs/workflow/development.md)                          |
 | Entender una decisión                        | [`docs/adr/`](docs/adr/)                                                                |
 | Trabajar el diseño con IA (skill impeccable) | [`docs/workflow/design-skills.md`](docs/workflow/design-skills.md)                      |
+| Desplegar con Docker y Traefik               | [`docs/workflow/deploy.md`](docs/workflow/deploy.md)                                    |
 
 Los agentes empiezan por [`AGENTS.md`](AGENTS.md).
 

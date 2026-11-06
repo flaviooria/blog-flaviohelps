@@ -1,0 +1,11 @@
+# Local: construye la imagen y la sirve en http://localhost:8080
+#
+#   docker compose up --build
+services:
+  blog:
+    build:
+      context: .
+    image: blog-flaviohelps:local
+    container_name: blog_flaviohelps_local
+    ports:
+      - "8080:8080"

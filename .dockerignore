@@ -1,0 +1,22 @@
+# Se reconstruyen dentro de la imagen
+node_modules
+dist
+.astro
+
+# No hacen falta para compilar (docs/ y AGENTS.md sí: los usa el prebuild)
+.git
+.github
+.claude
+.impeccable
+.vscode
+.idea
+*.log
+.DS_Store
+
+# Secretos y ficheros de despliegue
+.env
+.env.*
+!.env.example
+Dockerfile
+.dockerignore
+compose*.yml

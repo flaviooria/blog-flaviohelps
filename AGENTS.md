@@ -35,12 +35,14 @@ docs/
 │   ├── 0005-github-data-without-activity.md  # Reemplaza a 0003; la portada ya no muestra "últimos movimientos" y GitHub solo aporta números y proyectos
 │   ├── 0006-search-pagefind.md               # Búsqueda de posts con Pagefind (índice en postbuild, modal ⌘K propio) y cuándo y cómo migrar a Algolia
 │   ├── 0007-lucide-icons.md                  # Los iconos son componentes de @lucide/astro, renderizados como SVG en línea en build e importados de uno en uno
-│   └── 0008-pnpm.md                          # Se pasa de npm a pnpm 10 (fijado en packageManager con corepack), con pnpm-lock.yaml importado del lock de npm
+│   ├── 0008-pnpm.md                          # Se pasa de npm a pnpm 10 (fijado en packageManager con corepack), con pnpm-lock.yaml importado del lock de npm
+│   └── 0009-docker-nginx-traefik.md          # El blog se publica como imagen multi-stage (pnpm build → nginx-unprivileged) en GHCR y se despliega con compose en el VPS detrás de Traefik
 ├── conventions/
 │   ├── code-style.md                         # TypeScript strict, estructura de componentes Astro, nombres, Prettier (comillas dobles) y comentarios
 │   ├── content.md                            # Frontmatter de un post, títulos #/## para el índice, callouts [!NOTE], referencias, badges y task lists
 │   └── styling.md                            # Paleta Dracula/Alucard como tokens CSS, tema claro/oscuro, tipografía, bento y responsive
 └── workflow/
+    ├── deploy.md                             # Dockerfile multi-stage (pnpm → build → nginx sin root), compose local y compose.prod.yml con labels de Traefik y variables
     ├── design-skills.md                      # Qué skill de Claude Code se usa para el diseño (impeccable), qué ficheros mantiene, cómo se usa cada comando y qué hooks corren al editar
     ├── development.md                        # Comandos (dev en background, build, format), cómo verificar un cambio, caché de contenido de los plugins y variables de entorno
     └── docs-and-adrs.md                      # Cuándo escribir o actualizar un doc o un ADR, numeración, estados y cómo se regenera el árbol de AGENTS.md

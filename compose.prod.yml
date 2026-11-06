@@ -1,0 +1,29 @@
+# Producción (VPS con Traefik en la red externa "proxy").
+#
+#   docker compose -f compose.prod.yml --env-file .env.prod pull
+#   docker compose -f compose.prod.yml --env-file .env.prod up -d
+#
+# Variables (ver .env.example): DOMAIN, GHCR_OWNER, IMAGE_TAG.
+services:
+  blog:
+    image: ghcr.io/${GHCR_OWNER:-flaviooria}/blog-flaviohelps:${IMAGE_TAG:-latest}
+    container_name: blog_flaviohelps
+    restart: unless-stopped
+    expose:
+      - "8080"
+    networks:
+      - proxy
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.blog-flaviohelps.rule=Host(`blog.${DOMAIN}`)
+      - traefik.http.routers.blog-flaviohelps.entrypoints=websecure
+      - traefik.http.routers.blog-flaviohelps.tls=true
+      - traefik.http.routers.blog-flaviohelps.tls.certresolver=cf
+      - traefik.http.services.blog-flaviohelps.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
