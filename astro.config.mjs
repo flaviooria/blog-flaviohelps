@@ -15,8 +15,8 @@ const draculaVars = createCssVariablesTheme({
 
 // https://astro.build/config
 export default defineConfig({
-  // Cambia por tu dominio real (lo usan el RSS y las URLs canónicas)
-  site: "https://example.com",
+  // Dominio público: lo usan el RSS y las URLs canónicas
+  site: "https://blog.flaviohelps.dev",
   markdown: {
     shikiConfig: { theme: draculaVars },
     processor: satteri({ hastPlugins: draculaPlugins }),

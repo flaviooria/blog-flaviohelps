@@ -175,7 +175,7 @@ Todo en [`docs/workflow/design-skills.md`](docs/workflow/design-skills.md).
 
 ## 📌 Pendiente antes de publicar
 
-- [ ] Cambiar `site` en `astro.config.mjs` (sigue en `https://example.com`; lo usan el RSS y las URLs canónicas).
+- [x] Dominio en `site` de `astro.config.mjs`: `https://blog.flaviohelps.dev` (lo usan el RSS y las URLs canónicas).
 - [ ] Recompilar de forma periódica para refrescar los datos de GitHub.
 
 ---

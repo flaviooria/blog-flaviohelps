@@ -49,5 +49,5 @@ En desarrollo, además, el plugin solo se carga al arrancar: `npx astro dev stop
 
 ## Configuración que no hay que olvidar
 
-- `site` en `astro.config.mjs` sigue en `https://example.com`: cámbialo al dominio real antes de publicar (RSS y canonical).
+- `site` en `astro.config.mjs` es `https://blog.flaviohelps.dev`: de ahí salen las URLs del RSS y las canónicas. Si cambia el dominio, cámbialo ahí.
 - Los datos de GitHub solo se refrescan al recompilar. Publicar con recompilación periódica es una tarea pendiente.
