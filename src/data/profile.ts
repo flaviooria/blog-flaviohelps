@@ -2,7 +2,7 @@
 // Titular y "Acerca de" vienen de LinkedIn (no se puede leer sin sesión, así
 // que se copian a mano). El resto sale de tu perfil público de GitHub.
 
-import avatar from "../assets/avatar.jpg";
+import avatar from "../assets/avatar.webp";
 
 export const profile = {
   name: "Flavio Oria",
@@ -32,8 +32,8 @@ export const profile = {
   // Rol actual y ubicación (deja '' para ocultarlos)
   location: "",
   currentRole: "",
-  // Copia local del avatar de GitHub: Astro la optimiza en build y la página
-  // no depende de avatars.githubusercontent.com. Para cambiarlo, reemplaza el archivo.
+  // Avatar local (512×512, webp, sin metadatos EXIF/GPS): Astro lo optimiza en
+  // build. Para cambiarlo, reemplaza el archivo quitando antes los metadatos.
   avatar,
   links: [
     {

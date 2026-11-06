@@ -24,7 +24,7 @@ Sitio **estático** con Astro 7. Todo se resuelve en `npm run build`; no hay ser
 | `content.config.ts`            | Esquema zod del frontmatter de los posts                                                                             |
 | `data/profile.ts`              | Datos de "Sobre mí" (titular y resumen de LinkedIn, intereses, stack, enlaces, exclusiones de GitHub, respaldo)      |
 | `data/blog.ts`                 | Textos de la portada: título, intro y temas del blog                                                                 |
-| `assets/avatar.jpg`            | Avatar (copia local del de GitHub), optimizado por `astro:assets` en build                                           |
+| `assets/avatar.webp`           | Avatar (512×512, sin metadatos EXIF/GPS), optimizado por `astro:assets` en build                                     |
 | `lib/github.ts`                | Datos públicos de GitHub en build, con caché y respaldo                                                              |
 | `plugins/dracula-markdown.mjs` | Plugins hast de Sätteri: callouts, cabecera de código, tablas, referencias…                                          |
 | `styles/global.css`            | Paleta Dracula/Alucard, estilos del post, la portada y el bento                                                      |
