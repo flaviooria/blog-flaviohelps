@@ -315,6 +315,10 @@ Discretos y de herramienta: bordes finos, rótulos en mono y color solo en respu
 
 Una ventana de terminal en miniatura: cabecera en Night Well con el lenguaje en mono Comment Slate a la izquierda y el botón "copiar" a la derecha, y cuerpo en Night Abyss con Shiki en un tema `css-variables` mapeado a la paleta (keyword rosa, función verde, cadena amarilla, constante violeta, parámetro naranja, comentario Comment Slate). Así el resaltado cambia con el tema claro/oscuro.
 
+### Barras de scroll
+
+- Finas y sin carril propio, con el thumb en Night Rule (`--line`). En bloques de código, tablas y resultados del buscador, el thumb pasa a Comment Slate al pasar el ratón. En el índice del post casi no se ve en reposo (Comment Slate al 35%) y se enciende al pasar por él; su hueco está reservado (`scrollbar-gutter: stable`) para que el contenido no salte. Safari usa un respaldo `::-webkit-scrollbar` con thumb en píldora de 10px que se pone violeta al arrastrarlo.
+
 ### Volver arriba
 
 - Botón circular de 2.75rem (44px) abajo a la derecha, en Night Abyss con borde de 1px en Night Rule y flecha de Lucide de 18px en Dusk Ink; al pasar el ratón, tinta principal y borde violeta. Aparece al bajar 0.6 pantallas (fundido y 0.5rem de desplazamiento, sin desplazamiento con reduced-motion) y lleva al inicio con scroll suave. Donde está el botón flotante del índice (móvil y táctil), se apila encima de él.

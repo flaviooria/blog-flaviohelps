@@ -98,6 +98,68 @@ body {
   background: var(--line);
 }
 
+/* Barras de scroll con la paleta: finas, sin carril propio, thumb en el
+   color de las líneas; en código, tablas y buscador, más claro al pasar por
+   encima. Las propiedades
+   estándar valen para Firefox y Chrome/Edge 121+; el bloque -webkit- es el
+   respaldo de Safari (donde el estándar no existe). */
+html,
+pre,
+.table-wrap,
+.search-results {
+  --thumb: var(--line);
+  --thumb-hover: var(--comment);
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumb) transparent;
+}
+
+:is(pre, .table-wrap, .search-results):hover {
+  scrollbar-color: var(--thumb-hover) transparent;
+}
+
+/* Índice: el thumb casi no se ve en reposo y se enciende al pasar por él */
+nav.toc {
+  --thumb: color-mix(in srgb, var(--comment) 35%, transparent);
+  --thumb-hover: var(--comment);
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumb) transparent;
+  scrollbar-gutter: stable;
+}
+
+nav.toc:hover {
+  scrollbar-color: var(--thumb-hover) transparent;
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--thumb, var(--line));
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--thumb-hover, var(--comment));
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background-color: var(--purple);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
 a {
   color: var(--cyan);
   text-underline-offset: 3px;

@@ -53,6 +53,11 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Árbol: `Toc` recibe `root` (el id del post) y pinta `.toc-root`, `ul.toc-tree` y `.toc-summary`. Las ramas son `li::before` (tronco) y `li::after` (conector) desde `--tree-x`, el centro del icono de la fila; `--row-top` compensa el aire extra de los capítulos. La carpeta abierta se muestra con `li.ch:has(a.active)`.
 - Fijado: `html[data-toc="pinned"]` (clave `toc` en `localStorage`, aplicada con un script inline antes de pintar) deja el índice visible y pone `.layout` con `padding-left: 300px`.
 
+## Barras de scroll
+
+- Se tematizan con `scrollbar-width: thin` y `scrollbar-color` usando las variables `--thumb` y `--thumb-hover` (en `html`, `pre`, `.table-wrap`, `.search-results` y `nav.toc`). Un contenedor nuevo con scroll propio se añade a esa lista.
+- El respaldo `::-webkit-scrollbar` va dentro de `@supports not (scrollbar-color: auto)`: si no, Chrome mezclaría ambos sistemas.
+
 ## Brillo ambiental
 
 - `BaseLayout` pinta `.ambient > .ambient-bounce > .ambient-orb` en todas las páginas. Un script inline pone al azar `--from-x` / `--from-y` a `-1` en cada carga: el retraso negativo de un trayecto entero hace que el eje empiece en la pared contraria, así sale de una esquina distinta. Rebota como el salvapantallas del DVD: `.ambient-bounce` lleva el eje X (`orb-x`, 17s) y `.ambient-orb` el eje Y (`orb-y`, 11s), ambos lineales y `alternate` de pared a pared (`--size` es el lado de la nube). Dentro, `.ambient-smoke` (opacidad `--glow`) tiene tres `.puff` que solo animan `rotate` y `scale` (el blur fijo no se recalcula), y `.ambient-sparks` tiene las partículas `<i>` con su posición, tamaño, color, duración y retraso en línea (`spark-rise`, opacidad máxima `--spark`). Las duraciones no deben ser múltiplo una de otra o el recorrido se repite. Es `position: fixed` con `z-index: -1` (el fondo del `body` se propaga al lienzo, así que queda detrás del contenido).
