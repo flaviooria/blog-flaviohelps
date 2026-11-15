@@ -491,6 +491,7 @@ ul.stack li::before {
 .content p,
 .content li {
   max-width: 72ch;
+  overflow-wrap: anywhere;
 }
 
 .content strong {
@@ -519,6 +520,16 @@ ul.stack li::before {
 
 .content li::marker {
   color: var(--pink);
+}
+
+/* Imágenes del post: se ajustan a la columna y nunca se desbordan */
+.content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  border: 1px solid var(--line);
 }
 
 /* Inline code */
@@ -593,6 +604,40 @@ pre code {
   line-height: 1.6;
   color: var(--fg);
   font-variant-ligatures: contextual;
+}
+
+/* Diagramas Mermaid */
+.mermaid {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-deep);
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* El SVG que dibuja mermaid.js */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* El código fuente, mientras mermaid.js no lo ha dibujado (o si falla) */
+.mermaid .mermaid-source {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: none;
+  border: 0;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.mermaid .mermaid-source code {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 /* Tables */

@@ -36,7 +36,8 @@ docs/
 │   ├── 0006-search-pagefind.md               # Búsqueda de posts con Pagefind (índice en postbuild, modal ⌘K propio) y cuándo y cómo migrar a Algolia
 │   ├── 0007-lucide-icons.md                  # Los iconos son componentes de @lucide/astro, renderizados como SVG en línea en build e importados de uno en uno
 │   ├── 0008-pnpm.md                          # Se pasa de npm a pnpm 10 (fijado en packageManager con corepack), con pnpm-lock.yaml importado del lock de npm
-│   └── 0009-docker-nginx-traefik.md          # El blog se publica como imagen multi-stage (pnpm build → nginx-unprivileged) en GHCR y se despliega con compose en el VPS detrás de Traefik
+│   ├── 0009-docker-nginx-traefik.md          # El blog se publica como imagen multi-stage (pnpm build → nginx-unprivileged) en GHCR y se despliega con compose en el VPS detrás de Traefik
+│   └── 0010-mermaid-en-el-cliente.md         # Los bloques de código mermaid se convierten en SVG en el navegador con mermaid.js, repintados al cambiar de tema, y solo se carga en los posts que los tienen
 ├── conventions/
 │   ├── code-style.md                         # TypeScript strict, estructura de componentes Astro, nombres, Prettier (comillas dobles) y comentarios
 │   ├── content.md                            # Frontmatter de un post, títulos #/## para el índice, callouts [!NOTE], referencias, badges y task lists

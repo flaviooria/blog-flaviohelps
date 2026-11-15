@@ -44,6 +44,7 @@ Los genera `src/plugins/dracula-markdown.mjs`:
 | `> [!ERROR] texto` (también `DANGER`)                 | Callout de **error** (rojo, octógono con aspa, `// error`)           |
 | `**Referencia:** [enlace](https://…)`                 | Párrafo de referencia, separado y gris                               |
 | ` ```bash `                                           | Bloque con cabecera de lenguaje y botón Copiar                       |
+| ` ```mermaid `                                        | Diagrama, dibujado en el cliente con mermaid.js                      |
 | Una tabla                                             | Tabla con scroll horizontal                                          |
 | `- [ ] tarea`                                         | Casilla marcable                                                     |
 | `<span class="badge ok\|partial\|check">Texto</span>` | Badge de estado (verde / naranja / amarillo)                         |
@@ -51,3 +52,23 @@ Los genera `src/plugins/dracula-markdown.mjs`:
 - Indica siempre el lenguaje del bloque de código; sin él, la cabecera dice `text`.
 - Los enlaces `http(s)` se abren en una pestaña nueva automáticamente.
 - La puntuación tipográfica está activa (`'` → `’`), salvo dentro del código.
+
+## Diagramas Mermaid
+
+Los bloques ` ```mermaid ` se dibujan en el cliente con mermaid.js ([ADR 0010](../adr/0010-mermaid-en-el-cliente.md)).
+
+- **No pongas `style Nodo fill:#...`**: esos colores van incrustados en el SVG con `!important` y no cambian con el tema, así que rompen el claro/oscuro. Deja que los colores salgan del tema.
+- Para destacar un nodo usa `classDef` con variables del tema, no colores literales.
+- El script solo se carga en los posts que tienen al menos un diagrama.
+- Si el diagrama no es válido, se ve el código fuente en lugar de un hueco.
+
+## Imágenes
+
+Las imágenes del post van en `src/assets/` y se referencian con una ruta **relativa al `.md`**:
+
+```md
+![Flujo MCP](../../assets/workflow_mcp.png)
+```
+
+Astro las optimiza en build (WebP con hash en `/_astro/`) y las ajusta a la columna del post.
+Una ruta absoluta (`/assets/...`) no funciona: `public/` no tiene carpeta `assets/` y Astro no la genera.
