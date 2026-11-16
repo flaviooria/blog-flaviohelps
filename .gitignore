@@ -31,3 +31,7 @@ pnpm-debug.log*
 .impeccable/critique/*
 !.impeccable/critique/ignore.md
 .impeccable/*.cache.json
+
+# artefactos de playwright-cli
+.playwright-cli/
+.playwright/

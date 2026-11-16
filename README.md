@@ -118,6 +118,8 @@ tags: ["Docker Compose", "Traefik", "GitHub Actions"]
 
 Bloques de código con cabecera de lenguaje y botón **Copiar**, tablas con scroll, referencias y task lists: todo en [`content.md`](docs/conventions/content.md).
 
+Los diagramas **Mermaid** (```mermaid) se dibujan en el cliente con [mermaid.js](https://mermaid.js.org) y siguen el tema claro/oscuro. El script solo se carga en los posts que los tienen ([ADR 0010](docs/adr/0010-mermaid-en-el-cliente.md)).
+
 ## 🏗️ Cómo se construye
 
 ```mermaid
@@ -140,7 +142,7 @@ Todo se genera en build: no hay servidor ni JavaScript de framework en el client
 │   ├── pages/               # 🧩 rutas: /, /blog/, /blog/<post>/, /tags/, /about-me/, /rss.xml
 │   ├── layouts/             # BaseLayout (head, tema, brillo) y PostLayout (índice, barra)
 │   ├── components/          # SiteBar, PostLog, Toc, Search, BackToTop…
-│   ├── plugins/             # 🔌 plugins hast: callouts, código, tablas, referencias
+│   ├── plugins/             # 🔌 plugins hast: callouts, código, tablas, referencias, mermaid
 │   ├── data/                # textos de la portada y perfil de "About me"
 │   ├── lib/github.ts        # 🐙 datos de GitHub en build
 │   └── styles/global.css    # 🎨 paleta, temas y estilos

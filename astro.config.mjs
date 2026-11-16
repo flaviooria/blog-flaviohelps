@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import { satteri } from "@astrojs/markdown-satteri";
 import { createCssVariablesTheme } from "shiki";
 import { draculaPlugins } from "./src/plugins/dracula-markdown.mjs";
+import { mermaidMarkdown } from "./src/plugins/mermaid.mjs";
 
 // Tema de Shiki basado en variables CSS: los colores salen de la paleta
 // Dracula/Alucard definida en src/styles/global.css, así el resaltado
@@ -19,6 +20,10 @@ export default defineConfig({
   site: "https://blog.flaviohelps.dev",
   markdown: {
     shikiConfig: { theme: draculaVars },
-    processor: satteri({ hastPlugins: draculaPlugins }),
+    // El plugin de Mermaid va primero: sustituye el <pre> de Shiki por un
+    // <div class="mermaid"> antes de que Dracula lo envuelva en div.code.
+    processor: satteri({
+      hastPlugins: [mermaidMarkdown, ...draculaPlugins],
+    }),
   },
 });

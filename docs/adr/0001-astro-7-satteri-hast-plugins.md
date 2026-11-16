@@ -16,6 +16,7 @@ El blog nace del HTML `infraestructura_vps.html`, que tenía callouts, bloques d
 
 - Usar `satteri({ hastPlugins })` en `astro.config.mjs` con los plugins de `src/plugins/dracula-markdown.mjs`.
 - Los nodos de Sätteri son proxies: **no se clonan** (`structuredClone` falla). Se modifican con `ctx.wrapNode`, `ctx.prependChild`, `ctx.setProperty`, etc.
+- Las clases se leen de dos formas: los `<pre>` de Shiki traen `class` como **string** y los nodos que crea el plugin traen `className` como **array**. El helper `cls()` de `dracula-markdown.mjs` lee las dos; si solo lee una, los `className` de Shiki no se detectan.
 - Cuando una transformación depende de otra (cabecera de código dentro del `div.code`), va en un **segundo plugin**, que se ejecuta después.
 - El prefijo `#`/`##` de los títulos va en CSS (`::before`), no en el HTML, para que no contamine los ids que genera Astro.
 - La sintaxis `> [!NOTE]` se implementa en nuestro plugin, porque Sätteri no trae alertas de GitHub.

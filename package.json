@@ -23,6 +23,7 @@
     "@astrojs/rss": "^4.0.19",
     "@lucide/astro": "^1.68.0",
     "astro": "^7.4.5",
+    "mermaid": "^12.3.0",
     "satteri": "^0.10.5",
     "shiki": "^4.6.0",
     "unist-util-visit": "^5.2.0"

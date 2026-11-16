@@ -5,6 +5,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Toc from "../components/Toc.astro";
 import SiteFoot from "../components/SiteFoot.astro";
 import SiteBar from "../components/SiteBar.astro";
+import Mermaid from "../components/Mermaid.astro";
 import { formatDate, tagSlug } from "../utils";
 
 interface Props {
@@ -62,6 +63,7 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
       <article class="content" data-pagefind-body>
         <slot />
       </article>
+      <Mermaid post={post} />
       <div class="post-foot">
         <a href="/blog/">← volver a todos los posts</a>
       </div>

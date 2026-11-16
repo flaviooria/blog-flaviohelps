@@ -1,0 +1,25 @@
+---
+// Carga el script que dibuja los diagramas Mermaid del post.
+//
+// El plugin src/plugins/mermaid.mjs convierte cada bloque ```mermaid en un
+// <div class="mermaid"> con el código dentro. El script se importa como
+// módulo, así que Vite lo empaqueta.
+//
+// Solo se incluye si el post tiene diagramas: el bundle de mermaid.js pesa
+// ~146 kB y no tiene sentido cargarlo en un post sin gráficos.
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+
+// Se mira el HTML ya renderizado y no el markdown original: así decide lo
+// mismo que el plugin, sin depender de cómo esté escrito el bloque.
+const hasMermaid = post.rendered?.html?.includes('class="mermaid"') ?? false;
+---
+
+{hasMermaid && <script>
+  import "../scripts/mermaid";
+</script>}

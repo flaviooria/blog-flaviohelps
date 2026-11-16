@@ -53,6 +53,13 @@ Para fondos tintados: `color-mix(in srgb, var(--purple) 9%, var(--bg))`.
 - Árbol: `Toc` recibe `root` (el id del post) y pinta `.toc-root`, `ul.toc-tree` y `.toc-summary`. Las ramas son `li::before` (tronco) y `li::after` (conector) desde `--tree-x`, el centro del icono de la fila; `--row-top` compensa el aire extra de los capítulos. La carpeta abierta se muestra con `li.ch:has(a.active)`.
 - Fijado: `html[data-toc="pinned"]` (clave `toc` en `localStorage`, aplicada con un script inline antes de pintar) deja el índice visible y pone `.layout` con `padding-left: 300px`.
 
+## Diagramas Mermaid
+
+- `.mermaid` es el contenedor del diagrama: borde `--line`, radio 8px, fondo `--bg-deep` y scroll horizontal si no cabe.
+- El SVG que dibuja mermaid.js lleva los colores incrustados, así que **no cambia con el tema por CSS**: `src/scripts/mermaid.ts` lo repinta al cambiar de tema, con las variables de la paleta ([ADR 0010](../adr/0010-mermaid-en-el-cliente.md)).
+- `.mermaid-source` es el código fuente, visible hasta que el diagrama se dibuja (o si no se puede dibujar). Va en `--muted`, sin borde ni fondo propios.
+- Los bloques de Mermaid no llevan la cabecera con el botón Copiar: el plugin de Mermaid sustituye el `<pre>` antes de que lo envuelva el de Dracula.
+
 ## 404
 
 - `src/pages/404.astro` usa `BaseLayout` con `noindex` (meta robots y sin canonical). El hero `.not-found` imita a la shell: `~/blog $ cd <ruta>` y debajo `bash: cd: <ruta>: No existe el fichero o el directorio` (`.nf-error`). La ruta la rellena un script inline con `textContent` (la página es estática).

@@ -10,7 +10,13 @@ const el = (tagName, properties = {}, children = []) => ({
   children,
 });
 const txt = (value) => ({ type: "text", value });
-const cls = (node) => [].concat(node.properties?.className ?? []);
+// Las clases pueden venir como array (nodos que crea el plugin) o como string
+// (los <pre> de Shiki, que trae `class="astro-code ..."`).
+const cls = (node) => {
+  const value = node.properties?.className ?? node.properties?.class ?? "";
+  const list = Array.isArray(value) ? value : String(value).split(/\s+/);
+  return list.filter(Boolean);
+};
 
 const CALLOUT_MARKER =
   /^\s*\[!(NOTE|TIP|INFO|IMPORTANT|WARN|WARNING|CAUTION|ERROR|DANGER)\]\s*/i;
@@ -139,6 +145,9 @@ export const draculaMarkdown = defineHastPlugin({
     {
       filter: ["pre"],
       visit(node, ctx) {
+        // Los <pre class="mermaid-source"> ya vienen dentro de un div.mermaid:
+        // se dejan como están, sin cabecera ni botón Copiar.
+        if (cls(node).includes("mermaid-source")) return;
         const lang =
           node.properties?.dataLanguage ||
           node.properties?.["data-language"] ||
