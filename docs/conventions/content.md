@@ -7,6 +7,15 @@ description: Frontmatter de un post, títulos #/## para el índice, callouts [!N
 
 Los posts son `src/content/blog/<slug>.md`. El `<slug>` es la URL: `/blog/<slug>/`.
 
+## Publicar desde el panel
+
+Se puede escribir en `/admin/` (Sveltia CMS, [ADR 0011](../adr/0011-cms-git-sveltia.md)) en lugar de a mano. Cada guardado crea una rama `cms/<slug>` con su PR; el post sale en el blog cuando se hace merge a `main`. Con `pnpm dev` y el proxy local de Sveltia (`npx @sveltia/cms-proxy-server`) se prueba sin login.
+
+- Los campos del panel son los del frontmatter de abajo.
+- El nombre del fichero (y por tanto la URL) sale del slug al crear el post. No lo cambies después de publicar.
+- Las imágenes se suben desde el panel y se guardan en `src/assets/`.
+- La sintaxis especial (callouts, mermaid, badges) no se previsualiza igual que en el blog: se escribe como se describe en este documento.
+
 ## Frontmatter
 
 Esquema en `src/content.config.ts`:

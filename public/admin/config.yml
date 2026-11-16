@@ -1,0 +1,52 @@
+backend:
+  name: github
+  repo: flaviooria/blog-flaviohelps
+  branch: main
+  base_url: https://cms-auth.flaviohelps.dev
+  commit_messages:
+    create: "✍️ content(blog): nuevo post «{{slug}}»"
+    update: "✍️ content(blog): actualiza «{{slug}}»"
+    delete: "🗑️ content(blog): borra «{{slug}}»"
+
+# Cada post va a una rama cms/<slug> con su PR. Nada llega a main sin merge.
+publish_mode: editorial_workflow
+
+media_folder: src/assets
+
+collections:
+  - name: blog
+    label: Posts
+    label_singular: Post
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{title}} — {{pubDate}}"
+    sortable_fields: [pubDate, title]
+    # Sin verificar: ruta relativa al .md para que astro:assets optimice la imagen (ver paso 3 del plan)
+    media_folder: ../../assets
+    public_folder: ../../assets
+    fields:
+      - { name: title, label: Título, widget: string }
+      - name: description
+        label: Descripción
+        widget: text
+        hint: "Una o dos frases. Sale en portada, listados, RSS y meta description."
+      - {
+          name: pubDate,
+          label: Publicación,
+          widget: datetime,
+          date_format: YYYY-MM-DD,
+          time_format: false,
+        }
+      - name: updatedDate
+        label: Actualización
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        required: false
+      - { name: tags, label: Etiquetas, widget: list, default: [] }
+      - { name: draft, label: Borrador, widget: boolean, default: false }
+      - { name: body, label: Contenido, widget: markdown }

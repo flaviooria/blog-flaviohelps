@@ -24,5 +24,5 @@ Alternativas: un hosting estático (Cloudflare Pages, Netlify), que saca el blog
 
 - El blog se despliega igual que el resto de servicios del VPS y la imagen final pesa poco (nginx y HTML).
 - Los datos de GitHub se congelan en cada imagen: hay que recompilar para refrescarlos.
-- Queda pendiente el CI que publique la imagen en GHCR (`latest` + `sha-<commit>`).
+- La publicación de la imagen en GHCR (`latest` + `sha-<commit>`) desde CI se decide en [ADR 0011](0011-cms-git-sveltia.md).
 - Las cabeceras de seguridad más allá de `nosniff` y `Referrer-Policy` (HSTS, CSP) se dejan a Traefik.

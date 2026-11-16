@@ -34,7 +34,7 @@ Sitio **estático** con Astro 7. Todo se resuelve en `pnpm build`; no hay servid
 | `utils.ts`                     | `getPosts`, `formatDate`, `tagSlug`, `readingTime`, `postStats`                                                                                     |
 | `consts.ts`                    | Título, descripción y autor del sitio                                                                                                               |
 
-Fuera de `src/`: `astro.config.mjs` (Shiki + Sätteri), `scripts/docs-tree.mjs` (árbol de docs en `AGENTS.md`), `.claude/settings.json` (hook). Tras `astro build`, `postbuild` ejecuta Pagefind, que indexa los posts (`data-pagefind-body`) en `dist/pagefind/` ([ADR 0006](adr/0006-search-pagefind.md)).
+Fuera de `src/`: `astro.config.mjs` (Shiki + Sätteri), `scripts/docs-tree.mjs` (árbol de docs en `AGENTS.md`), `.claude/settings.json` (hook), `public/admin/` (panel Sveltia CMS: `index.html` y `config.yml`, [ADR 0011](adr/0011-cms-git-sveltia.md)), `.github/workflows/` (`ci.yml` valida los PR; `deploy.yml` publica la imagen en GHCR en cada push a `main`). Tras `astro build`, `postbuild` ejecuta Pagefind, que indexa los posts (`data-pagefind-body`) en `dist/pagefind/` ([ADR 0006](adr/0006-search-pagefind.md)).
 
 ## Flujo de un post
 
@@ -54,4 +54,12 @@ about-me.astro ──getGithubData(user, exclude)──► lib/github.ts
    error ─► null ──► respaldo de data/profile.ts (el build no falla)
 ```
 
-Decisiones relacionadas: [ADR 0001](adr/0001-astro-7-satteri-hast-plugins.md), [ADR 0002](adr/0002-shiki-css-variables-theme.md), [ADR 0003](adr/0003-github-data-at-build-time.md) (reemplazado por [ADR 0005](adr/0005-github-data-without-activity.md)), [ADR 0006](adr/0006-search-pagefind.md), [ADR 0007](adr/0007-lucide-icons.md), [ADR 0010](adr/0010-mermaid-en-el-cliente.md).
+## Flujo de publicación desde el CMS
+
+```text
+/admin (Sveltia) ──► rama cms/<slug> + PR ──► ci.yml (format:check + build)
+    merge a main ──► deploy.yml: imagen latest + sha-<commit> en GHCR ──► compose pull/up en el VPS
+    autenticación: cms-auth.flaviohelps.dev (worker oficial sveltia-cms-auth, GitHub App)
+```
+
+Decisiones relacionadas: [ADR 0011](adr/0011-cms-git-sveltia.md), [ADR 0001](adr/0001-astro-7-satteri-hast-plugins.md), [ADR 0002](adr/0002-shiki-css-variables-theme.md), [ADR 0003](adr/0003-github-data-at-build-time.md) (reemplazado por [ADR 0005](adr/0005-github-data-without-activity.md)), [ADR 0006](adr/0006-search-pagefind.md), [ADR 0007](adr/0007-lucide-icons.md), [ADR 0010](adr/0010-mermaid-en-el-cliente.md).

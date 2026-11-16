@@ -39,7 +39,36 @@ docker compose up --build    # http://localhost:8080
 
 Labels de Traefik (router y servicio `blog-flaviohelps`): ``Host(`blog.${DOMAIN}`)``, entrypoint `websecure`, TLS con el certresolver `cf` y puerto 8080 del contenedor. La red `proxy` debe existir (la crea el stack de Traefik).
 
+## CI/CD (`.github/workflows/`)
+
+- `ci.yml`: en cada PR, `pnpm format:check` y `pnpm build`. No despliega.
+- `deploy.yml`: en cada push a `main` (también al mergear un post del CMS), construye la imagen y la publica en GHCR con dos tags: `latest` y `sha-<commit>`. Después entra por SSH al VPS y ejecuta `pull` + `up -d`.
+
+Secretos en GitHub (Settings → Secrets): `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`, `VPS_PATH` (carpeta con `compose.prod.yml` y `.env.prod`). El `GITHUB_TOKEN` del workflow basta para GHCR.
+
+### Rollback
+
+`.env.prod` apunta a `latest`. Para volver a una versión anterior, pisa la variable en la línea de comandos en el VPS:
+
+```sh
+cd ~/blog
+IMAGE_TAG=sha-<commit-bueno> docker compose -f compose.prod.yml --env-file .env.prod pull
+IMAGE_TAG=sha-<commit-bueno> docker compose -f compose.prod.yml --env-file .env.prod up -d
+```
+
+El siguiente despliegue normal vuelve a `latest`. Los tags `sha-*` se deben conservar en GHCR; si se borran, ese rollback deja de funcionar.
+
+## Autenticación del CMS (worker de Cloudflare)
+
+El panel `/admin/` necesita un worker que haga el login con GitHub. Se despliega desde el proyecto oficial, no desde este repo:
+
+1. Crear una **GitHub App** (Settings → Developer settings → GitHub Apps) con la _Redirect URI_ `https://cms-auth.flaviohelps.dev/callback`, permisos de repositorio **Contents: Read and write** y **Pull requests: Read and write**, y "Only on this account". Instalarla solo en `flaviooria/blog-flaviohelps`. Guardar el Client ID y generar un Client secret.
+2. Clonar `https://github.com/sveltia/sveltia-cms-auth` y desplegarlo con `npx wrangler login` y `npx wrangler deploy`.
+3. En el worker, definir las variables `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (como secreto) y `ALLOWED_DOMAINS=blog.flaviohelps.dev`. `ALLOWED_DOMAINS` es obligatorio en la práctica: sin él el worker entregaría tokens a cualquier web.
+4. Dominio propio: añadir a su `wrangler.toml` `routes = [{ pattern = "cms-auth.flaviohelps.dev", custom_domain = true }]` (Cloudflare crea el DNS solo, en la zona que ya gestionas) y volver a desplegar.
+
+El TLS del worker lo pone Cloudflare. No cambia nada del TLS del blog (Full strict + Traefik con DNS-01).
+
 ## Pendiente
 
-- Publicar la imagen en GHCR desde CI (`latest` + `sha-<commit>`) y desplegar siempre el SHA.
 - Recompilar de forma periódica para refrescar los datos de GitHub.
